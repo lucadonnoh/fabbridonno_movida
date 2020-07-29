@@ -7,7 +7,7 @@ public class Collaboration {
 	Person actorA;
 	Person actorB;
 	ArrayList<Movie> movies;
-	
+
 	public Collaboration(Person actorA, Person actorB) {
 		this.actorA = actorA;
 		this.actorB = actorB;
@@ -23,13 +23,13 @@ public class Collaboration {
 	}
 
 	public Double getScore(){
-		
+
 		Double score = 0.0;
-		
+
 		for (Movie m : movies)
 			score += m.getVotes();
-		
+
 		return score / movies.size();
 	}
-	
+
 }
