@@ -1,6 +1,6 @@
 package movida.fabbridonno;
 import movida.commons.*;
-public class MovidaCore implements IMovidaConfig {
+public class MovidaCore implements IMovidaConfig,IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
     private final SortingAlgorithm SAs[] = {SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort};
     private SortingAlgorithm selectedSort;
