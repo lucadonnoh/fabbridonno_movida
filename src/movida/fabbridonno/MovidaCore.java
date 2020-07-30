@@ -1,6 +1,6 @@
 package movida.fabbridonno;
 import movida.commons.*;
-public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
+public class MovidaCore implements IMovidaConfig {
 
     private final SortingAlgorithm SAs[] = {SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort};
     private SortingAlgorithm selectedSort;
@@ -19,5 +19,12 @@ public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovida
         }
 
         return false;
+    }
+
+    public static void main(String[] args) {
+        MovidaCore test = new MovidaCore();
+        boolean b = test.setSort(SortingAlgorithm.QuickSort);
+        b = test.setSort(SortingAlgorithm.QuickSort);
+        System.out.println(b);
     }
 }

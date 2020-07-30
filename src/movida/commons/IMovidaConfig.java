@@ -31,14 +31,14 @@ public interface IMovidaConfig {
 	 */
 	public boolean setSort(SortingAlgorithm a);
 
-	/**
-	 * Seleziona l'implementazione del dizionario
-	 *
-	 * Se il dizionario scelto non � supportato dall'applicazione
-	 * la configurazione non cambia
-	 *
-	 * @param m l'implementazione da selezionare
-	 * @return <code>true</code> se la configurazione � stata modificata, <code>false</code> in caso contrario
-	 */
-	public boolean setMap(MapImplementation m);
+	// /**
+	//  * Seleziona l'implementazione del dizionario
+	//  *
+	//  * Se il dizionario scelto non � supportato dall'applicazione
+	//  * la configurazione non cambia
+	//  *
+	//  * @param m l'implementazione da selezionare
+	//  * @return <code>true</code> se la configurazione � stata modificata, <code>false</code> in caso contrario
+	//  */
+	// public boolean setMap(MapImplementation m);
 }
