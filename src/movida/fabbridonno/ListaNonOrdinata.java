@@ -9,14 +9,14 @@ public class ListaNonOrdinata {
         private Movie movie;
         private Record next;
         private Record prev;
-    
+
         public Record(Movie movie){
             this.movie = movie;
             this.next = null;
             this.prev = null;
         }
     }
-    
+
     public void insert(Movie m){
         Record p = new Record(m);
         if (list == null)
@@ -32,7 +32,7 @@ public class ListaNonOrdinata {
         Record p = null;
         while(list != null){
             if (p.chiave.equals(k)) break;
-            if (p == list) 
+            if (p == list)
                 p = null; break;
         if (list != null)
             for (p = list.next; ; p = p.next){
@@ -41,7 +41,7 @@ public class ListaNonOrdinata {
             }
         if (p == null)
             throw new EccezioneChiaveNonValida();
-        if (p.next == p) list = null; 
+        if (p.next == p) list = null;
         else {
             if (list == p) list = p.next;
             p.next.prev = p.prev;
@@ -57,5 +57,13 @@ public class ListaNonOrdinata {
             if (p == list) return null;
         }
     }
-    
+
+    public void setKey(Field f)
+    {
+        if(f == Field.Title)
+        {
+            setKeyAsTitle();
+        }
+    }
+
 }

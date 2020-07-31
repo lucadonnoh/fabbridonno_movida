@@ -7,7 +7,9 @@ public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovida
     private final MapImplementation Maps[] = {MapImplementation.ListaNonOrdinata, MapImplementation.HashIndirizzamentoAperto};
     private MapImplementation selectedMap;
 
-    private 
+    private ListaNonOrdinata lista;
+    private TabellaHashAperta tabella;
+
 
     public MovidaCore()
     {
@@ -51,6 +53,26 @@ public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovida
             }
         }
         return false;
+    }
+
+    public boolean deleteMovieByTitle(String title)
+    {
+        if(selectedMap == MapImplementation.ListaNonOrdinata)
+        {
+            lista.delete(title);
+        }
+
+        return false;
+    }
+
+    public Movie getMovieByTitle(String title)
+    {
+        if(selectedMap == MapImplementation.ListaNonOrdinata)
+        {
+            lista.setKey(Field.Title);
+            lista.search(title);
+        }
+        return null;
     }
 
     public static void main(String[] args) {
