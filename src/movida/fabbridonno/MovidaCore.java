@@ -52,25 +52,25 @@ public class MovidaCore implements IMovidaConfig {
         return false;
     }
 
-    public boolean deleteMovieByTitle(String title)
-    {
-        if(selectedMap == MapImplementation.ListaNonOrdinata)
-        {
-            lista.delete(title);
-        }
+    // public boolean deleteMovieByTitle(String title)
+    // {
+    //     if(selectedMap == MapImplementation.ListaNonOrdinata)
+    //     {
+    //         lista.delete(title);
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
-    public Movie getMovieByTitle(String title)
-    {
-        if(selectedMap == MapImplementation.ListaNonOrdinata)
-        {
-            lista.setKey(Field.Title);
-            lista.search(title);
-        }
-        return null;
-    }
+    // public Movie getMovieByTitle(String title)
+    // {
+    //     if(selectedMap == MapImplementation.ListaNonOrdinata)
+    //     {
+    //         lista.setKey(Field.Title);
+    //         lista.search(title);
+    //     }
+    //     return null;
+    // }
 
     public static void main(String[] args) {
         Person p1 = new Person("Juri Fabbri");
@@ -80,9 +80,6 @@ public class MovidaCore implements IMovidaConfig {
         Movie m = new Movie("Gianni", 2020, 69420, p4, p1);
         ListaNonOrdinata l = new ListaNonOrdinata();
         l.insert(m, m.getTitle());
-        while(l.list!=null){
-            System.out.println(l.list.movie.getTitle());
-            l.list=l.list.next;
-        }
+        l.stampa();
     }
 }
