@@ -59,13 +59,41 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return false;
     }
 
+    private boolean checkFormato()
+    {
+        return true;
+    }
+
+    private String format(String nf)
+    {
+        return nf.split(": ")[1];
+    }
+
+    private Person[] formatCast(String nf)
+    {
+        String s = format(nf);
+        String[] a = s.split(", ");
+        Person[] cast = new Person[a.length];
+        for(int i = 0; i<a.length; i++)
+        {
+            cast[i] = new Person(a[i]);
+        }
+
+        return cast;
+    }
+
     public void loadFromFile(File f) //TODO: bisogna verificare che il formato sia giusto
     {
+        if (!checkFormato()) throw new MovidaFileException();
         try {
             Scanner myReader = new Scanner(f);
             while (myReader.hasNextLine()) {
-              String data = myReader.nextLine();
-              System.out.println(data);
+              String title = format(myReader.nextLine());
+              int year = Integer.parseInt(format(myReader.nextLine()));
+              Person director = new Person(format(myReader.nextLine()));
+              Person[] cast = formatCast(myReader.nextLine());
+              int votes = Integer.parseInt(format(myReader.nextLine()));
+              dizionariTitle[index].insert(new Movie(title,year,votes,cast,director), title);
             }
             myReader.close();
           } catch (FileNotFoundException e) {
