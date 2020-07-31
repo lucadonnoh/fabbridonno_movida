@@ -26,11 +26,11 @@ public class ListaNonOrdinata implements DizionarioFilm{
 
         Record  tmp = record, prev = null;
 
-        if(tmp != null && tmp.key == k){
+        if(tmp != null && tmp.getKey() == k){
             record=record.next;
             return;
         }
-        while(tmp != null && tmp.key != k){
+        while(tmp != null && tmp.getKey() != k){
             prev=tmp;
             tmp=tmp.next;
         }
@@ -46,7 +46,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
         if (record == null) return null;
         Record p = record;
         while(p.next != null){
-            if (p.key.equals(k)) return p.movie;
+            if (p.getKey().equals(k)) return p.getMovie();
         }
         return null;
     }
@@ -56,7 +56,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
         Record p = record;
         while(p!=null)
         {
-            System.out.println(p.movie.getTitle());
+            System.out.println(p.getMovie().getTitle());
             p=p.next;
         }
     }
