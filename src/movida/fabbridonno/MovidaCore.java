@@ -1,11 +1,13 @@
 package movida.fabbridonno;
 import movida.commons.*;
-public class MovidaCore implements IMovidaConfig,IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
+public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
     private final SortingAlgorithm SAs[] = {SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort};
     private SortingAlgorithm selectedSort;
     private final MapImplementation Maps[] = {MapImplementation.ListaNonOrdinata, MapImplementation.HashIndirizzamentoAperto};
     private MapImplementation selectedMap;
+
+    private 
 
     public MovidaCore()
     {
