@@ -1,13 +1,12 @@
 package movida.fabbridonno;
 import movida.commons.*;
-public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
+//public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
+public class MovidaCore implements IMovidaConfig {
     private final SortingAlgorithm SAs[] = {SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort};
     private SortingAlgorithm selectedSort;
     private final MapImplementation Maps[] = {MapImplementation.ListaNonOrdinata, MapImplementation.HashIndirizzamentoAperto};
     private MapImplementation selectedMap;
-
-    private 
 
     public MovidaCore()
     {
@@ -54,9 +53,16 @@ public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovida
     }
 
     public static void main(String[] args) {
-        MovidaCore test = new MovidaCore();
-        boolean b = test.setMap(MapImplementation.BTree);
-        b = test.setMap(MapImplementation.ListaNonOrdinata);
-        System.out.println(b);
+        Person p1 = new Person("Juri Fabbri");
+        Person p2 = new Person("Donno");
+        Person p3 = new Person("Di Iorio");
+        Person[] p4 = {p2, p3};
+        Movie m = new Movie("Gianni", 2020, 69420, p4, p1);
+        ListaNonOrdinata l = new ListaNonOrdinata();
+        l.insert(m, m.getTitle());
+        while(l.list!=null){
+            System.out.println(l.list.movie.getTitle());
+            l.list=l.list.next;
+        }
     }
 }
