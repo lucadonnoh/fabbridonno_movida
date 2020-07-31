@@ -14,7 +14,7 @@ Title: Pulp Fiction
 Year: 1994
 Director: Quentin Tarantino
 Cast: John Travolta, Uma Thurman
-Votes:	1743616
+Votes: 1743616
 
 Title: Contact
 Year: 1997

@@ -24,6 +24,11 @@ public class TabellaHashAperta implements DizionarioFilm{
         return null;
     }
 
+    public void stampa()
+    {
+        return;
+    }
+
     // protected int indice()
     // {
 

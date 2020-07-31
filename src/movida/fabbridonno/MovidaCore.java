@@ -11,7 +11,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
     private final MapImplementation Maps[] = {MapImplementation.ListaNonOrdinata, MapImplementation.HashIndirizzamentoAperto};
     private MapImplementation selectedMap;
 
-    private DizionarioFilm dizionariTitle[] = {new ListaNonOrdinata(), new TabellaHashAperta()};
+    public DizionarioFilm dizionariTitle[] = {new ListaNonOrdinata(), new TabellaHashAperta()};
     private int index; //indice della struttura selezionata
 
     public MovidaCore()
@@ -94,6 +94,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
               Person[] cast = formatCast(myReader.nextLine());
               int votes = Integer.parseInt(format(myReader.nextLine()));
               dizionariTitle[index].insert(new Movie(title,year,votes,cast,director), title);
+              if(myReader.hasNextLine()) 
+                myReader.nextLine();
             }
             myReader.close();
           } catch (FileNotFoundException e) {
@@ -158,7 +160,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         l.stampa();
 
         MovidaCore mc = new MovidaCore();
-        File file = new File("src/movida/fabbridonno/test.txt");
+        File file = new File("movida/fabbridonno/test.txt");
         mc.loadFromFile(file);
+        mc.dizionariTitle[0].stampa();
     }
 }

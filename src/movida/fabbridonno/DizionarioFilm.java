@@ -27,6 +27,8 @@ public interface DizionarioFilm {
 	 * @param k chiave dell'elemento da ricercare
 	 * @return elemento di chiave <code>k</code>, <code>null</code> se assente
 	 */
-	public Object search(Comparable k);
+	public Movie search(Comparable k);
+
+	public void stampa();
 
 }
