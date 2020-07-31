@@ -21,10 +21,10 @@ public interface IMovidaDB {
 	/**
 	 * Carica i dati da un file, organizzato secondo il formato MOVIDA (vedi esempio-formato-dati.txt)
 	 *
-	 * Un film � identificato in modo univoco dal titolo (case-insensitive), una persona dal nome (case-insensitive).
+	 * Un film è identificato in modo univoco dal titolo (case-insensitive), una persona dal nome (case-insensitive).
 	 * Semplificazione: non sono gestiti omonimi e film con lo stesso titolo.
 	 *
-	 * I nuovi dati sono aggiunti a quelli gi� caricati.
+	 * I nuovi dati sono aggiunti a quelli già caricati.
 	 *
 	 * Se esiste un film con lo stesso titolo il record viene sovrascritto.
 	 * Se esiste una persona con lo stesso nome non ne viene creata un'altra.

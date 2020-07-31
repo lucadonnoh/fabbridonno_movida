@@ -1,8 +1,11 @@
 package movida.fabbridonno;
 import movida.commons.*;
+import java.io.File;
+import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Scanner; // Import the Scanner class to read text files
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
-public class MovidaCore implements IMovidaConfig {
+public class MovidaCore implements IMovidaConfig, IMovidaDB {
     private final SortingAlgorithm SAs[] = {SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort};
     private SortingAlgorithm selectedSort;
     private final MapImplementation Maps[] = {MapImplementation.ListaNonOrdinata, MapImplementation.HashIndirizzamentoAperto};
@@ -56,22 +59,65 @@ public class MovidaCore implements IMovidaConfig {
         return false;
     }
 
-    // public boolean deleteMovieByTitle(String title)
-    // {
-    //     structures[i].search();
+    public void loadFromFile(File f) //TODO: bisogna verificare che il formato sia giusto
+    {
+        try {
+            Scanner myReader = new Scanner(f);
+            while (myReader.hasNextLine()) {
+              String data = myReader.nextLine();
+              System.out.println(data);
+            }
+            myReader.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
+    }
 
-    //     return false;
-    // }
+    public void saveToFile(File f)
+    {
 
-    // public Movie getMovieByTitle(String title)
-    // {
-    //     if(selectedMap == MapImplementation.ListaNonOrdinata)
-    //     {
-    //         lista.setKey(Field.Title);
-    //         lista.search(title);
-    //     }
-    //     return null;
-    // }
+    }
+
+    public void clear()
+    {
+
+    }
+
+    public int countMovies()
+    {
+        return -1;
+    }
+
+    public int countPeople()
+    {
+        return -1;
+    }
+
+    public boolean deleteMovieByTitle(String title)
+    {
+        return false;
+    }
+
+    public Movie getMovieByTitle(String title)
+    {
+        return null;
+    }
+
+    public Person getPersonByName(String name)
+    {
+        return null;
+    }
+
+    public Movie[] getAllMovies()
+    {
+        return null;
+    }
+
+    public Person[] getAllPeople()
+    {
+        return null;
+    }
 
     public static void main(String[] args) {
         Person p1 = new Person("Juri Fabbri");
@@ -82,5 +128,9 @@ public class MovidaCore implements IMovidaConfig {
         ListaNonOrdinata l = new ListaNonOrdinata();
         l.insert(m, m.getTitle());
         l.stampa();
+
+        MovidaCore mc = new MovidaCore();
+        File file = new File("src/movida/fabbridonno/test.txt");
+        mc.loadFromFile(file);
     }
 }
