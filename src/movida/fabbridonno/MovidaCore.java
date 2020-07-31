@@ -52,6 +52,26 @@ public class MovidaCore implements IMovidaConfig {
         return false;
     }
 
+    public boolean deleteMovieByTitle(String title)
+    {
+        if(selectedMap == MapImplementation.ListaNonOrdinata)
+        {
+            lista.delete(title);
+        }
+
+        return false;
+    }
+
+    public Movie getMovieByTitle(String title)
+    {
+        if(selectedMap == MapImplementation.ListaNonOrdinata)
+        {
+            lista.setKey(Field.Title);
+            lista.search(title);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         Person p1 = new Person("Juri Fabbri");
         Person p2 = new Person("Donno");
