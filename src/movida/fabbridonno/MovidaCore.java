@@ -8,6 +8,9 @@ public class MovidaCore implements IMovidaConfig {
     private final MapImplementation Maps[] = {MapImplementation.ListaNonOrdinata, MapImplementation.HashIndirizzamentoAperto};
     private MapImplementation selectedMap;
 
+    private DizionarioFilm dizionariTitle[] = {new ListaNonOrdinata(), new TabellaHashAperta()};
+    private int index; //indice della struttura selezionata
+
     public MovidaCore()
     {
         selectedSort = null;
@@ -40,10 +43,11 @@ public class MovidaCore implements IMovidaConfig {
     {
         if(selectedMap != m)
         {
-            for(MapImplementation SM : Maps )
+            for(int i = 0; i<Maps.length; i++)
             {
-                if(m == SM)
+                if(m == Maps[i])
                 {
+                    index = i;
                     selectedMap = m;
                     return true;
                 }
@@ -54,10 +58,7 @@ public class MovidaCore implements IMovidaConfig {
 
     // public boolean deleteMovieByTitle(String title)
     // {
-    //     if(selectedMap == MapImplementation.ListaNonOrdinata)
-    //     {
-    //         lista.delete(title);
-    //     }
+    //     structures[i].search();
 
     //     return false;
     // }
