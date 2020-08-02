@@ -107,6 +107,16 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
           }
     }
 
+    public String printCast(Person[] cast){
+        int i=0;
+        String s=cast[i].getName();
+        for(i=1;i<cast.length-2;i++){
+            s += (cast[i].getName()+", ");
+        }
+        s += (cast[i].getName());
+        return s;
+    }
+
     public void saveToFile(File f)
     {
         try {
@@ -116,11 +126,15 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
             } else {
                 System.out.println("File already exists.");
                 writer.print("");
-                writer.close();
             }
             for(Movie m : dizionariTitle[index].export())
             {
-                writer.write("Title: "+m.getTitle());
+                writer.write("Title: "+m.getTitle()+"\n");
+                writer.write("Year: "+m.getYear()+"\n");
+                writer.write("Director: "+m.getDirector().getName()+"\n");
+                writer.write("Cast: "+printCast(m.getCast())+"\n");
+                writer.write("Votes: "+m.getVotes()+"\n");
+                writer.write("\n");
             }
             writer.flush();
             writer.close();
@@ -181,13 +195,13 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
         MovidaCore mc = new MovidaCore();
         mc.setMap(MapImplementation.ListaNonOrdinata);
-        File file = new File("src/movida/fabbridonno/test.txt");
+        File file = new File("movida/fabbridonno/test.txt");
         mc.loadFromFile(file);
         Movie c = mc.getMovieByTitle("Cape Fear");
         System.out.println(c.getDirector().getName());
         //mc.dizionariTitle[mc.getIndex()].insert();
         //mc.dizionariTitle[mc.getIndex()].stampa();
 
-        //mc.saveToFile(file);
+        mc.saveToFile(file);
     }
 }

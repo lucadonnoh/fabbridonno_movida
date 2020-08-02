@@ -17,7 +17,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
         return record;
     }
 
-    public void insert(Movie e, Comparable k) {
+    public void insert(Movie e, Comparable k) {//TODO meglio inserimento in coda?
 
         Record p = new Record(e, k);
 
