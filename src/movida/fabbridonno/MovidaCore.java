@@ -201,7 +201,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         System.out.println(c.getDirector().getName());
         //mc.dizionariTitle[mc.getIndex()].insert();
         //mc.dizionariTitle[mc.getIndex()].stampa();
-
-        mc.saveToFile(file);
+        File file2 = new File("movida/fabbridonno/test2.txt");
+        mc.saveToFile(file2);
     }
 }
