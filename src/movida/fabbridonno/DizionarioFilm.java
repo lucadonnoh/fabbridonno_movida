@@ -31,4 +31,6 @@ public interface DizionarioFilm {
 
 	public void stampa();
 
+	public Movie[] export();
+
 }

@@ -3,7 +3,14 @@ import movida.commons.*;
 
 public class ListaNonOrdinata implements DizionarioFilm{
 
-    private Record record = null; //TODO: forse da mettere private
+    private Record record; //TODO: forse da mettere private
+    private int carico;
+
+    public ListaNonOrdinata()
+    {
+        carico = 0;
+        record = null;
+    }
 
     public Record getRecord()
     {
@@ -20,6 +27,8 @@ public class ListaNonOrdinata implements DizionarioFilm{
             p.next = record;
             record = p;
         }
+
+        carico++;
     }
 
     public boolean delete(Comparable k) {
@@ -27,6 +36,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
         Record  tmp = record, prev = null;
         if(tmp != null && tmp.getKey().equals(k)){
             record=record.next;
+            carico--;
             return true;
         }
         while(tmp != null && tmp.getKey() != k){
@@ -37,6 +47,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
          if(tmp==null)
              return false;
         prev.next=tmp.next;
+        carico--;
         return true;
     }
 
@@ -58,6 +69,20 @@ public class ListaNonOrdinata implements DizionarioFilm{
             System.out.println(p.getMovie().getTitle());
             p=p.next;
         }
+    }
+
+    public Movie[] export()
+    {
+        Movie[] movies = new Movie[carico];
+        int i = 0;
+
+        Record p = record;
+        while(p!=null)
+        {
+            movies[i++] = p.getMovie();
+            p=p.next;
+        }
+        return movies;
     }
 
 }

@@ -29,6 +29,11 @@ public class TabellaHashAperta implements DizionarioFilm{
         return;
     }
 
+    public Movie[] export()
+    {
+        return null;
+    }
+
     // protected int indice()
     // {
 

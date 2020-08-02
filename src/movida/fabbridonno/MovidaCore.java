@@ -1,8 +1,8 @@
 package movida.fabbridonno;
 import movida.commons.*;
 import java.io.File;
-import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
+import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
 public class MovidaCore implements IMovidaConfig, IMovidaDB {
@@ -98,19 +98,35 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
               Person[] cast = formatCast(myReader.nextLine());
               int votes = Integer.parseInt(format(myReader.nextLine()));
               dizionariTitle[index].insert(new Movie(title,year,votes,cast,director), title);
-              if(myReader.hasNextLine()) 
+              if(myReader.hasNextLine())
                 myReader.nextLine();
             }
             myReader.close();
-          } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+          } catch (Exception e) {
+            throw new MovidaFileException(); //TODO: vedere se si può far meglio che non ha molto senso fare il catch di un errore e lanciarne un altro
           }
     }
 
     public void saveToFile(File f)
     {
-
+        try {
+            PrintWriter writer = new PrintWriter(f);
+            if (f.createNewFile()) {
+                System.out.println("File created: " + f.getName());
+            } else {
+                System.out.println("File already exists.");
+                writer.print("");
+                writer.close();
+            }
+            for(Movie m : dizionariTitle[index].export())
+            {
+                writer.write("Title: "+m.getTitle());
+            }
+            writer.flush();
+            writer.close();
+          } catch (Exception e) {
+            throw new MovidaFileException();
+          }
     }
 
     public void clear()
@@ -120,7 +136,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
     public int countMovies()
     {
-        
+        return -1;
     }
 
     public int countPeople()
@@ -165,11 +181,13 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
         MovidaCore mc = new MovidaCore();
         mc.setMap(MapImplementation.ListaNonOrdinata);
-        File file = new File("movida/fabbridonno/test.txt");
+        File file = new File("src/movida/fabbridonno/test.txt");
         mc.loadFromFile(file);
         Movie c = mc.getMovieByTitle("Cape Fear");
         System.out.println(c.getDirector().getName());
         //mc.dizionariTitle[mc.getIndex()].insert();
         //mc.dizionariTitle[mc.getIndex()].stampa();
+
+        //mc.saveToFile(file);
     }
 }
