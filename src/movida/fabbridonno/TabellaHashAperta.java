@@ -14,9 +14,9 @@ public class TabellaHashAperta implements DizionarioFilm{
 
     }
 
-    public void delete(Comparable k)
+    public boolean delete(Comparable k)
     {
-
+        return false;
     }
 
     public Movie search(Comparable k)

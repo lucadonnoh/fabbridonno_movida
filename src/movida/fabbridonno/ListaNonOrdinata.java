@@ -15,38 +15,37 @@ public class ListaNonOrdinata implements DizionarioFilm{
         Record p = new Record(e, k);
 
         if (record == null)
-        record = p;
+            record = p;
         else {
             p.next = record;
             record = p;
         }
     }
 
-    public void delete(Comparable k) {
+    public boolean delete(Comparable k) {
 
         Record  tmp = record, prev = null;
-
-        if(tmp != null && tmp.getKey() == k){
+        if(tmp != null && tmp.getKey().equals(k)){
             record=record.next;
-            return;
+            return true;
         }
         while(tmp != null && tmp.getKey() != k){
             prev=tmp;
             tmp=tmp.next;
         }
 
-        if(tmp==null)
-            return;
+         if(tmp==null)
+             return false;
         prev.next=tmp.next;
-
-
+        return true;
     }
 
     public Movie search(Comparable k) {
         if (record == null) return null;
         Record p = record;
-        while(p.next != null){
+        while(p != null){
             if (p.getKey().equals(k)) return p.getMovie();
+            p=p.next;
         }
         return null;
     }

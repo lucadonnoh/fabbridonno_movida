@@ -20,6 +20,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         selectedMap  = null;
     }
 
+    public int getIndex(){
+        return index;
+    }
+
     /**
      * L'algoritmo è implementato in modo tale da supportare qualsiasi collezione di SortingAlgorithm di cui è fornita l'implementazione.
      * Il costo è O(n) se selectedSort != a, altrimenti O(1).
@@ -116,7 +120,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
     public int countMovies()
     {
-        return -1;
+        
     }
 
     public int countPeople()
@@ -126,12 +130,12 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
     public boolean deleteMovieByTitle(String title)
     {
-        return false;
+        return dizionariTitle[index].delete(title);
     }
 
     public Movie getMovieByTitle(String title)
     {
-        return null;
+        return dizionariTitle[index].search(title);
     }
 
     public Person getPersonByName(String name)
@@ -157,11 +161,15 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         Movie m = new Movie("Gianni", 2020, 69420, p4, p1);
         ListaNonOrdinata l = new ListaNonOrdinata();
         l.insert(m, m.getTitle());
-        l.stampa();
+        //l.stampa();
 
         MovidaCore mc = new MovidaCore();
+        mc.setMap(MapImplementation.ListaNonOrdinata);
         File file = new File("movida/fabbridonno/test.txt");
         mc.loadFromFile(file);
-        mc.dizionariTitle[0].stampa();
+        Movie c = mc.getMovieByTitle("Cape Fear");
+        System.out.println(c.getDirector().getName());
+        //mc.dizionariTitle[mc.getIndex()].insert();
+        //mc.dizionariTitle[mc.getIndex()].stampa();
     }
 }

@@ -17,7 +17,7 @@ public interface DizionarioFilm {
 	 *
 	 * @param k chiave dell'elemento da cancellare
 	 */
-	public void delete(Comparable k);
+	public boolean delete(Comparable k);
 
 	/**
 	 * Restituisce l'elemento e con chiave <code>k</code>.
