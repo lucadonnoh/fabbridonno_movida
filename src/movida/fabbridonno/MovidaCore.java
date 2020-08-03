@@ -1,4 +1,5 @@
 package movida.fabbridonno;
+
 import movida.commons.*;
 import java.io.File;
 import java.util.Scanner; // Import the Scanner class to read text files
@@ -6,37 +7,35 @@ import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
 public class MovidaCore implements IMovidaConfig, IMovidaDB {
-    private final SortingAlgorithm SAs[] = {SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort};
+    private final SortingAlgorithm SAs[] = { SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort };
     private SortingAlgorithm selectedSort;
-    private final MapImplementation Maps[] = {MapImplementation.ListaNonOrdinata, MapImplementation.HashIndirizzamentoAperto};
+    private final MapImplementation Maps[] = { MapImplementation.ListaNonOrdinata,
+            MapImplementation.HashIndirizzamentoAperto };
     private MapImplementation selectedMap;
 
-    public DizionarioFilm dizionariTitle[] = {new ListaNonOrdinata(), new TabellaHashAperta()};
-    private int index; //indice della struttura selezionata
+    public DizionarioFilm dizionariTitle[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
+    private int index; // indice della struttura selezionata
 
-    public MovidaCore()
-    {
+    public MovidaCore() {
         selectedSort = null;
-        selectedMap  = null;
+        selectedMap = null;
     }
 
-    public int getIndex(){
+    public int getIndex() {
         return index;
     }
 
     /**
-     * L'algoritmo è implementato in modo tale da supportare qualsiasi collezione di SortingAlgorithm di cui è fornita l'implementazione.
-     * Il costo è O(n) se selectedSort != a, altrimenti O(1).
+     * L'algoritmo è implementato in modo tale da supportare qualsiasi collezione di
+     * SortingAlgorithm di cui è fornita l'implementazione. Il costo è O(n) se
+     * selectedSort != a, altrimenti O(1).
+     *
      * @param a l'algoritmo da selezionare
      */
-    public boolean setSort(SortingAlgorithm a)
-    {
-        if(selectedSort != a)
-        {
-            for(SortingAlgorithm SA : SAs)
-            {
-                if(a == SA)
-                {
+    public boolean setSort(SortingAlgorithm a) {
+        if (selectedSort != a) {
+            for (SortingAlgorithm SA : SAs) {
+                if (a == SA) {
                     selectedSort = a;
                     return true;
                 }
@@ -46,14 +45,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return false;
     }
 
-    public boolean setMap(MapImplementation m)
-    {
-        if(selectedMap != m)
-        {
-            for(int i = 0; i<Maps.length; i++)
-            {
-                if(m == Maps[i])
-                {
+    public boolean setMap(MapImplementation m) {
+        if (selectedMap != m) {
+            for (int i = 0; i < Maps.length; i++) {
+                if (m == Maps[i]) {
                     index = i;
                     selectedMap = m;
                     return true;
@@ -63,126 +58,115 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return false;
     }
 
-    private boolean checkFormato()
-    {
+    private boolean checkFormato() {
         return true;
     }
 
-    private String format(String nf)
-    {
+    private String format(String nf) {
         return nf.split(": ")[1];
     }
 
-    private Person[] formatCast(String nf)
-    {
+    private Person[] formatCast(String nf) {
         String s = format(nf);
         String[] a = s.split(", ");
         Person[] cast = new Person[a.length];
-        for(int i = 0; i<a.length; i++)
-        {
+        for (int i = 0; i < a.length; i++) {
             cast[i] = new Person(a[i]);
         }
 
         return cast;
     }
 
-    public void loadFromFile(File f) //TODO: bisogna verificare che il formato sia giusto
+    public void loadFromFile(File f) // TODO: bisogna verificare che il formato sia giusto
     {
-        if (!checkFormato()) throw new MovidaFileException();
+        if (!checkFormato())
+            throw new MovidaFileException();
         try {
-                Scanner myReader = new Scanner(f);
-                while (myReader.hasNextLine()) 
-                {
-                    String title = format(myReader.nextLine());
-                    if(dizionariTitle[index].search(title) != null) dizionariTitle[index].delete(title);
-                    int year = Integer.parseInt(format(myReader.nextLine()));
-                    Person director = new Person(format(myReader.nextLine()));
-                    Person[] cast = formatCast(myReader.nextLine());
-                    int votes = Integer.parseInt(format(myReader.nextLine()));
+            Scanner myReader = new Scanner(f);
+            while (myReader.hasNextLine()) {
+                String title = format(myReader.nextLine());
+                if (dizionariTitle[index].search(title) != null)
+                    dizionariTitle[index].delete(title);
+                int year = Integer.parseInt(format(myReader.nextLine()));
+                Person director = new Person(format(myReader.nextLine()));
+                Person[] cast = formatCast(myReader.nextLine());
+                int votes = Integer.parseInt(format(myReader.nextLine()));
 
-                    dizionariTitle[index].insert(new Movie(title,year,votes,cast,director), title);
-                    if(myReader.hasNextLine()) myReader.nextLine();
-                }
+                dizionariTitle[index].insert(new Movie(title, year, votes, cast, director), title);
+                if (myReader.hasNextLine())
+                    myReader.nextLine();
+            }
             myReader.close();
-          } catch (Exception e) {
-            throw new MovidaFileException(); //TODO: vedere se si può far meglio che non ha molto senso fare il catch di un errore e lanciarne un altro
-          }
+        } catch (Exception e) {
+            throw new MovidaFileException(); // TODO: vedere se si può far meglio che non ha molto senso fare il catch
+                                             // di un errore e lanciarne un altro
+        }
     }
 
-    private String printCast(Person[] cast){
-        int i=0;
-        String s=cast[i].getName();
-        for(i=1;i<cast.length-2;i++){
-            s += (cast[i].getName()+", ");
+    private String printCast(Person[] cast) {
+        int i = 0;
+        String s = cast[i].getName();
+        for (i = 1; i < cast.length - 2; i++) {
+            s += (cast[i].getName() + ", ");
         }
         s += (cast[i].getName());
         return s;
     }
 
-    public void saveToFile(File f)
-    {
+    public void saveToFile(File f) {
         try {
             PrintWriter writer = new PrintWriter(f);
             // if (f.createNewFile()) {
-            //     System.out.println("File created: " + f.getName());
+            // System.out.println("File created: " + f.getName());
             // } else {
-            //     System.out.println("File already exists.");
-            //     writer.print("");
+            // System.out.println("File already exists.");
+            // writer.print("");
             // }
             writer.print("");
-            for(Movie m : dizionariTitle[index].export())
-            {
-                writer.write("Title: "+m.getTitle()+"\n");
-                writer.write("Year: "+m.getYear()+"\n");
-                writer.write("Director: "+m.getDirector().getName()+"\n");
-                writer.write("Cast: "+printCast(m.getCast())+"\n");
-                writer.write("Votes: "+m.getVotes()+"\n");
+            for (Movie m : dizionariTitle[index].export()) {
+                writer.write("Title: " + m.getTitle() + "\n");
+                writer.write("Year: " + m.getYear() + "\n");
+                writer.write("Director: " + m.getDirector().getName() + "\n");
+                writer.write("Cast: " + printCast(m.getCast()) + "\n");
+                writer.write("Votes: " + m.getVotes() + "\n");
                 writer.write("\n");
             }
             writer.flush();
             writer.close();
-          } catch (Exception e) {
+        } catch (Exception e) {
             throw new MovidaFileException();
-          }
+        }
     }
 
-    public void clear()
-    {
+    public void clear() {
         dizionariTitle[index].clear();
     }
 
-    public int countMovies()
-    {
+    public int countMovies() {
         return dizionariTitle[index].getCarico();
     }
 
-    public int countPeople()
-    {
+    public int countPeople() {
         return -1;
     }
 
-    public boolean deleteMovieByTitle(String title)
-    {
+    public boolean deleteMovieByTitle(String title) {
         return dizionariTitle[index].delete(title);
     }
 
-    public Movie getMovieByTitle(String title)
-    {
+    public Movie getMovieByTitle(String title) {
         return dizionariTitle[index].search(title);
     }
 
-    public Person getPersonByName(String name)
-    {
+    public Person getPersonByName(String name) {
         return null;
     }
 
-    public Movie[] getAllMovies()
-    {
+    public Movie[] getAllMovies() {
         return dizionariTitle[index].export();
     }
 
-    public Person[] getAllPeople()
-    {
+    public Person[] getAllPeople() {
         return null;
     }
 
@@ -190,11 +174,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         Person p1 = new Person("Juri Fabbri");
         Person p2 = new Person("Donno");
         Person p3 = new Person("Di Iorio");
-        Person[] p4 = {p2, p3};
+        Person[] p4 = { p2, p3 };
         Movie m = new Movie("Gianni", 2020, 69420, p4, p1);
         ListaNonOrdinata l = new ListaNonOrdinata();
         l.insert(m, m.getTitle());
-        //l.stampa();
+        // l.stampa();
 
         MovidaCore mc = new MovidaCore();
         mc.setMap(MapImplementation.ListaNonOrdinata);
@@ -211,7 +195,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         // mc.dizionariTitle[mc.getIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getIndex()].stampa();
         // System.out.println(mc.countMovies());
-        //File file2 = new File("movida/fabbridonno/test2.txt");
-        //mc.saveToFile(file2);
+        // File file2 = new File("movida/fabbridonno/test2.txt");
+        // mc.saveToFile(file2);
     }
 }
