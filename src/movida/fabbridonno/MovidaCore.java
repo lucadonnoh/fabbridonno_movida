@@ -121,12 +121,13 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
     {
         try {
             PrintWriter writer = new PrintWriter(f);
-            if (f.createNewFile()) {
-                System.out.println("File created: " + f.getName());
-            } else {
-                System.out.println("File already exists.");
-                writer.print("");
-            }
+            // if (f.createNewFile()) {
+            //     System.out.println("File created: " + f.getName());
+            // } else {
+            //     System.out.println("File already exists.");
+            //     writer.print("");
+            // }
+            writer.print("");
             for(Movie m : dizionariTitle[index].export())
             {
                 writer.write("Title: "+m.getTitle()+"\n");
@@ -150,7 +151,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
     public int countMovies()
     {
-        return -1;
+        return dizionariTitle[index].getCarico();
     }
 
     public int countPeople()
@@ -175,7 +176,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
     public Movie[] getAllMovies()
     {
-        return null;
+        return dizionariTitle[index].export();
     }
 
     public Person[] getAllPeople()
@@ -195,13 +196,20 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
         MovidaCore mc = new MovidaCore();
         mc.setMap(MapImplementation.ListaNonOrdinata);
-        File file = new File("movida/fabbridonno/test.txt");
+        File file = new File("src/movida/fabbridonno/test.txt");
+        File file2 = new File("src/movida/fabbridonno/test2.txt");
         mc.loadFromFile(file);
         Movie c = mc.getMovieByTitle("Cape Fear");
         System.out.println(c.getDirector().getName());
-        //mc.dizionariTitle[mc.getIndex()].insert();
-        //mc.dizionariTitle[mc.getIndex()].stampa();
-        File file2 = new File("movida/fabbridonno/test2.txt");
+        System.out.println(mc.countMovies());
+        System.out.println(mc.deleteMovieByTitle("Cape Fear")); 
+        mc.dizionariTitle[mc.getIndex()].stampa();
+        System.out.println(mc.countMovies());
+        mc.dizionariTitle[mc.getIndex()].insert(m, m.getTitle());
+        mc.dizionariTitle[mc.getIndex()].stampa();
+        System.out.println(mc.countMovies());
+        
+        //File file2 = new File("movida/fabbridonno/test2.txt");
         mc.saveToFile(file2);
     }
 }

@@ -17,6 +17,11 @@ public class ListaNonOrdinata implements DizionarioFilm{
         return record;
     }
 
+    public int getCarico()
+    {
+        return carico;
+    }
+
     public void insert(Movie e, Comparable k) {//TODO meglio inserimento in coda?
 
         Record p = new Record(e, k);
@@ -39,7 +44,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
             carico--;
             return true;
         }
-        while(tmp != null && tmp.getKey() != k){
+        while(tmp != null && !tmp.getKey().equals(k)){
             prev=tmp;
             tmp=tmp.next;
         }

@@ -33,4 +33,6 @@ public interface DizionarioFilm {
 
 	public Movie[] export();
 
+	public int getCarico();
+
 }

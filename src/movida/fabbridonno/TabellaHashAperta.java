@@ -34,6 +34,10 @@ public class TabellaHashAperta implements DizionarioFilm{
         return null;
     }
 
+    public int getCarico(){
+        return -1;
+    }
+
     // protected int indice()
     // {
 
