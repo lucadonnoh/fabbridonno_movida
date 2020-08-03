@@ -35,6 +35,6 @@ public interface DizionarioFilm {
 
 	public int getCarico();
 
-	public void clean();
+	public void clear();
 
 }

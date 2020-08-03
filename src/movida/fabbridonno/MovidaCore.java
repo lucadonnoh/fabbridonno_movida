@@ -90,24 +90,26 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
     {
         if (!checkFormato()) throw new MovidaFileException();
         try {
-            Scanner myReader = new Scanner(f);
-            while (myReader.hasNextLine()) {
-              String title = format(myReader.nextLine());
-              int year = Integer.parseInt(format(myReader.nextLine()));
-              Person director = new Person(format(myReader.nextLine()));
-              Person[] cast = formatCast(myReader.nextLine());
-              int votes = Integer.parseInt(format(myReader.nextLine()));
-              dizionariTitle[index].insert(new Movie(title,year,votes,cast,director), title);
-              if(myReader.hasNextLine())
-                myReader.nextLine();
-            }
+                Scanner myReader = new Scanner(f);
+                while (myReader.hasNextLine()) 
+                {
+                    String title = format(myReader.nextLine());
+                    if(dizionariTitle[index].search(title) != null) dizionariTitle[index].delete(title);
+                    int year = Integer.parseInt(format(myReader.nextLine()));
+                    Person director = new Person(format(myReader.nextLine()));
+                    Person[] cast = formatCast(myReader.nextLine());
+                    int votes = Integer.parseInt(format(myReader.nextLine()));
+
+                    dizionariTitle[index].insert(new Movie(title,year,votes,cast,director), title);
+                    if(myReader.hasNextLine()) myReader.nextLine();
+                }
             myReader.close();
           } catch (Exception e) {
             throw new MovidaFileException(); //TODO: vedere se si può far meglio che non ha molto senso fare il catch di un errore e lanciarne un altro
           }
     }
 
-    public String printCast(Person[] cast){
+    private String printCast(Person[] cast){
         int i=0;
         String s=cast[i].getName();
         for(i=1;i<cast.length-2;i++){
@@ -146,7 +148,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
     public void clear()
     {
-        dizionariTitle[index].clean();
+        dizionariTitle[index].clear();
     }
 
     public int countMovies()
@@ -202,14 +204,13 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         Movie c = mc.getMovieByTitle("Cape Fear");
         System.out.println(c.getDirector().getName());
         System.out.println(mc.countMovies());
-        mc.dizionariTitle[mc.getIndex()].clean();
+        mc.dizionariTitle[mc.getIndex()].clear();
         mc.dizionariTitle[mc.getIndex()].insert(m, m.getTitle());
         mc.dizionariTitle[mc.getIndex()].stampa();
         // System.out.println(mc.countMovies());
         // mc.dizionariTitle[mc.getIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getIndex()].stampa();
         // System.out.println(mc.countMovies());
-        
         //File file2 = new File("movida/fabbridonno/test2.txt");
         //mc.saveToFile(file2);
     }

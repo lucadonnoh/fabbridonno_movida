@@ -38,7 +38,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
 
     public boolean delete(Comparable k) {
 
-        Record  tmp = record, prev = null;
+        Record tmp = record, prev = null;
         if(tmp != null && tmp.getKey().equals(k)){
             record=record.next;
             carico--;
@@ -90,7 +90,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
         return movies;
     }
 
-    public void clean(){
+    public void clear(){
         record = null;
     }
 
