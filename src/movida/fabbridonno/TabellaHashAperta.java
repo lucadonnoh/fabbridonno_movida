@@ -38,6 +38,10 @@ public class TabellaHashAperta implements DizionarioFilm{
         return -1;
     }
 
+    public void clean(){
+        
+    }
+
     // protected int indice()
     // {
 

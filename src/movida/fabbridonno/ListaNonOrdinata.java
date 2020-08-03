@@ -90,4 +90,8 @@ public class ListaNonOrdinata implements DizionarioFilm{
         return movies;
     }
 
+    public void clean(){
+        record = null;
+    }
+
 }

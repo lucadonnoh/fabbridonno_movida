@@ -146,7 +146,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
     public void clear()
     {
-
+        dizionariTitle[index].clean();
     }
 
     public int countMovies()
@@ -202,14 +202,15 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         Movie c = mc.getMovieByTitle("Cape Fear");
         System.out.println(c.getDirector().getName());
         System.out.println(mc.countMovies());
-        System.out.println(mc.deleteMovieByTitle("Cape Fear")); 
-        mc.dizionariTitle[mc.getIndex()].stampa();
-        System.out.println(mc.countMovies());
+        mc.dizionariTitle[mc.getIndex()].clean();
         mc.dizionariTitle[mc.getIndex()].insert(m, m.getTitle());
         mc.dizionariTitle[mc.getIndex()].stampa();
-        System.out.println(mc.countMovies());
+        // System.out.println(mc.countMovies());
+        // mc.dizionariTitle[mc.getIndex()].insert(m, m.getTitle());
+        // mc.dizionariTitle[mc.getIndex()].stampa();
+        // System.out.println(mc.countMovies());
         
         //File file2 = new File("movida/fabbridonno/test2.txt");
-        mc.saveToFile(file2);
+        //mc.saveToFile(file2);
     }
 }
