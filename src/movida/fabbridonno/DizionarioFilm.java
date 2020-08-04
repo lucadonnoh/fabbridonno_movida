@@ -39,4 +39,8 @@ public interface DizionarioFilm {
 
 	public Movie[] searchMoviesByKey(Comparable k);
 
+	public Movie[] firstNMovies(int n);
+
+	public Movie[] stringInTitle(String title);
+
 }

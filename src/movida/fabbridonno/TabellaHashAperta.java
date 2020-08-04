@@ -47,6 +47,14 @@ public class TabellaHashAperta implements DizionarioFilm{
         return null;
     }
 
+    public Movie[] firstNMovies(int n){
+        return null;
+    }
+
+    public Movie[] stringInTitle(String title){
+        return null;
+    }
+
     // protected int indice()
     // {
 

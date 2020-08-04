@@ -99,6 +99,17 @@ public class ListaNonOrdinata implements DizionarioFilm{
         record = null;
     }
 
+
+    private Movie[] nNextMovies(Record p, int n){
+        Movie[] movies = new Movie[n];
+        for(int i = 0; i<n; i++)
+        {
+            movies[i] = p.getMovie();
+            p = p.next;
+        }
+        return movies;
+    }
+
     public Movie[] searchMoviesByKey(Comparable k)
     {
         Record p = searchRecord(k);
@@ -110,13 +121,35 @@ public class ListaNonOrdinata implements DizionarioFilm{
             tmp = tmp.next;
         }
         Movie[] movies = new Movie[n];
-        for(int i = 0; i<n; i++)
-        {
-            movies[i] = p.getMovie();
-            p = p.next;
-        }
-
+        movies = nNextMovies(p, n);
         return movies;
     }
 
+    public Movie[] firstNMovies(int n){
+        Movie[] movies = new Movie[n];
+        Record p = record;
+        movies = nNextMovies(p, n);
+        return movies;
+    }
+
+    public Movie[] stringInTitle(String title){
+        Record p = record;
+        int i=0;    
+        while(p!=null){
+            if(p.getMovie().getTitle().contains(title)){
+                i++;
+            }
+            p=p.next;
+        }
+        p=record;
+        i=0;
+        Movie[] movies = new Movie[i];
+        while(p!=null){
+            if(p.getMovie().getTitle().contains(title)){
+                movies[i]=p.getMovie();
+                i++;
+            }
+        }
+        return movies;
+    }
 }
