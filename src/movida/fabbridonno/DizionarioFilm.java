@@ -37,4 +37,6 @@ public interface DizionarioFilm {
 
 	public void clear();
 
+	public Movie[] searchMoviesByKey(Comparable k);
+
 }

@@ -6,7 +6,7 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
-public class MovidaCore implements IMovidaConfig, IMovidaDB {
+public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     private final SortingAlgorithm SAs[] = { SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort };
     private SortingAlgorithm selectedSort;
     private final MapImplementation Maps[] = { MapImplementation.ListaNonOrdinata,
@@ -14,6 +14,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
     private MapImplementation selectedMap;
 
     public DizionarioFilm dizionariTitle[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
+    public DizionarioFilm dizionariYear[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
+    public DizionarioFilm dizionariDirector[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
+    public DizionarioFilm dizionariVotes[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
+    public DizionarioFilm dizionariCast[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
+
     private int index; // indice della struttura selezionata
 
     public MovidaCore() {
@@ -58,7 +63,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return false;
     }
 
-    private boolean checkFormato() {
+    private boolean checkFormato() { //TODO: da fare
         return true;
     }
 
@@ -93,6 +98,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
                 int votes = Integer.parseInt(format(myReader.nextLine()));
 
                 dizionariTitle[index].insert(new Movie(title, year, votes, cast, director), title);
+                dizionariDirector[index].insert(new Movie(title, year, votes, cast, director), director.getName());
+                dizionariVotes[index].insert(new Movie(title, year, votes, cast, director), votes);
+                dizionariYear[index].insert(new Movie(title, year, votes, cast, director), year);
+                //TODO: dizionariCast[index].insert(new Movie(title, year, votes, cast, director), cast);
                 if (myReader.hasNextLine())
                     myReader.nextLine();
             }
@@ -146,7 +155,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return dizionariTitle[index].getCarico();
     }
 
-    public int countPeople() {
+    public int countPeople() { //TODO: da fare
         return -1;
     }
 
@@ -158,7 +167,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return dizionariTitle[index].search(title);
     }
 
-    public Person getPersonByName(String name) {
+    public Person getPersonByName(String name) { //TODO: da fare
         return null;
     }
 
@@ -166,9 +175,16 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return dizionariTitle[index].export();
     }
 
-    public Person[] getAllPeople() {
+    public Person[] getAllPeople() { //TODO: da fare
         return null;
     }
+
+    public Movie[] searchMoviesInYear(Integer year)
+    {
+        return dizionariYear[index].searchMoviesByKey(year);
+    }
+
+    
 
     public static void main(String[] args) {
         Person p1 = new Person("Juri Fabbri");

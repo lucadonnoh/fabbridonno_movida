@@ -42,6 +42,11 @@ public class TabellaHashAperta implements DizionarioFilm{
 
     }
 
+    public Movie[] searchMoviesByKey(Comparable k)
+    {
+        return null;
+    }
+
     // protected int indice()
     // {
 

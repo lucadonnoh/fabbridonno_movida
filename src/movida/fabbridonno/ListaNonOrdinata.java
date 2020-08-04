@@ -57,10 +57,15 @@ public class ListaNonOrdinata implements DizionarioFilm{
     }
 
     public Movie search(Comparable k) {
+        return searchRecord(k).getMovie();
+    }
+
+    private Record searchRecord(Comparable k)
+    {
         if (record == null) return null;
         Record p = record;
         while(p != null){
-            if (p.getKey().equals(k)) return p.getMovie();
+            if (p.getKey().equals(k)) return p;
             p=p.next;
         }
         return null;
@@ -92,6 +97,27 @@ public class ListaNonOrdinata implements DizionarioFilm{
 
     public void clear(){
         record = null;
+    }
+
+    public Movie[] searchMoviesByKey(Comparable k)
+    {
+        Record p = searchRecord(k);
+        Record tmp = p;
+        int n = 0;
+        while(tmp.next.getKey() == k)
+        {
+            n++;
+            tmp = tmp.next;
+        }
+        Movie[] movies = new Movie[n];
+        for(int i = 0; i<n; i++)
+        {
+            movies[i] = p.getMovie();
+            p = p.next;
+        }
+
+        return movies;
+
     }
 
 }
