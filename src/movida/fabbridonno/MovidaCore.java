@@ -184,7 +184,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return dizionariYear[index].searchMoviesByKey(year);
     }
 
-    
+    public Movie[] searchMoviesDirectedBy(String name)
+    {
+        return dizionariDirector[index].searchMoviesByKey(name);
+    }
 
     public static void main(String[] args) {
         Person p1 = new Person("Juri Fabbri");
