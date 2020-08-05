@@ -111,6 +111,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB  {
             throw new MovidaFileException(); // TODO: vedere se si può far meglio che non ha molto senso fare il catch
                                              // di un errore e lanciarne un altro
         }
+
+        
     }
 
     private String printCast(Person[] cast) {
