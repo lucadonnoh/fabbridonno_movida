@@ -43,6 +43,6 @@ public interface DizionarioFilm {
 
 	public Movie[] stringInTitle(String title);
 
-	public void insertionSort();
+	//public void insertionSort(boolean b); TODO: vedere come fare
 
 }
