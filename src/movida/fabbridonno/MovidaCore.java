@@ -112,7 +112,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB  {
                                              // di un errore e lanciarne un altro
         }
 
-        
+
     }
 
     private String printCast(Person[] cast) {
