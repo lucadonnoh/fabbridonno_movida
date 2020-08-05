@@ -55,6 +55,9 @@ public class TabellaHashAperta implements DizionarioFilm{
         return null;
     }
 
+    public void insertionSort(){
+
+    }
     // protected int indice()
     // {
 

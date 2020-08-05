@@ -40,6 +40,7 @@ public class ListaNonOrdinata implements DizionarioFilm{
 
         Record tmp = record, prev = null;
         if(tmp != null && tmp.getKey().equals(k)){
+            
             record=record.next;
             carico--;
             return true;
@@ -57,7 +58,9 @@ public class ListaNonOrdinata implements DizionarioFilm{
     }
 
     public Movie search(Comparable k) {
-        return searchRecord(k).getMovie();
+        if(searchRecord(k) != null)
+            return searchRecord(k).getMovie();
+        else return null;
     }
 
     private Record searchRecord(Comparable k)
@@ -152,4 +155,54 @@ public class ListaNonOrdinata implements DizionarioFilm{
         }
         return movies;
     }
+
+    private Record sorted; // se lo dichiaro dentro al sort va tutto a troie :<, però dato che lo usano entrambi i osrt ci sta che sia attributo Pog
+public void insertionSort()  
+    { 
+
+        // Initialize sorted linked list 
+        sorted = null;
+        Record current = record; 
+        // Traverse the given linked list and insert every 
+        // Record to sorted 
+        while (current != null)  
+        { 
+            // Store next for next iteration 
+            Record next = current.next; 
+            // insert current in sorted linked list 
+            sortedInsert(current); 
+            // Update current 
+            current = next; 
+        } 
+        // Update head_ref to point to sorted linked list 
+        record = sorted; 
+    } 
+  
+    /* 
+     * function to insert a new_Record in a list. Note that  
+     * this function expects a pointer to head_ref as this 
+     * can modify the head of the input linked list  
+     * (similar to push()) 
+     */
+    private void sortedInsert(Record newRecord)  
+    { 
+        
+        /* Special case for the head end */
+        if (sorted == null || sorted.getKey().compareTo(newRecord.getKey()) >= 0 )  
+        { 
+            newRecord.next = sorted; 
+            sorted = newRecord; 
+        } 
+        else 
+        { 
+            Record current = sorted; 
+            /* Locate the Record before the point of insertion */
+            while (current.next != null && current.next.getKey().compareTo(newRecord.getKey()) < 0 )  
+            { 
+                current = current.next; 
+            } 
+            newRecord.next = current.next; 
+            current.next = newRecord; 
+        } 
+    } 
 }

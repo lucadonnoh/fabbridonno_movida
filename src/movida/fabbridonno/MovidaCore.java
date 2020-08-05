@@ -6,11 +6,10 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
-public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
+public class MovidaCore implements IMovidaConfig, IMovidaDB  {
     private final SortingAlgorithm SAs[] = { SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort };
     private SortingAlgorithm selectedSort;
-    private final MapImplementation Maps[] = { MapImplementation.ListaNonOrdinata,
-            MapImplementation.HashIndirizzamentoAperto };
+    private final MapImplementation Maps[] = { MapImplementation.ListaNonOrdinata, MapImplementation.HashIndirizzamentoAperto };
     private MapImplementation selectedMap;
 
     public DizionarioFilm dizionariTitle[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
@@ -19,15 +18,16 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     public DizionarioFilm dizionariVotes[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
     public DizionarioFilm dizionariCast[] = { new ListaNonOrdinata(), new TabellaHashAperta() };
 
-    private int index; // indice della struttura selezionata
+    private int mapIndex; // indice della struttura selezionata
+    private int sortIndex;
 
     public MovidaCore() {
         selectedSort = null;
         selectedMap = null;
     }
 
-    public int getIndex() {
-        return index;
+    public int getmapIndex() {
+        return mapIndex;
     }
 
     /**
@@ -39,8 +39,9 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
      */
     public boolean setSort(SortingAlgorithm a) {
         if (selectedSort != a) {
-            for (SortingAlgorithm SA : SAs) {
-                if (a == SA) {
+            for (int i = 0; i < SAs.length; i++) {
+                if (a == SAs[i]) {
+                    sortIndex = i;
                     selectedSort = a;
                     return true;
                 }
@@ -54,7 +55,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         if (selectedMap != m) {
             for (int i = 0; i < Maps.length; i++) {
                 if (m == Maps[i]) {
-                    index = i;
+                    mapIndex = i;
                     selectedMap = m;
                     return true;
                 }
@@ -90,18 +91,18 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             Scanner myReader = new Scanner(f);
             while (myReader.hasNextLine()) {
                 String title = format(myReader.nextLine());
-                if (dizionariTitle[index].search(title) != null)
-                    dizionariTitle[index].delete(title);
+                if(( dizionariTitle[mapIndex].search(title) != null))
+                    dizionariTitle[mapIndex].delete(title);
                 int year = Integer.parseInt(format(myReader.nextLine()));
                 Person director = new Person(format(myReader.nextLine()));
                 Person[] cast = formatCast(myReader.nextLine());
                 int votes = Integer.parseInt(format(myReader.nextLine()));
 
-                dizionariTitle[index].insert(new Movie(title, year, votes, cast, director), title);
-                dizionariDirector[index].insert(new Movie(title, year, votes, cast, director), director.getName());
-                dizionariVotes[index].insert(new Movie(title, year, votes, cast, director), votes);
-                dizionariYear[index].insert(new Movie(title, year, votes, cast, director), year);
-                //TODO: dizionariCast[index].insert(new Movie(title, year, votes, cast, director), cast);
+                dizionariTitle[mapIndex].insert(new Movie(title, year, votes, cast, director), title);
+                dizionariDirector[mapIndex].insert(new Movie(title, year, votes, cast, director), director.getName());
+                dizionariVotes[mapIndex].insert(new Movie(title, year, votes, cast, director), votes);
+                dizionariYear[mapIndex].insert(new Movie(title, year, votes, cast, director), year);
+                //TODO: dizionariCast[mapIndex].insert(new Movie(title, year, votes, cast, director), cast);
                 if (myReader.hasNextLine())
                     myReader.nextLine();
             }
@@ -132,7 +133,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             // writer.print("");
             // }
             writer.print("");
-            for (Movie m : dizionariTitle[index].export()) {
+            for (Movie m : dizionariTitle[mapIndex].export()) {
                 writer.write("Title: " + m.getTitle() + "\n");
                 writer.write("Year: " + m.getYear() + "\n");
                 writer.write("Director: " + m.getDirector().getName() + "\n");
@@ -148,11 +149,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public void clear() {
-        dizionariTitle[index].clear();
+        dizionariTitle[mapIndex].clear();
     }
 
     public int countMovies() {
-        return dizionariTitle[index].getCarico();
+        return dizionariTitle[mapIndex].getCarico();
     }
 
     public int countPeople() { //TODO: da fare
@@ -160,11 +161,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public boolean deleteMovieByTitle(String title) {
-        return dizionariTitle[index].delete(title);
+        return dizionariTitle[mapIndex].delete(title);
     }
 
     public Movie getMovieByTitle(String title) {
-        return dizionariTitle[index].search(title);
+        return dizionariTitle[mapIndex].search(title);
     }
 
     public Person getPersonByName(String name) { //TODO: da fare
@@ -172,7 +173,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public Movie[] getAllMovies() {
-        return dizionariTitle[index].export();
+        return dizionariTitle[mapIndex].export();
     }
 
     public Person[] getAllPeople() { //TODO: da fare
@@ -181,24 +182,24 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     public Movie[] searchMoviesInYear(Integer year)
     {
-        return dizionariYear[index].searchMoviesByKey(year);
+        return dizionariYear[mapIndex].searchMoviesByKey(year);
     }
 
     public Movie[] searchMoviesDirectedBy(String name)
     {
-        return dizionariDirector[index].searchMoviesByKey(name);
+        return dizionariDirector[mapIndex].searchMoviesByKey(name);
     }
 
     public Movie[] searchMoviesByTitle(String title){
-        return dizionariTitle[index].stringInTitle(title);
+        return dizionariTitle[mapIndex].stringInTitle(title);
     }
 
     public Movie[] searchMostVotedMovies(Integer N){
-        return dizionariVotes[index].firstNMovies(N);
+        return dizionariVotes[mapIndex].firstNMovies(N);
     }
 
     public Movie[] searchMostRecentMovies(Integer N){
-        return dizionariYear[index].firstNMovies(N);
+        return dizionariYear[mapIndex].firstNMovies(N);
     }
 
     public static void main(String[] args) {
@@ -219,14 +220,15 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         Movie c = mc.getMovieByTitle("Cape Fear");
         System.out.println(c.getDirector().getName());
         System.out.println(mc.countMovies());
-        mc.dizionariTitle[mc.getIndex()].clear();
-        mc.dizionariTitle[mc.getIndex()].insert(m, m.getTitle());
-        mc.dizionariTitle[mc.getIndex()].stampa();
+        //mc.dizionariTitle[mc.getmapIndex()].clear();
+        mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
+        //mc.dizionariTitle[mc.getmapIndex()].stampa();
+        mc.dizionariTitle[mc.getmapIndex()].insertionSort();
         // System.out.println(mc.countMovies());
-        // mc.dizionariTitle[mc.getIndex()].insert(m, m.getTitle());
-        // mc.dizionariTitle[mc.getIndex()].stampa();
+        // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
+        mc.dizionariTitle[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
         // File file2 = new File("movida/fabbridonno/test2.txt");
-        // mc.saveToFile(file2);
+        mc.saveToFile(file2);
     }
 }

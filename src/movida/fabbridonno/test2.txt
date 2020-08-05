@@ -1,0 +1,66 @@
+Title: Air Force One
+Year: 1997
+Director: Wolfgang Petersen
+Cast: Harrison FordGary Oldman
+Votes: 173540
+
+Title: Cape Fear
+Year: 1991
+Director: Martin Scorsese
+Cast: Robert De NiroNick Nolte, Jessica Lange
+Votes: 163093
+
+Title: Contact
+Year: 1997
+Director: Robert Zemeckis
+Cast: Jodie FosterMatthew McConaughey
+Votes: 244372
+
+Title: Die Hard
+Year: 1988
+Director: John McTiernan
+Cast: Bruce WillisAlan Rickman
+Votes: 755228
+
+Title: Gianni
+Year: 2020
+Director: Juri Fabbri
+Cast: DonnoDi Iorio
+Votes: 69420
+
+Title: Pulp Fiction
+Year: 1994
+Director: Quentin Tarantino
+Cast: John TravoltaUma Thurman
+Votes: 1743616
+
+Title: Scarface
+Year: 1983
+Director: Brian De Palma
+Cast: Al PacinoMichelle Pfeiffer
+Votes: 703754
+
+Title: Taxi Driver
+Year: 1976
+Director: Martin Scorsese
+Cast: Robert De NiroJodie Foster, Cybill Shepherd
+Votes: 684728
+
+Title: The Fugitive
+Year: 1993
+Director: Andrew Davis
+Cast: Harrison FordTommy Lee Jones
+Votes: 256213
+
+Title: The Sixth Sense
+Year: 1999
+Director: M. Night Shyamalan
+Cast: Bruce WillisHaley Joel Osment
+Votes: 879298
+
+Title: What Lies Beneath
+Year: 2000
+Director: Robert Zemeckis
+Cast: Harrison FordMichelle Pfeiffer
+Votes: 114295
+
