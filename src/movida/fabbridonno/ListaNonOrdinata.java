@@ -4,7 +4,7 @@ import movida.commons.*;
 
 public class ListaNonOrdinata implements DizionarioFilm {
 
-    private Record record; // TODO: forse da mettere private
+    private Record record;
     private int carico;
 
     public ListaNonOrdinata() {
@@ -94,6 +94,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
         return movies;
     }
 
+    //Java ha il garbage collector che eliminat tutti gli elementi non referenziati.
     public void clear() {
         record = null;
     }
@@ -151,16 +152,18 @@ public class ListaNonOrdinata implements DizionarioFilm {
     public void sort(int index, boolean b) {
         switch (index) {
             case 0:
-
+                quick();
                 break;
             case 1:
                 insertionSort(b);
+                break;
             default:
                 break;
         }
     }
 
-    private void insertionSort(boolean b) {
+    public void insertionSort(boolean b) {
+
         // Initialize sorted linked list
         Record sorted = null;
         Record current = record;
@@ -185,28 +188,34 @@ public class ListaNonOrdinata implements DizionarioFilm {
      */
     private Record sortedInsert(Record newRecord, Record sorted, boolean b) {
         /* Special case for the head end */
-        if (sorted == null || sorted.getKey().compareTo(newRecord.getKey()) >= 0) {
-            newRecord.next = sorted;
-            sorted = newRecord;
-        } else {
-            Record current = sorted;
-            /* Locate the Record before the point of insertion */
-            while (current.next != null) {
-                if (b) {
-                    if (current.next.getKey().compareTo(newRecord.getKey()) < 0) {
-                        current = current.next;
-                    }
-                } else {
-                    if (current.next.getKey().compareTo(newRecord.getKey()) > 0) {
-                        current = current.next;
-                    }
+        if (b) {
+            if (sorted == null || sorted.getKey().compareTo(newRecord.getKey()) >= 0) {
+                newRecord.next = sorted;
+                sorted = newRecord;
+            } else {
+                Record current = sorted;
+                /* Locate the Record before the point of insertion */
+                while (current.next != null && current.next.getKey().compareTo(newRecord.getKey()) < 0) {
+                    current = current.next;
                 }
-
+                newRecord.next = current.next;
+                current.next = newRecord;
             }
-            newRecord.next = current.next;
-            current.next = newRecord;
         }
-
+        else{
+            if (sorted == null || sorted.getKey().compareTo(newRecord.getKey()) <= 0) {
+                newRecord.next = sorted;
+                sorted = newRecord;
+            } else {
+                Record current = sorted;
+                /* Locate the Record before the point of insertion */
+                while (current.next != null && current.next.getKey().compareTo(newRecord.getKey()) > 0) {
+                    current = current.next;
+                }
+                newRecord.next = current.next;
+                current.next = newRecord;
+            }
+        }
         return sorted;
     }
 
@@ -217,7 +226,6 @@ public class ListaNonOrdinata implements DizionarioFilm {
         Record pivot_prev = start;
         Record curr = start;
         Record pivot = end;
-
         // iterate till one before the end,
         // no need to iterate till the end
         // because end is pivot
@@ -244,7 +252,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
         return pivot_prev;
     }
 
-    void quickSort(Record start, Record end) {
+    private void quickSort(Record start, Record end) {
         if (start == end)
             return;
 
@@ -263,5 +271,12 @@ public class ListaNonOrdinata implements DizionarioFilm {
         // since we have pivot_prev, so we move two Records
         else if (pivot_prev != null && pivot_prev.next != null)
             quickSort(pivot_prev.next.next, end);
+    }
+
+    private void quick() {
+        Record last = record;
+        while (last.next != null)
+            last = last.next;
+        quickSort(record, last);
     }
 }
