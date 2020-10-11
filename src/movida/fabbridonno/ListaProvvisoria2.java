@@ -1,7 +1,7 @@
 package movida.fabbridonno;
 import movida.commons.*;
 
-public class porcoddio {
+public class ListaProvvisoria2 {
 
     private ListaFilm   filmPerAttore; //-> film associati all'attore
 
