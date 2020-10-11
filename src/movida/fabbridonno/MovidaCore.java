@@ -178,7 +178,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB  {
             clearSubDictionaries();
             Movie[] movies=getAllMovies();
             for (Movie movie : movies) {
-                dizionariTitle[mapIndex].insert(movie, movie.getTitle());
+                dizionariYear[mapIndex].insert(movie, movie.getYear());
                 dizionariVotes[mapIndex].insert(movie, movie.getVotes());
                 //dizionariCast[mapIndex].insert(movie, movie.getCast());
                 dizionariDirector[mapIndex].insert(movie, movie.getDirector().getName());
@@ -245,12 +245,16 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB  {
         System.out.println(c.getDirector().getName());
         System.out.println(mc.countMovies());
         //mc.dizionariTitle[mc.getmapIndex()].clear();
-        mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
+        //mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         //mc.dizionariTitle[mc.getmapIndex()].stampa();
-          //mc.dizionariTitle[mc.getmapIndex()].sort(0, true);
+        //mc.dizionariTitle[mc.getmapIndex()].sort(0, true);
         // System.out.println(mc.countMovies());
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
-        mc.dizionariTitle[mc.getmapIndex()].stampa();
+        //mc.dizionariTitle[mc.getmapIndex()].stampa();
+        System.out.println("Suca Juri");
+        mc.deleteMovieByTitle("Cape Fear");
+        System.out.println(mc.countMovies());
+        mc.dizionariDirector[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
         // File file2 = new File("movida/fabbridonno/test2.txt");
         mc.saveToFile(file2);

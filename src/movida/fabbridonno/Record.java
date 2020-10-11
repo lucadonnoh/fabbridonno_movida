@@ -28,7 +28,7 @@ public final class Record {
      */
     public Record(Movie m, Comparable k) {
         movie = m;
-            key = k;
+        key = k;
         next = prev = null;
     }
 
