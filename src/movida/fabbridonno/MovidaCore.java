@@ -86,10 +86,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         for (int i = 0; i < cast.length; i++) {
             Record attore = dizionariCast[mapIndex].searchRecord(cast[i]);
             if (attore == null) {
-                System.out.println(i);
+                //System.out.println(i);
                 dizionariCast[mapIndex].insert(m, cast[i]);
             } else {
                 attore.addMovie(m);
+                System.out.println(attore.getKey());
             }
         }
     }

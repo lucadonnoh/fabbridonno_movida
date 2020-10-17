@@ -40,9 +40,9 @@ public final class Record {
         movie.add(m);
     }
 
-    public void getCarico()
+    public int getCarico()
     {
-        movie.size(); // O(1)
+        return movie.size(); // O(1)
     }
 
     public Movie getMovie()
