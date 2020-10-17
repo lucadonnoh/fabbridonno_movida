@@ -59,4 +59,9 @@ public class TabellaHashAperta implements DizionarioFilm{
     {
         
     }
+
+    public Record searchRecord(Comparable k)
+    {
+        return null;
+    }
 }
