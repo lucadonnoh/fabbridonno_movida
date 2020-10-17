@@ -62,7 +62,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
             return null;
     }
 
-    private Record searchRecord(Comparable k) {
+    public Record searchRecord(Comparable k) {
         if (record == null)
             return null;
         Record p = record;

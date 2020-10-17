@@ -1,11 +1,13 @@
 package movida.fabbridonno;
+import java.util.ArrayList;
+
 import movida.commons.*;
 
 public final class Record {
     /**
      * Elemento da conservare nel record
      */
-    private Movie      movie;
+    private ArrayList<Movie> movie = new ArrayList<Movie>();
     /**
      * Chiave associata all'elemento da conservare nel record
      */
@@ -26,15 +28,26 @@ public final class Record {
      * @param e l'elemento da conservare nel record
      * @param k lakey associata all'elemento da conservare nel record
      */
+
     public Record(Movie m, Comparable k) {
-        movie = m;
-            key = k;
+        movie.add(m);
+        key = k;
         next = prev = null;
+    }
+
+    public void addMovie(Movie m)
+    {
+        movie.add(m);
+    }
+
+    public void getCarico()
+    {
+        movie.size(); // O(1)
     }
 
     public Movie getMovie()
     {
-        return movie;
+        return movie.get(0);
     }
 
     public Comparable getKey()
