@@ -34,6 +34,17 @@ public class TabellaHashAperta implements DizionarioFilm{
         return null;
     }
 
+    public Comparable[] exportKeys()
+    {
+        return null;
+    }
+
+    public Boolean searchKey(Comparable k)
+    {
+        return null;
+    }
+
+
     public int getCarico(){
         return -1;
     }

@@ -41,6 +41,10 @@ public interface DizionarioFilm {
 
 	public Record searchRecord(Comparable k);
 
+	public Boolean searchKey(Comparable k);
+
+	public Comparable[] exportKeys() ;
+
 	public Movie[] firstNMovies(int n);
 
 	public Movie[] stringInTitle(String title);

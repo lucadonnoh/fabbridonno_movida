@@ -74,10 +74,26 @@ public class ListaNonOrdinata implements DizionarioFilm {
         return null;
     }
 
-    public void stampa() {
+    public Boolean searchKey(Comparable k) {
+        if (record == null)
+            return false;
         Record p = record;
         while (p != null) {
-            System.out.println(p.getMovie().getTitle());
+            if (p.getKey().equals(k))
+                return true;
+            p = p.next;
+        }
+        return false;
+    }
+
+    public Record convertToList(DizionarioFilm p){
+        return null;
+    }
+
+    public void stampa() {//TODO
+        Record p = record;
+        while (p != null) {
+            p.print();
             p = p.next;
         }
     }
@@ -89,6 +105,18 @@ public class ListaNonOrdinata implements DizionarioFilm {
         Record p = record;
         while (p != null) {
             movies[i++] = p.getMovie();
+            p = p.next;
+        }
+        return movies;
+    }
+
+    public Comparable[] exportKeys() {
+        Comparable[] movies = new Comparable[carico];
+        int i = 0;
+
+        Record p = record;
+        while (p != null ) {
+            movies[i++] = p.getKey();
             p = p.next;
         }
         return movies;

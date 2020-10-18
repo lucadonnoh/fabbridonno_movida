@@ -82,15 +82,25 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return cast;
     }
 
+    public void loadDirector(Movie m, Person Director) {
+            Record regista = dizionariDirector[mapIndex].searchRecord(Director);
+            System.out.println(Director.toString());
+            if (regista == null) {
+                System.out.println("Nuovo");
+                dizionariDirector[mapIndex].insert(m, Director);
+            } else {
+                regista.addMovie(m);
+                System.out.println("Regista ripetuto: " + regista.getKey().toString());
+            }
+        }
+
     public void loadCast(Movie m, Person[] cast) {
         for (int i = 0; i < cast.length; i++) {
             Record attore = dizionariCast[mapIndex].searchRecord(cast[i]);
             if (attore == null) {
-                //System.out.println(i);
                 dizionariCast[mapIndex].insert(m, cast[i]);
             } else {
                 attore.addMovie(m);
-                System.out.println(attore.getKey());
             }
         }
     }
@@ -108,9 +118,9 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
                 int votes = Integer.parseInt(format(myReader.nextLine(), "Votes"));
                 Movie m = new Movie(title, year, votes, cast, director);
                 dizionariTitle[mapIndex].insert(m, title);
-                dizionariDirector[mapIndex].insert(m, director.getName());
                 dizionariVotes[mapIndex].insert(m, votes);
                 dizionariYear[mapIndex].insert(m, year);
+                loadDirector(m, director);
                 loadCast(m, cast);
                 if (myReader.hasNextLine())
                     myReader.nextLine();
@@ -135,7 +145,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return s;
     }
 
-    public void saveToFile(File f) {
+    public void saveToFile(File f) { //TODO
         try {
             PrintWriter writer = new PrintWriter(f);
             // if (f.createNewFile()) {
@@ -179,8 +189,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return dizionariTitle[mapIndex].getCarico();
     }
 
-    public int countPeople() { // TODO: da fare
-        return dizionariCast[mapIndex].getCarico();
+    public int countPeople() {
+        return dizionariDirector[mapIndex].getCarico() + dizionariCast[mapIndex].getCarico();
     }
 
     public boolean deleteMovieByTitle(String title) {
@@ -190,8 +200,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
             for (Movie movie : movies) {
                 dizionariYear[mapIndex].insert(movie, movie.getYear());
                 dizionariVotes[mapIndex].insert(movie, movie.getVotes());
-                // dizionariCast[mapIndex].insert(movie, movie.getCast());
-                dizionariDirector[mapIndex].insert(movie, movie.getDirector().getName());
+                loadCast(movie, movie.getCast());
+                loadDirector(movie, movie.getDirector());
             }
             return true;
         }
@@ -202,7 +212,13 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return dizionariTitle[mapIndex].search(title);
     }
 
-    public Person getPersonByName(String name) { // TODO: da fare
+    public Person getPersonByName(String name) {
+        Person p = new Person(name);
+        Boolean foundCast = dizionariCast[mapIndex].searchKey(p);
+        Boolean foundDirector = dizionariDirector[mapIndex].searchKey(p);
+        if(foundCast || foundDirector){
+            return p;
+        }
         return null;
     }
 
@@ -211,6 +227,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
     }
 
     public Person[] getAllPeople() { // TODO: da fare
+        Comparable[] arrayProva = dizionariCast[mapIndex].exportKeys();
+        Person[] arrayCast = new Person[arrayProva.length];
+        for(int i =0; i<arrayProva.length;i++){
+            //arrayCast[i] = Person(arrayProva[i]);
+        }
         return null;
     }
 
@@ -250,8 +271,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         File file2 = new File("src/movida/fabbridonno/test2.txt");
         mc.loadFromFile(file);
         Movie c = mc.getMovieByTitle("Cape Fear");
-        System.out.println(c.getDirector().getName());
-        System.out.println(mc.countMovies());
+        //System.out.println(c.getDirector().getName());
+        System.out.println( "Numero film: " + mc.countMovies());
         // mc.dizionariTitle[mc.getmapIndex()].clear();
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
@@ -259,11 +280,12 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         // System.out.println(mc.countMovies());
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
-        System.out.println("Suca Juri");
+        //System.out.println("Suca Juri");
         mc.deleteMovieByTitle("Cape Fear");
-        System.out.println(mc.countMovies());
-        System.out.println("numero persone: "+mc.countPeople());
-        mc.dizionariDirector[mc.getmapIndex()].stampa();
+        //System.out.println(mc.countMovies());
+        System.out.println(mc.getPersonByName("Juri"));
+        mc.dizionariCast[mc.mapIndex].stampa();
+        //mc.dizionariDirector[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
         // File file2 = new File("movida/fabbridonno/test2.txt");
         mc.saveToFile(file2);

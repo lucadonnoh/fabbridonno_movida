@@ -54,4 +54,12 @@ public final class Record {
     {
         return key;
     }
+
+    public void print(){
+        System.out.print("Chiave: " + key + "\nRecord: ");
+        for(Movie m: movie){
+            System.out.print(m.getTitle());
+        }
+        System.out.print("\n\n");
+    }
 }
