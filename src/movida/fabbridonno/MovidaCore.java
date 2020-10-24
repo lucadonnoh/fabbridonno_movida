@@ -6,7 +6,7 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
-public class MovidaCore implements IMovidaConfig, IMovidaDB {
+public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     private final SortingAlgorithm SAs[] = { SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort };
     private SortingAlgorithm selectedSort;
     private final MapImplementation Maps[] = { MapImplementation.ListaNonOrdinata,
@@ -262,6 +262,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return r.getAllMovies();
     }
 
+    public Person[] searchMostActiveActors(Integer N) {
+        // TODO Auto-generated method stub
+        return null;
+    }
     public static void main(String[] args) {
         Person p1 = new Person("Juri Fabbri");
         Person p2 = new Person("Donno");
@@ -301,4 +305,5 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         mc.getAllPeople();
         //mc.saveToFile(file2);
     }
+
 }
