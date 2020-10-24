@@ -50,6 +50,18 @@ public final class Record {
         return movie.get(0);
     }
 
+    public Movie[] getAllMovies()
+    {
+        Movie[] ms = new Movie[getCarico()];
+        int i = 0;
+        for(Movie m : movie)
+        {
+            ms[i++] = m;
+        }
+
+        return ms;
+    }
+
     public Comparable getKey()
     {
         return key;

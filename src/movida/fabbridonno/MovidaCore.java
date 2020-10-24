@@ -145,7 +145,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return s;
     }
 
-    public void saveToFile(File f) { //TODO
+    public void saveToFile(File f) { //TODO: ?? sembra finito ma c'è il todo
         try {
             PrintWriter writer = new PrintWriter(f);
             // if (f.createNewFile()) {
@@ -214,25 +214,24 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
 
     public Person getPersonByName(String name) {
         Person p = new Person(name);
-        Boolean foundCast = dizionariCast[mapIndex].searchKey(p);
-        Boolean foundDirector = dizionariDirector[mapIndex].searchKey(p);
-        if(foundCast || foundDirector){
-            return p;
-        }
-        return null;
+        Record r = dizionariCast[mapIndex].searchRecord(p);
+        if(r == null) return null;
+        Comparable c = r.getKey();
+        Person myPerson = (Person)c;
+        return myPerson;
     }
 
     public Movie[] getAllMovies() {
         return dizionariTitle[mapIndex].export();
     }
 
-    public Person[] getAllPeople() { // TODO: da fare
-        Comparable[] arrayProva = dizionariCast[mapIndex].exportKeys();
-        Person[] arrayCast = new Person[arrayProva.length];
-        for(int i =0; i<arrayProva.length;i++){
-            //arrayCast[i] = Person(arrayProva[i]);
+    public Person[] getAllPeople() { // TODO: da calcolare costo
+        Comparable[] comparables = dizionariCast[mapIndex].exportKeys();
+        Person[] arrayCast = new Person[comparables.length];
+        for(int i =0; i<comparables.length;i++){
+            arrayCast[i] = (Person)comparables[i];
         }
-        return null;
+        return arrayCast;
     }
 
     public Movie[] searchMoviesInYear(Integer year) {
@@ -255,6 +254,14 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         return dizionariYear[mapIndex].firstNMovies(N);
     }
 
+    public Movie[] searchMoviesStarredBy(String name) //TODO: da testare
+    {
+        Person p = new Person(name);
+        Record r = dizionariCast[mapIndex].searchRecord(p);
+        if (r == null) return null;
+        return r.getAllMovies();
+    }
+
     public static void main(String[] args) {
         Person p1 = new Person("Juri Fabbri");
         Person p2 = new Person("Donno");
@@ -268,7 +275,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         MovidaCore mc = new MovidaCore();
         mc.setMap(MapImplementation.ListaNonOrdinata);
         File file = new File("src/movida/fabbridonno/test.txt");
-        File file2 = new File("src/movida/fabbridonno/test2.txt");
+        //File file2 = new File("src/movida/fabbridonno/test2.txt");
         mc.loadFromFile(file);
         Movie c = mc.getMovieByTitle("Cape Fear");
         //System.out.println(c.getDirector().getName());
@@ -283,11 +290,15 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         //System.out.println("Suca Juri");
         mc.deleteMovieByTitle("Cape Fear");
         //System.out.println(mc.countMovies());
-        System.out.println(mc.getPersonByName("Juri"));
+        //System.out.println(mc.getPersonByName("Juri"));
         mc.dizionariCast[mc.mapIndex].stampa();
         //mc.dizionariDirector[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
         // File file2 = new File("movida/fabbridonno/test2.txt");
-        mc.saveToFile(file2);
+        Person p = mc.getPersonByName("Jodie Foster");
+        System.out.println(p.getName());
+        Movie[] ms = mc.searchMoviesStarredBy("Harrison Ford");
+        mc.getAllPeople();
+        //mc.saveToFile(file2);
     }
 }
