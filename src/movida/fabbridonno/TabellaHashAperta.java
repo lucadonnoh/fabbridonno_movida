@@ -1,7 +1,7 @@
 package movida.fabbridonno;
 import movida.commons.*;
 
-public class TabellaHashAperta<T> implements DizionarioFilm<T>{
+public class TabellaHashAperta<T, K extends Comparable<K>> implements DizionarioFilm<T, K>{
     protected Movie[] v;
 
     public TabellaHashAperta()
@@ -9,17 +9,17 @@ public class TabellaHashAperta<T> implements DizionarioFilm<T>{
 
     }
 
-    public void insert(T m, Comparable k)
+    public void insert(T m, K k)
     {
 
     }
 
-    public boolean delete(Comparable k)
+    public boolean delete(K k)
     {
         return false;
     }
 
-    public Movie search(Comparable k)
+    public Movie search(K k)
     {
         return null;
     }
@@ -34,12 +34,12 @@ public class TabellaHashAperta<T> implements DizionarioFilm<T>{
         return null;
     }
 
-    public Comparable[] exportKeys()
+    public Comparable<K>[] exportKeys()
     {
         return null;
     }
 
-    public Boolean searchKey(Comparable k)
+    public Boolean searchKey(K k)
     {
         return null;
     }
@@ -53,7 +53,7 @@ public class TabellaHashAperta<T> implements DizionarioFilm<T>{
 
     }
 
-    public Movie[] searchMoviesByKey(Comparable k)
+    public Movie[] searchMoviesByKey(K k)
     {
         return null;
     }
@@ -68,10 +68,10 @@ public class TabellaHashAperta<T> implements DizionarioFilm<T>{
 
     public void sort(int index, boolean b)
     {
-        
+
     }
 
-    public Record searchRecord(Comparable k)
+    public Record<T, K> searchRecord(K k)
     {
         return null;
     }

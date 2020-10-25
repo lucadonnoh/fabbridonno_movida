@@ -13,11 +13,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             MapImplementation.HashIndirizzamentoAperto };
     private MapImplementation selectedMap;
 
-    public DizionarioFilm<Movie> dizionariTitle;
-    public DizionarioFilm<Movie> dizionariYear;
-    public DizionarioFilm<Movie> dizionariDirector;
-    public DizionarioFilm<Movie> dizionariVotes;
-    public DizionarioFilm<Movie> dizionariCast;
+    public DizionarioFilm<Movie, String> dizionariTitle;
+    public DizionarioFilm<Movie, Integer> dizionariYear;
+    public DizionarioFilm<Movie, Person> dizionariDirector;
+    public DizionarioFilm<Movie, Integer> dizionariVotes;
+    public DizionarioFilm<Movie, Person> dizionariCast;
 
     private int mapIndex; // indice della struttura selezionata
     private int sortIndex;
@@ -56,15 +56,15 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         if (selectedMap != m) {
             if(m == MapImplementation.ListaNonOrdinata)
             {
-                dizionariTitle = new ListaNonOrdinata<Movie>();
-                dizionariYear = new ListaNonOrdinata<Movie>();
-                dizionariVotes = new ListaNonOrdinata<Movie>();
-                dizionariDirector = new ListaNonOrdinata<Movie>();
-                dizionariCast = new ListaNonOrdinata<Movie>();
+                dizionariTitle = new ListaNonOrdinata<Movie, String>();
+                dizionariYear = new ListaNonOrdinata<Movie, Integer>();
+                dizionariVotes = new ListaNonOrdinata<Movie, Integer>();
+                dizionariDirector = new ListaNonOrdinata<Movie, Person>();
+                dizionariCast = new ListaNonOrdinata<Movie, Person>();
             }
             else
             {
-                //TODO: 
+                //TODO:
             }
         }
         return false;
@@ -88,7 +88,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public void loadDirector(Movie m, Person Director) {
-        Record<Movie> regista = dizionariDirector.searchRecord(Director);
+        Record<Movie, Person> regista = dizionariDirector.searchRecord(Director);
         System.out.println(Director.toString());
         if (regista == null) {
             System.out.println("Nuovo");
@@ -101,7 +101,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     public void loadCast(Movie m, Person[] cast) {
         for (int i = 0; i < cast.length; i++) {
-            Record<Movie> attore = dizionariCast.searchRecord(cast[i]);
+            Record<Movie, Person> attore = dizionariCast.searchRecord(cast[i]);
             if (attore == null) {
                 dizionariCast.insert(m, cast[i]);
             } else {
@@ -224,11 +224,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     public Person getPersonByName(String name) {
         Person p = new Person(name);
-        Record<Movie> r = dizionariCast.searchRecord(p);
+        Record<Movie, Person> r = dizionariCast.searchRecord(p);
         if (r == null)
             return null;
-        Comparable c = r.getKey();
-        Person myPerson = (Person) c;
+        Comparable<Person> c = r.getKey();
+        Person myPerson = (Person)c;
         return myPerson;
     }
 
@@ -237,7 +237,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     private Person[] getAllActors() {
-        Comparable[] compCast = dizionariCast.exportKeys();
+        Comparable<Person>[] compCast = dizionariCast.exportKeys();
         Person[] actors = new Person[compCast.length];
         for (int i = 0; i < compCast.length; i++) {
             actors[i] = (Person) compCast[i];
@@ -270,7 +270,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public Movie[] searchMoviesDirectedBy(String name) {
-        return dizionariDirector.searchMoviesByKey(name);
+        return dizionariDirector.searchMoviesByKey(new Person(name));
     }
 
     public Movie[] searchMoviesByTitle(String title) {
@@ -287,7 +287,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     public Movie[] searchMoviesStarredBy(String name) {
         Person p = new Person(name);
-        Record<Movie> r = dizionariCast.searchRecord(p);
+        Record<Movie, Person> r = dizionariCast.searchRecord(p);
         if (r == null)
             return null;
         return r.getAllMovies();
@@ -302,8 +302,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             keys[i++] = dizionariCast.searchRecord(p).getCarico();
         }
 
-        DizionarioFilm<Person> attività;
-        attività = (selectedMap == MapImplementation.ListaNonOrdinata) ? new ListaNonOrdinata<Person>() : new TabellaHashAperta<Person>();
+        DizionarioFilm<Person, Integer> attività;
+        attività = (selectedMap == MapImplementation.ListaNonOrdinata) ? new ListaNonOrdinata<Person, Integer>() : new TabellaHashAperta<Person, Integer>();
 
         for(i = 0; i<attori.length; i++)
         {

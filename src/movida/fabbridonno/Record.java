@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import movida.commons.*;
 
-public final class Record<T> {
+public final class Record<T, K extends Comparable<K>> {
     /**
      * Elemento da conservare nel record
      */
@@ -11,17 +11,17 @@ public final class Record<T> {
     /**
      * Chiave associata all'elemento da conservare nel record
      */
-    private Comparable key;
+    private K key;
 
     /**
      * Puntatore al prossimo record nella struttura collegata
      */
-    public Record<T>     next;
+    public Record<T, K>     next;
 
     /**
      * Puntatore al record precedente nella struttura collegata
      */
-    public Record<T>     prev;
+    public Record<T, K>     prev;
     /**
      * Costruttore per l'allocazione di un nuovo record
      *
@@ -29,7 +29,7 @@ public final class Record<T> {
      * @param k lakey associata all'elemento da conservare nel record
      */
 
-    public Record(T m, Comparable k) {
+    public Record(T m, K k) {
         Els.add(m);
         key = k;
         next = prev = null;
@@ -62,7 +62,7 @@ public final class Record<T> {
         return ms;
     }
 
-    public Comparable getKey()
+    public K getKey()
     {
         return key;
     }
