@@ -1,14 +1,14 @@
 package movida.fabbridonno;
 import movida.commons.*;
 
-public interface DizionarioFilm {
+public interface DizionarioFilm<T> {
 	/**
 	 * Aggiunge al dizionario la coppia <code>(e,k)</code>.
 	 *
 	 * @param e elemento da mantenere nel dizionario
 	 * @param k chiave associata all'elemento
 	 */
-	public void insert(Movie e, Comparable k);
+	public void insert(T e, Comparable k);
 
 	/**
 	 * Rimuove dal dizionario l'elemento con chiave <code>k</code>.
@@ -39,7 +39,7 @@ public interface DizionarioFilm {
 
 	public Movie[] searchMoviesByKey(Comparable k);
 
-	public Record searchRecord(Comparable k);
+	public Record<T> searchRecord(Comparable k);
 
 	public Boolean searchKey(Comparable k);
 

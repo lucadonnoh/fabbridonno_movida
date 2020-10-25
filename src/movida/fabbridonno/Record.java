@@ -3,25 +3,25 @@ import java.util.ArrayList;
 
 import movida.commons.*;
 
-public final class Record {
+public final class Record<T> {
     /**
      * Elemento da conservare nel record
      */
-    private ArrayList<Movie> movie = new ArrayList<Movie>();
+    private ArrayList<T> Els = new ArrayList<T>();
     /**
      * Chiave associata all'elemento da conservare nel record
      */
-    private Comparable  key;
+    private Comparable key;
 
     /**
      * Puntatore al prossimo record nella struttura collegata
      */
-    public Record     next;
+    public Record<T>     next;
 
     /**
      * Puntatore al record precedente nella struttura collegata
      */
-    public Record     prev;
+    public Record<T>     prev;
     /**
      * Costruttore per l'allocazione di un nuovo record
      *
@@ -29,34 +29,34 @@ public final class Record {
      * @param k lakey associata all'elemento da conservare nel record
      */
 
-    public Record(Movie m, Comparable k) {
-        movie.add(m);
+    public Record(T m, Comparable k) {
+        Els.add(m);
         key = k;
         next = prev = null;
     }
 
-    public void addMovie(Movie m)
+    public void addEl(T m)
     {
-        movie.add(m);
+        Els.add(m);
     }
 
     public int getCarico()
     {
-        return movie.size(); // O(1)
+        return Els.size(); // O(1)
     }
 
     public Movie getMovie()
     {
-        return movie.get(0);
+        return (Movie)Els.get(0);
     }
 
     public Movie[] getAllMovies()
     {
         Movie[] ms = new Movie[getCarico()];
         int i = 0;
-        for(Movie m : movie)
+        for(T m : Els)
         {
-            ms[i++] = m;
+            ms[i++] = (Movie)m;
         }
 
         return ms;
@@ -69,8 +69,8 @@ public final class Record {
 
     public void print(){
         System.out.print("Chiave: " + key + "\nRecord: ");
-        for(Movie m: movie){
-            System.out.print(m.getTitle());
+        for(T m: Els){
+            System.out.print(((Movie)m).getTitle());
         }
         System.out.print("\n\n");
     }

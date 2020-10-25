@@ -1,7 +1,7 @@
 package movida.fabbridonno;
 import movida.commons.*;
 
-public class TabellaHashAperta implements DizionarioFilm{
+public class TabellaHashAperta<T> implements DizionarioFilm<T>{
     protected Movie[] v;
 
     public TabellaHashAperta()
@@ -9,7 +9,7 @@ public class TabellaHashAperta implements DizionarioFilm{
 
     }
 
-    public void insert(Movie m, Comparable k)
+    public void insert(T m, Comparable k)
     {
 
     }

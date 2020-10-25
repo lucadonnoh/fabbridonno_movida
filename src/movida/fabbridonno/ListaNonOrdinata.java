@@ -2,9 +2,9 @@ package movida.fabbridonno;
 
 import movida.commons.*;
 
-public class ListaNonOrdinata implements DizionarioFilm {
+public class ListaNonOrdinata<T> implements DizionarioFilm<T> {
 
-    private Record record;
+    private Record<T> record;
     private int carico;
 
     public ListaNonOrdinata() {
@@ -12,7 +12,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
         record = null;
     }
 
-    public Record getRecord() {
+    public Record<T> getRecord() {
         return record;
     }
 
@@ -20,9 +20,9 @@ public class ListaNonOrdinata implements DizionarioFilm {
         return carico;
     }
 
-    public void insert(Movie e, Comparable k) {// TODO meglio inserimento in coda?
+    public void insert(T e, Comparable k) {// TODO meglio inserimento in coda?
 
-        Record p = new Record(e, k);
+        Record<T> p = new Record<T>(e, k);
 
         if (record == null)
             record = p;
@@ -36,7 +36,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
 
     public boolean delete(Comparable k) {
 
-        Record tmp = record, prev = null;
+        Record<T> tmp = record, prev = null;
         if (tmp != null && tmp.getKey().equals(k)) {
 
             record = record.next;
@@ -62,10 +62,10 @@ public class ListaNonOrdinata implements DizionarioFilm {
             return null;
     }
 
-    public Record searchRecord(Comparable k) {
+    public Record<T> searchRecord(Comparable k) {
         if (record == null)
             return null;
-        Record p = record;
+        Record<T> p = record;
         while (p != null) {
             if (p.getKey().equals(k))
                 return p;
@@ -77,7 +77,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
     public Boolean searchKey(Comparable k) {
         if (record == null)
             return false;
-        Record p = record;
+        Record<T> p = record;
         while (p != null) {
             if (p.getKey().equals(k))
                 return true;
@@ -86,12 +86,12 @@ public class ListaNonOrdinata implements DizionarioFilm {
         return false;
     }
 
-    public Record convertToList(DizionarioFilm p){
+    public Record<T> convertToList(DizionarioFilm p){
         return null;
     }
 
     public void stampa() {//TODO
-        Record p = record;
+        Record<T> p = record;
         while (p != null) {
             p.print();
             p = p.next;
@@ -102,7 +102,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
         Movie[] movies = new Movie[carico];
         int i = 0;
 
-        Record p = record;
+        Record<T> p = record;
         while (p != null) {
             movies[i++] = p.getMovie();
             p = p.next;
@@ -114,7 +114,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
         Comparable[] movies = new Comparable[carico];
         int i = 0;
 
-        Record p = record;
+        Record<T> p = record;
         while (p != null ) {
             movies[i++] = p.getKey();
             p = p.next;
@@ -127,7 +127,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
         record = null;
     }
 
-    private Movie[] nNextMovies(Record p, int n) {
+    private Movie[] nNextMovies(Record<T> p, int n) {
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
             movies[i] = p.getMovie();
@@ -137,8 +137,8 @@ public class ListaNonOrdinata implements DizionarioFilm {
     }
 
     public Movie[] searchMoviesByKey(Comparable k) {
-        Record p = searchRecord(k);
-        Record tmp = p;
+        Record<T> p = searchRecord(k);
+        Record<T> tmp = p;
         int n = 0;
         while (tmp.next.getKey() == k) {
             n++;
@@ -151,13 +151,13 @@ public class ListaNonOrdinata implements DizionarioFilm {
 
     public Movie[] firstNMovies(int n) {
         Movie[] movies = new Movie[n];
-        Record p = record;
+        Record<T> p = record;
         movies = nNextMovies(p, n);
         return movies;
     }
 
     public Movie[] stringInTitle(String title) {
-        Record p = record;
+        Record<T> p = record;
         int i = 0;
         while (p != null) {
             if (p.getMovie().getTitle().contains(title)) {
@@ -193,13 +193,13 @@ public class ListaNonOrdinata implements DizionarioFilm {
     public void insertionSort(boolean b) {
 
         // Initialize sorted linked list
-        Record sorted = null;
-        Record current = record;
+        Record<T> sorted = null;
+        Record<T> current = record;
         // Traverse the given linked list and insert every
         // Record to sorted
         while (current != null) {
             // Store next for next iteration
-            Record next = current.next;
+            Record<T> next = current.next;
             // insert current in sorted linked list
             sorted = sortedInsert(current, sorted, b);
             // Update current
@@ -214,14 +214,14 @@ public class ListaNonOrdinata implements DizionarioFilm {
      * pointer to head_ref as this can modify the head of the input linked list
      * (similar to push())
      */
-    private Record sortedInsert(Record newRecord, Record sorted, boolean b) {
+    private Record<T> sortedInsert(Record<T> newRecord, Record<T> sorted, boolean b) {
         /* Special case for the head end */
         if (b) {
             if (sorted == null || sorted.getKey().compareTo(newRecord.getKey()) >= 0) {
                 newRecord.next = sorted;
                 sorted = newRecord;
             } else {
-                Record current = sorted;
+                Record<T> current = sorted;
                 /* Locate the Record before the point of insertion */
                 while (current.next != null && current.next.getKey().compareTo(newRecord.getKey()) < 0) {
                     current = current.next;
@@ -235,7 +235,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
                 newRecord.next = sorted;
                 sorted = newRecord;
             } else {
-                Record current = sorted;
+                Record<T> current = sorted;
                 /* Locate the Record before the point of insertion */
                 while (current.next != null && current.next.getKey().compareTo(newRecord.getKey()) > 0) {
                     current = current.next;
@@ -247,13 +247,13 @@ public class ListaNonOrdinata implements DizionarioFilm {
         return sorted;
     }
 
-    private Record paritionLast(Record start, Record end) {
+    private Record<T> paritionLast(Record<T> start, Record<T> end) {
         if (start == end || start == null || end == null)
             return start;
 
-        Record pivot_prev = start;
-        Record curr = start;
-        Record pivot = end;
+        Record<T> pivot_prev = start;
+        Record<T> curr = start;
+        Record<T> pivot = end;
         // iterate till one before the end,
         // no need to iterate till the end
         // because end is pivot
@@ -261,7 +261,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
             if (start.getKey().compareTo(pivot.getKey()) < 0) {
                 // keep tracks of last modified item
                 pivot_prev = curr;
-                Record temp = curr;
+                Record<T> temp = curr;
                 curr = start;
                 start = temp;
                 curr = curr.next;
@@ -271,7 +271,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
 
         // swap the position of curr i.e.
         // next suitable index and pivot
-        Record temp = curr;
+        Record<T> temp = curr;
         curr = pivot;
         end = temp;
 
@@ -280,12 +280,12 @@ public class ListaNonOrdinata implements DizionarioFilm {
         return pivot_prev;
     }
 
-    private void quickSort(Record start, Record end) {
+    private void quickSort(Record<T> start, Record<T> end) {
         if (start == end)
             return;
 
         // split list and partion recurse
-        Record pivot_prev = paritionLast(start, end);
+        Record<T> pivot_prev = paritionLast(start, end);
         quickSort(start, pivot_prev);
 
         // if pivot is picked and moved to the start,
@@ -302,7 +302,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
     }
 
     private void quick() {
-        Record last = record;
+        Record<T> last = record;
         while (last.next != null)
             last = last.next;
         quickSort(record, last);
