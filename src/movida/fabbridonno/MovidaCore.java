@@ -230,13 +230,12 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         Comparable[] compDir = dizionariDirector[mapIndex].exportKeys();
         Person[] array = new Person[compCast.length+compDir.length];
         int i = 0;
-        int j = 0;
         for(; i<compCast.length;i++){
             array[i] = (Person)compCast[i];
         }
-        for(i--; j<compDir.length; j++, i++)
+        for(int j = 0; j<compDir.length; j++, i++)
         {
-            array[i] = (Person)compDir[i];
+            array[i] = (Person)compDir[j];
         }
         return array;
     }
@@ -308,7 +307,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         // File file2 = new File("movida/fabbridonno/test2.txt");
         Person p = mc.getPersonByName("Jodie Foster");
         System.out.println(p.getName());
-        Movie[] ms = mc.searchMoviesStarredBy("Robert De Niro");
+        //Movie[] ms = mc.searchMoviesStarredBy("Robert De Niro");
         Person[] ps = mc.getAllPeople();
         int i;
         //mc.saveToFile(file2);
