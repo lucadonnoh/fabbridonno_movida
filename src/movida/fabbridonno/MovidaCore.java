@@ -7,10 +7,16 @@ import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
 public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
-    private final SortingAlgorithm SAs[] = { SortingAlgorithm.InsertionSort, SortingAlgorithm.QuickSort };
+    private final SortingAlgorithm SAs[] = {
+        SortingAlgorithm.InsertionSort,
+        SortingAlgorithm.QuickSort
+    };
     private SortingAlgorithm selectedSort;
-    private final MapImplementation Maps[] = { MapImplementation.ListaNonOrdinata,
-            MapImplementation.HashIndirizzamentoAperto };
+
+    private final MapImplementation Maps[] = {
+        MapImplementation.ListaNonOrdinata,
+        MapImplementation.HashIndirizzamentoAperto
+    };
     private MapImplementation selectedMap;
 
     public DizionarioFilm<Movie, String> dizionariTitle;
@@ -19,16 +25,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     public DizionarioFilm<Movie, Integer> dizionariVotes;
     public DizionarioFilm<Movie, Person> dizionariCast;
 
-    private int mapIndex; // indice della struttura selezionata
     private int sortIndex;
 
     public MovidaCore() {
         selectedSort = null;
         selectedMap = null;
-    }
-
-    public int getmapIndex() {
-        return mapIndex;
     }
 
     /**
@@ -38,7 +39,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
      *
      * @param a l'algoritmo da selezionare
      */
-    public boolean setSort(SortingAlgorithm a) {
+    public boolean setSort(SortingAlgorithm a) { //TODO: da cambiare
         if (selectedSort != a) {
             for (int i = 0; i < SAs.length; i++) {
                 if (a == SAs[i]) {
@@ -48,7 +49,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
                 }
             }
         }
-
         return false;
     }
 
@@ -87,7 +87,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return cast;
     }
 
-    public void loadDirector(Movie m, Person Director) {
+    public void loadDirector(Movie m, Person Director) { //TODO: togliere i print?
         Record<Movie, Person> regista = dizionariDirector.searchRecord(Director);
         System.out.println(Director.toString());
         if (regista == null) {
@@ -311,7 +311,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
 
         attività.sort(0, true);
-        attività.firstNMovies(N);
+        attività.firstNMovies(N); //TODO:
         return null;
     }
 

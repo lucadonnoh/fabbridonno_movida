@@ -45,7 +45,7 @@ public final class Record<T, K extends Comparable<K>> {
         return Els.size(); // O(1)
     }
 
-    public Movie getMovie()
+    public Movie getMovie() //TODO: non va bene
     {
         return (Movie)Els.get(0);
     }
