@@ -180,10 +180,10 @@ public class ListaNonOrdinata implements DizionarioFilm {
     public void sort(int index, boolean b) {
         switch (index) {
             case 0:
-                quick();
+                insertionSort(b);
                 break;
             case 1:
-                insertionSort(b);
+                quick();
                 break;
             default:
                 break;
