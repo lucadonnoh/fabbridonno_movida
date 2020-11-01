@@ -20,7 +20,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return carico;
     }
 
-    public void insert(T e, K k) {// TODO meglio inserimento in coda?
+    public void insert(T e, K k) {
 
         Record<T, K> p = new Record<T, K>(e, k);
 
@@ -100,12 +100,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
         Record<T, K> p = record;
         while (p != null) {
-            movies[i++] = p.getMovie();
+            movies[i++] = (Movie)p.getEl();
             p = p.next;
         }
         return movies;
     }
 
+    @SuppressWarnings("unchecked")
     public Comparable<K>[] exportKeys() {
         Comparable<K>[] movies = new Comparable[carico];
         int i = 0;
@@ -123,6 +124,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         record = null;
     }
 
+    //TODO: mettere a posto il cast fra el/movies/ecc
     private Movie[] nNextMovies(Record<T, K> p, int n) {
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
@@ -130,6 +132,15 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             p = p.next;
         }
         return movies;
+    }
+
+    private Person[] nNextActors(Record<T, K> p, int n) {
+        Person[] actors = new Person[n];
+        for (int i = 0; i < n; i++) {
+            actors[i] = (Person)p.getEl();
+            p = p.next;
+        }
+        return actors;
     }
 
     public Movie[] searchMoviesByKey(K k) {
@@ -150,6 +161,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         Record<T, K> p = record;
         movies = nNextMovies(p, n);
         return movies;
+    }
+
+    public Person[] firstNActors(int n) {
+        Person[] actors = new Person[n];
+        Record<T, K> p = record;
+        actors = nNextActors(p, n);
+        return actors;
     }
 
     public Movie[] stringInTitle(String title) {
@@ -243,64 +261,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return sorted;
     }
 
-    private Record<T, K> paritionLast(Record<T, K> start, Record<T, K> end) {
-        if (start == end || start == null || end == null)
-            return start;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Record<T, K> pivot_prev = start;
-        Record<T, K> curr = start;
-        Record<T, K> pivot = end;
-        // iterate till one before the end,
-        // no need to iterate till the end
-        // because end is pivot
-        while (start != end) {
-            if (start.getKey().compareTo(pivot.getKey()) < 0) {
-                // keep tracks of last modified item
-                pivot_prev = curr;
-                Record<T, K> temp = curr;
-                curr = start;
-                start = temp;
-                curr = curr.next;
-            }
-            start = start.next;
-        }
-
-        // swap the position of curr i.e.
-        // next suitable index and pivot
-        Record<T, K> temp = curr;
-        curr = pivot;
-        end = temp;
-
-        // return one previous to current
-        // because current is now pointing to pivot
-        return pivot_prev;
-    }
-
-    private void quickSort(Record<T, K> start, Record<T, K> end) {
-        if (start == end)
+    private void quickSort(Comparator<T> comparator, int begin, int end) {
+        if (begin >= end) {
             return;
-
-        // split list and partion recurse
-        Record<T, K> pivot_prev = paritionLast(start, end);
-        quickSort(start, pivot_prev);
-
-        // if pivot is picked and moved to the start,
-        // that means start and pivot is same
-        // so pick from next of pivot
-        if (pivot_prev != null && pivot_prev == start)
-            quickSort(pivot_prev.next, end);
-
-        // if pivot is in between of the list,
-        // start from next of pivot,
-        // since we have pivot_prev, so we move two Records
-        else if (pivot_prev != null && pivot_prev.next != null)
-            quickSort(pivot_prev.next.next, end);
+        }
+        int pivot = partition(elements, comparator, begin, end);
+        quicksortRecursive(elements, comparator, begin, pivot - 1);
+        quicksortRecursive(elements, comparator, pivot + 1, end);
     }
-
-    private void quick() {
-        Record<T, K> last = record;
-        while (last.next != null)
-            last = last.next;
-        quickSort(record, last);
-    }
-}

@@ -45,13 +45,26 @@ public final class Record<T, K extends Comparable<K>> {
         return Els.size(); // O(1)
     }
 
-    public Movie getMovie() //TODO: non va bene
+    public T getEl()
     {
+        return Els.get(0);
+    }
+
+    public Movie getMovie()
+    {
+        if(! (Els.get(0) instanceof Movie)){
+            return null;
+            //throw new Exception("Il record non è di Movies");
+        }
         return (Movie)Els.get(0);
+
     }
 
     public Movie[] getAllMovies()
     {
+        // if(! (Els.get(0) instanceof Movie)){
+        //     throw new Exception("Il record non è di Movies");
+        // }
         Movie[] ms = new Movie[getCarico()];
         int i = 0;
         for(T m : Els)
@@ -70,7 +83,7 @@ public final class Record<T, K extends Comparable<K>> {
     public void print(){
         System.out.print("Chiave: " + key + "\nRecord: ");
         for(T m: Els){
-            System.out.print(((Movie)m).getTitle());
+            System.out.print(m.toString());
         }
         System.out.print("\n\n");
     }

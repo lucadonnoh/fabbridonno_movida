@@ -56,5 +56,9 @@ public class Movie {
 		return this.director;
 	}
 
+	@Override
+	public String toString(){
+		return this.title;
+	}
 
 }

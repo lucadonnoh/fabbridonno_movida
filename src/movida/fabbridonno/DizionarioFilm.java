@@ -47,10 +47,13 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 
 	public Movie[] firstNMovies(int n);
 
+	//TODO: vedere se tenerla
+	public Person[] firstNActors(int n);
+
 	public Movie[] stringInTitle(String title);
 
 	public void sort(int index, boolean b);
 
-	//public void insertionSort(boolean b); TODO: vedere come fare
+	public void insertionSort(boolean b);
 
 }

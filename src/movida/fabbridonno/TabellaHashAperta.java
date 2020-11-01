@@ -62,6 +62,10 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return null;
     }
 
+    public Person[] firstNActors (int n){
+        return null;
+    }
+
     public Movie[] stringInTitle(String title){
         return null;
     }
@@ -74,5 +78,9 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     public Record<T, K> searchRecord(K k)
     {
         return null;
+    }
+
+    public void insertionSort(boolean b){
+        return;
     }
 }
