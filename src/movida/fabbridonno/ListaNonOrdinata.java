@@ -55,12 +55,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return true;
     }
 
-    public Movie search(K k) {
+    public T search(K k) {
         if (searchRecord(k) != null)
-            return searchRecord(k).getMovie();
+            return searchRecord(k).getEl();
         else
             return null;
     }
+    
 
     public Record<T, K> searchRecord(K k) {
         if (record == null)
@@ -128,7 +129,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     private Movie[] nNextMovies(Record<T, K> p, int n) {
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
-            movies[i] = p.getMovie();
+            movies[i] = Record.toMovie(p.getEl());
             p = p.next;
         }
         return movies;
@@ -137,7 +138,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     private Person[] nNextActors(Record<T, K> p, int n) {
         Person[] actors = new Person[n];
         for (int i = 0; i < n; i++) {
-            actors[i] = (Person)p.getEl();
+            actors[i] = Record.toPerson(p.getEl());
             p = p.next;
         }
         return actors;
@@ -174,7 +175,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         Record<T, K> p = record;
         int i = 0;
         while (p != null) {
-            if (p.getMovie().getTitle().contains(title)) {
+            if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
                 i++;
             }
             p = p.next;
@@ -183,10 +184,10 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         i = 0;
         Movie[] movies = new Movie[i];
         while (p != null) {
-            if (p.getMovie().getTitle().contains(title)) {
-                movies[i] = p.getMovie();
+            if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
+                movies[i] = (Record.toMovie(p.getEl()));
                 i++;
-            }
+            } //TODO: manca p.next o sbaglio?
         }
         return movies;
     }
@@ -197,7 +198,6 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
                 insertionSort(b);
                 break;
             case 1:
-                quick();
                 break;
             default:
                 break;
@@ -263,11 +263,4 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void quickSort(Comparator<T> comparator, int begin, int end) {
-        if (begin >= end) {
-            return;
-        }
-        int pivot = partition(elements, comparator, begin, end);
-        quicksortRecursive(elements, comparator, begin, pivot - 1);
-        quicksortRecursive(elements, comparator, pivot + 1, end);
     }

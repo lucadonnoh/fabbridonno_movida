@@ -293,8 +293,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         Record<Movie, Person> r = dizionariCast.searchRecord(p);
         if (r == null)
             return null;
-        return r.getAllMovies();
+        return Record.toMovieArray(r.getAllEls());
     }
+
+
 
     public Person[] searchMostActiveActors(Integer N) {
         Person[] attori = getAllActors();

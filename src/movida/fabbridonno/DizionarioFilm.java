@@ -27,7 +27,7 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 * @param k chiave dell'elemento da ricercare
 	 * @return elemento di chiave <code>k</code>, <code>null</code> se assente
 	 */
-	public Movie search(K k);
+	public T search(K k);
 
 	public void stampa();
 

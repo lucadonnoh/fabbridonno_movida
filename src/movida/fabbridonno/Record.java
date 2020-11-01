@@ -35,6 +35,37 @@ public final class Record<T, K extends Comparable<K>> {
         next = prev = null;
     }
 
+    public static <T> Movie toMovie(T t)
+    {
+        if(!(t instanceof Movie)) 
+        {
+            System.out.println("WARNING: l'elemento non è di tipo Movie, ritorno NULL");
+            return null;
+        }
+        return (Movie)t;
+    }
+
+    public static <T> Movie[] toMovieArray(ArrayList<T> al)
+    {
+        Movie[] ms = new Movie[al.size()];
+        int i = 0;
+        for(T el : al)
+        {
+            ms[i++] = toMovie(el);
+        }
+        return ms;
+    }
+
+    public static <T> Person toPerson(T t)
+    {
+        if(!(t instanceof Person)) 
+        {
+            System.out.println("WARNING: l'elemento non è di tipo Person, ritorno NULL");
+            return null;
+        }
+        return (Person)t;
+    }
+
     public void addEl(T m)
     {
         Els.add(m);
@@ -50,29 +81,14 @@ public final class Record<T, K extends Comparable<K>> {
         return Els.get(0);
     }
 
-    public Movie getMovie()
+    public ArrayList<T> getAllEls()
     {
-        if(! (Els.get(0) instanceof Movie)){
-            return null;
-            //throw new Exception("Il record non è di Movies");
-        }
-        return (Movie)Els.get(0);
-
-    }
-
-    public Movie[] getAllMovies()
-    {
-        // if(! (Els.get(0) instanceof Movie)){
-        //     throw new Exception("Il record non è di Movies");
-        // }
-        Movie[] ms = new Movie[getCarico()];
-        int i = 0;
+        ArrayList<T> al = new ArrayList<T>();
         for(T m : Els)
         {
-            ms[i++] = (Movie)m;
+            al.add(m);
         }
-
-        return ms;
+        return al;
     }
 
     public K getKey()

@@ -19,7 +19,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return false;
     }
 
-    public Movie search(K k)
+    public T search(K k)
     {
         return null;
     }
