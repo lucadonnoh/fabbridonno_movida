@@ -198,7 +198,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
                 insertionSort(b);
                 break;
             case 1:
-                break;
+                quicksort(b);
             default:
                 break;
         }
@@ -263,4 +263,79 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // takes first and last Record<T,K>,
+    // but do not break any links in
+    // the whole linked list
+    private Record<T,K> paritionLast(Record<T,K> start, Record<T,K> end)
+    {
+        if(start == end ||
+        start == null || end == null)
+            return start;
+
+        Record<T,K> pivot_prev = start;
+        Record<T,K> curr = start;
+        K pivot = end.getKey();
+
+        // iterate till one before the end,
+        // no need to iterate till the end
+        // because end is pivot
+        while(start != end )
+        {
+            //TODO: da problemi questo if in base al risultato del compare to, a volte sfora arrivando a  null idk why
+            if(start.getKey().compareTo(pivot) < 0)
+            {
+                // keep tracks of last modified item
+                pivot_prev = curr;
+                K temp = curr.getKey();
+                curr.setKey(start.getKey());
+                start.setKey(temp);
+                curr = curr.next;
+            }
+            start = start.next;
+        }
+
+        // swap the position of curr i.e.
+        // next suitable index and pivot
+        K temp = curr.getKey();
+        curr.setKey(pivot);
+        end.setKey(temp);
+
+        // return one previous to current
+        // because current is now pointing to pivot
+        return pivot_prev;
     }
+
+    private void sorting(Record<T,K> start, Record<T,K> end)
+    {
+        if(start == end )
+            return;
+
+        // split list and partion recurse
+        Record<T,K> pivot_prev = paritionLast(start, end);
+        sorting(start, pivot_prev);
+
+        // if pivot is picked and moved to the start,
+        // that means start and pivot is same
+        // so pick from next of pivot
+        if( pivot_prev != null &&
+            pivot_prev == start )
+            sorting(pivot_prev.next, end);
+
+        // if pivot is in between of the list,
+        // start from next of pivot,
+        // since we have pivot_prev, so we move two Record<T,K>s
+        else if(pivot_prev != null &&
+                pivot_prev.next != null)
+            sorting(pivot_prev.next.next, end);
+    }
+
+    public void quicksort(boolean b){
+        Record<T, K> start = this.record;
+        Record<T, K> tmp = this.record;
+        while(tmp.next != null){
+            tmp = tmp.next;
+        }
+        Record<T, K> end = tmp;
+        sorting(start, end);
+    }
+}

@@ -96,6 +96,11 @@ public final class Record<T, K extends Comparable<K>> {
         return key;
     }
 
+    public void setKey(K k)
+    {
+        this.key = k;
+    }
+
     public void print(){
         System.out.print("Chiave: " + key + "\nRecord: ");
         for(T m: Els){

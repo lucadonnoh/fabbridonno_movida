@@ -134,11 +134,12 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
                     myReader.nextLine();
             }
             myReader.close();
+            dizionariDirector.sort(sortIndex, true);
+            dizionariCast.sort(sortIndex, true);
             dizionariTitle.sort(sortIndex, true);
             dizionariYear.sort(sortIndex, true);
             dizionariVotes.sort(sortIndex, true);
-            dizionariDirector.sort(sortIndex, true);
-            dizionariCast.sort(sortIndex, true);
+            
         } catch (LabelException e) {
             System.out.println(e.getMessage());
             throw new MovidaFileException();
@@ -333,27 +334,27 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
         MovidaCore mc = new MovidaCore();
         mc.setMap(MapImplementation.ListaNonOrdinata);
-        mc.setSort(SortingAlgorithm.InsertionSort);
+        mc.setSort(SortingAlgorithm.QuickSort);
         File file = new File("src/movida/fabbridonno/test.txt");
         // File file2 = new File("src/movida/fabbridonno/test2.txt");
         mc.loadFromFile(file);
         //Movie c = mc.getMovieByTitle("Cape Fear");
         // System.out.println(c.getDirector().getName());
-        System.out.println("Numero film: " + mc.countMovies());
+        //System.out.println("Numero film: " + mc.countMovies());
         // mc.dizionariTitle[mc.getmapIndex()].clear();
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
-        mc.dizionariTitle.sort(0, true);
+        // mc.dizionariTitle.sort(1, true);
         // System.out.println(mc.countMovies());
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
         // System.out.println("Suca Juri");
         //mc.deleteMovieByTitle("Cape Fear");
         //System.out.println(mc.countMovies());
-        System.out.println("Numero film: " + mc.countMovies());
+        //System.out.println("Numero film: " + mc.countMovies());
         // System.out.println(mc.getPersonByName("Juri"));
         mc.dizionariTitle.stampa();
-        mc.searchMostActiveActors(3);
+        //mc.searchMostActiveActors(3);
         // mc.dizionariDirector[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
         File file2 = new File("src/movida/fabbridonno/test2.txt");
