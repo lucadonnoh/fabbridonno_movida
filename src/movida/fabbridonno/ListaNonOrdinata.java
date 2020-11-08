@@ -317,16 +317,15 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         // if pivot is picked and moved to the start,
         // that means start and pivot is same
         // so pick from next of pivot
-        if( pivot_prev != null &&
-            pivot_prev == start )
+        if( pivot_prev != null && pivot_prev == start ){
             sorting(pivot_prev.next, end);
-
+        }
         // if pivot is in between of the list,
         // start from next of pivot,
         // since we have pivot_prev, so we move two Record<T,K>s
-        else if(pivot_prev != null &&
-                pivot_prev.next != null)
-            sorting(pivot_prev.next.next, end);
+        else if(pivot_prev != null && pivot_prev.next != null){
+            sorting(pivot_prev.next, end);
+        }
     }
 
     public void quicksort(boolean b){
@@ -335,7 +334,6 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         while(tmp.next != null){
             tmp = tmp.next;
         }
-        Record<T, K> end = tmp;
-        sorting(start, end);
+        sorting(start, tmp);
     }
 }

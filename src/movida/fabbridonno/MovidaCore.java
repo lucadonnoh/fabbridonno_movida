@@ -134,12 +134,12 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
                     myReader.nextLine();
             }
             myReader.close();
-            dizionariDirector.sort(sortIndex, true);
-            dizionariCast.sort(sortIndex, true);
+            System.out.println("bella");
             dizionariTitle.sort(sortIndex, true);
             dizionariYear.sort(sortIndex, true);
             dizionariVotes.sort(sortIndex, true);
-            
+            dizionariDirector.sort(sortIndex, true);
+            dizionariCast.sort(sortIndex, true);
         } catch (LabelException e) {
             System.out.println(e.getMessage());
             throw new MovidaFileException();
@@ -353,7 +353,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         //System.out.println(mc.countMovies());
         //System.out.println("Numero film: " + mc.countMovies());
         // System.out.println(mc.getPersonByName("Juri"));
-        mc.dizionariTitle.stampa();
+        //mc.dizionariTitle.stampa();
+        //mc.dizionariDirector.stampa();
+        //mc.dizionariCast.stampa();
+        //mc.dizionariYear.stampa();
+        //mc.dizionariVotes.stampa();
         //mc.searchMostActiveActors(3);
         // mc.dizionariDirector[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
