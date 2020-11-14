@@ -61,6 +61,10 @@ public class ListaNonOrdinata implements DizionarioFilm {
         else
             return null;
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
     public Record searchRecord(Comparable k) {
         if (record == null)
@@ -74,6 +78,7 @@ public class ListaNonOrdinata implements DizionarioFilm {
         return null;
     }
 
+<<<<<<< Updated upstream
     public Boolean searchKey(Comparable k) {
         if (record == null)
             return false;
@@ -83,6 +88,12 @@ public class ListaNonOrdinata implements DizionarioFilm {
                 return true;
             p = p.next;
         }
+=======
+    public Boolean searchKey(K k) {
+        if (searchRecord(k) != null)
+            return true;
+
+>>>>>>> Stashed changes
         return false;
     }
 
@@ -173,6 +184,10 @@ public class ListaNonOrdinata implements DizionarioFilm {
                 movies[i] = p.getMovie();
                 i++;
             }
+<<<<<<< Updated upstream
+=======
+            p = p.next;
+>>>>>>> Stashed changes
         }
         return movies;
     }
@@ -257,12 +272,23 @@ public class ListaNonOrdinata implements DizionarioFilm {
         // iterate till one before the end,
         // no need to iterate till the end
         // because end is pivot
+<<<<<<< Updated upstream
         while (start != end) {
             if (start.getKey().compareTo(pivot.getKey()) < 0) {
                 // keep tracks of last modified item
                 pivot_prev = curr;
                 Record temp = curr;
                 curr = start;
+=======
+        while(start != end )
+        {
+            if(start.getKey().compareTo(pivot) < 0)
+            {
+                // keep tracks of last modified item
+                pivot_prev = curr;
+                Record<T,K> temp = curr;
+                curr = temp;
+>>>>>>> Stashed changes
                 start = temp;
                 curr = curr.next;
             }
@@ -271,9 +297,15 @@ public class ListaNonOrdinata implements DizionarioFilm {
 
         // swap the position of curr i.e.
         // next suitable index and pivot
+<<<<<<< Updated upstream
         Record temp = curr;
         curr = pivot;
         end = temp;
+=======
+        Record<T,K> temp = end;
+        end = curr;
+        curr = temp;
+>>>>>>> Stashed changes
 
         // return one previous to current
         // because current is now pointing to pivot

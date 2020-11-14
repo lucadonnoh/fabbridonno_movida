@@ -283,9 +283,21 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB {
         //System.out.println("Suca Juri");
         mc.deleteMovieByTitle("Cape Fear");
         //System.out.println(mc.countMovies());
+<<<<<<< Updated upstream
         System.out.println(mc.getPersonByName("Juri"));
         mc.dizionariCast[mc.mapIndex].stampa();
         //mc.dizionariDirector[mc.getmapIndex()].stampa();
+=======
+        //System.out.println("Numero film: " + mc.countMovies());
+        // System.out.println(mc.getPersonByName("Juri"));
+        mc.dizionariTitle.stampa();
+        //mc.dizionariDirector.stampa();
+        //mc.dizionariCast.stampa();
+        //mc.dizionariYear.stampa();
+        //mc.dizionariVotes.stampa();
+        //mc.searchMostActiveActors(3);
+        // mc.dizionariDirector[mc.getmapIndex()].stampa();
+>>>>>>> Stashed changes
         // System.out.println(mc.countMovies());
         // File file2 = new File("movida/fabbridonno/test2.txt");
         mc.saveToFile(file2);
