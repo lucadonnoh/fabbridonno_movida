@@ -3,25 +3,25 @@ import java.util.ArrayList;
 
 import movida.commons.*;
 
-public final class Record {
+public final class Record<T, K extends Comparable<K>> {
     /**
      * Elemento da conservare nel record
      */
-    private ArrayList<Movie> movie = new ArrayList<Movie>();
+    private ArrayList<T> Els = new ArrayList<T>();
     /**
      * Chiave associata all'elemento da conservare nel record
      */
-    private Comparable  key;
+    private K key;
 
     /**
      * Puntatore al prossimo record nella struttura collegata
      */
-    public Record     next;
+    public Record<T, K>     next;
 
     /**
      * Puntatore al record precedente nella struttura collegata
      */
-    public Record     prev;
+    public Record<T, K>     prev;
     /**
      * Costruttore per l'allocazione di un nuovo record
      *
@@ -29,36 +29,87 @@ public final class Record {
      * @param k lakey associata all'elemento da conservare nel record
      */
 
-    public Record(Movie m, Comparable k) {
-        movie.add(m);
+    public Record(T m, K k) {
+        Els.add(m);
         key = k;
         next = prev = null;
     }
 
-    public void addMovie(Movie m)
+    public static <T> Movie toMovie(T t)
     {
-        movie.add(m);
+        if(!(t instanceof Movie))
+        {
+            System.out.println("WARNING: l'elemento non è di tipo Movie, ritorno NULL");
+            return null;
+        }
+        return (Movie)t;
+    }
+
+    public static <T> Movie[] toMovieArray(ArrayList<T> al)
+    {
+        Movie[] ms = new Movie[al.size()];
+        int i = 0;
+        for(T el : al)
+        {
+            ms[i++] = toMovie(el);
+        }
+        return ms;
+    }
+
+    public static <T> Person toPerson(T t)
+    {
+        if(!(t instanceof Person))
+        {
+            System.out.println("WARNING: l'elemento non è di tipo Person, ritorno NULL");
+            return null;
+        }
+        return (Person)t;
+    }
+
+    public void addEl(T m)
+    {
+        Els.add(m);
     }
 
     public int getCarico()
     {
-        return movie.size(); // O(1)
+        return Els.size(); // O(1)
     }
 
-    public Movie getMovie()
+    public T getEl()
     {
-        return movie.get(0);
+        return Els.get(0);
     }
 
-    public Comparable getKey()
+    public ArrayList<T> getAllEls()
+    {
+        ArrayList<T> al = new ArrayList<T>();
+        for(T m : Els)
+        {
+            al.add(m);
+        }
+        return al;
+    }
+
+    public void setAllEls(ArrayList<T> al)
+    {
+        Els = al;
+    }
+
+    public K getKey()
     {
         return key;
     }
 
+    public void setKey(K k)
+    {
+        this.key = k;
+    }
+
     public void print(){
         System.out.print("Chiave: " + key + "\nRecord: ");
-        for(Movie m: movie){
-            System.out.print(m.getTitle());
+        for(T m: Els){
+            System.out.print(m.toString());
         }
         System.out.print("\n\n");
     }
