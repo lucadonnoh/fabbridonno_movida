@@ -37,7 +37,7 @@ public final class Record<T, K extends Comparable<K>> {
 
     public static <T> Movie toMovie(T t)
     {
-        if(!(t instanceof Movie)) 
+        if(!(t instanceof Movie))
         {
             System.out.println("WARNING: l'elemento non è di tipo Movie, ritorno NULL");
             return null;
@@ -58,7 +58,7 @@ public final class Record<T, K extends Comparable<K>> {
 
     public static <T> Person toPerson(T t)
     {
-        if(!(t instanceof Person)) 
+        if(!(t instanceof Person))
         {
             System.out.println("WARNING: l'elemento non è di tipo Person, ritorno NULL");
             return null;
@@ -89,6 +89,11 @@ public final class Record<T, K extends Comparable<K>> {
             al.add(m);
         }
         return al;
+    }
+
+    public void setAllEls(ArrayList<T> al)
+    {
+        Els = al;
     }
 
     public K getKey()

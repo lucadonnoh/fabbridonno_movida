@@ -1,5 +1,7 @@
 package movida.fabbridonno;
 
+import java.util.ArrayList;
+
 import movida.commons.*;
 
 public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioFilm<T, K> {
@@ -14,6 +16,17 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     public Record<T, K> getRecord() {
         return record;
+    }
+
+    public Record<T, K> getNthRecord(int n) {
+        Record<T, K> tmp = this.record;
+        while (tmp != null && n >= 0) {
+            if (n == 0)
+                return tmp;
+            n--;
+            tmp = tmp.next;
+        }
+        return null;
     }
 
     public int getCarico() {
@@ -61,7 +74,6 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         else
             return null;
     }
-    
 
     public Record<T, K> searchRecord(K k) {
         if (record == null)
@@ -101,7 +113,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
         Record<T, K> p = record;
         while (p != null) {
-            movies[i++] = (Movie)p.getEl();
+            movies[i++] = (Movie) p.getEl();
             p = p.next;
         }
         return movies;
@@ -113,19 +125,20 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         int i = 0;
 
         Record<T, K> p = record;
-        while (p != null ) {
+        while (p != null) {
             movies[i++] = p.getKey();
             p = p.next;
         }
         return movies;
     }
 
-    //Java ha il garbage collector che eliminat tutti gli elementi non referenziati.
+    // Java ha il garbage collector che eliminat tutti gli elementi non
+    // referenziati.
     public void clear() {
         record = null;
     }
 
-    //TODO: mettere a posto il cast fra el/movies/ecc
+    // TODO: mettere a posto il cast fra el/movies/ecc
     private Movie[] nNextMovies(Record<T, K> p, int n) {
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
@@ -187,7 +200,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
                 movies[i] = (Record.toMovie(p.getEl()));
                 i++;
-            } //TODO: manca p.next o sbaglio?
+            } // TODO: manca p.next o sbaglio?
         }
         return movies;
     }
@@ -243,8 +256,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
                 newRecord.next = current.next;
                 current.next = newRecord;
             }
-        }
-        else{
+        } else {
             if (sorted == null || sorted.getKey().compareTo(newRecord.getKey()) <= 0) {
                 newRecord.next = sorted;
                 sorted = newRecord;
@@ -261,79 +273,54 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return sorted;
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // takes first and last Record<T,K>,
-    // but do not break any links in
-    // the whole linked list
-    private Record<T,K> paritionLast(Record<T,K> start, Record<T,K> end)
-    {
-        if(start == end ||
-        start == null || end == null)
-            return start;
-
-        Record<T,K> pivot_prev = start;
-        Record<T,K> curr = start;
-        K pivot = end.getKey();
-
-        // iterate till one before the end,
-        // no need to iterate till the end
-        // because end is pivot
-        while(start != end )
-        {
-            //TODO: da problemi questo if in base al risultato del compare to, a volte sfora arrivando a  null idk why
-            if(start.getKey().compareTo(pivot) < 0)
-            {
-                // keep tracks of last modified item
-                pivot_prev = curr;
-                K temp = curr.getKey();
-                curr.setKey(start.getKey());
-                start.setKey(temp);
-                curr = curr.next;
-            }
-            start = start.next;
-        }
-
-        // swap the position of curr i.e.
-        // next suitable index and pivot
-        K temp = curr.getKey();
-        curr.setKey(pivot);
-        end.setKey(temp);
-
-        // return one previous to current
-        // because current is now pointing to pivot
-        return pivot_prev;
+    private void quicksort(boolean b) {
+        quicksortRec(0, this.carico - 1);
     }
 
-    private void sorting(Record<T,K> start, Record<T,K> end)
-    {
-        if(start == end )
+    private void quicksortRec(int i, int f) {
+        if (i >= f)
             return;
+        int m = partition(i, f);
+        quicksortRec(i, m - 1);
+        quicksortRec(m + 1, f);
 
-        // split list and partion recurse
-        Record<T,K> pivot_prev = paritionLast(start, end);
-        sorting(start, pivot_prev);
-
-        // if pivot is picked and moved to the start,
-        // that means start and pivot is same
-        // so pick from next of pivot
-        if( pivot_prev != null && pivot_prev == start ){
-            sorting(pivot_prev.next, end);
-        }
-        // if pivot is in between of the list,
-        // start from next of pivot,
-        // since we have pivot_prev, so we move two Record<T,K>s
-        else if(pivot_prev != null && pivot_prev.next != null){
-            sorting(pivot_prev.next, end);
-        }
     }
 
-    public void quicksort(boolean b){
-        Record<T, K> start = this.record;
-        Record<T, K> tmp = this.record;
-        while(tmp.next != null){
-            tmp = tmp.next;
+    private int partition(int i, int f) {
+        int inf = i;
+        int sup = f + 1;
+
+        Record<T, K> x = getNthRecord(i);
+
+        while (true) {
+            do {
+                inf++;
+            } while (inf <= f && getNthRecord(inf).getKey().compareTo(x.getKey()) <= 0);
+            do {
+                sup--;
+            } while (getNthRecord(sup).getKey().compareTo(x.getKey()) > 0);
+            if (inf < sup) {
+                swap(getNthRecord(inf), getNthRecord(sup));
+            } else
+                break;
         }
-        sorting(start, tmp);
+
+        swap(getNthRecord(i), getNthRecord(sup));
+        return sup;
+    }
+
+    private void swap(Record<T, K> A, Record<T, K> B) {
+        ArrayList<T> A_els = A.getAllEls();
+        ArrayList<T> B_els = B.getAllEls();
+
+        // swappa le key
+        K tmp = A.getKey();
+        A.setKey(B.getKey());
+        B.setKey(tmp);
+
+        A.setAllEls(B_els);
+        B.setAllEls(A_els);
     }
 }

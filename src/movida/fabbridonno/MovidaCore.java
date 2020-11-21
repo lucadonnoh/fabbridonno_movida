@@ -144,6 +144,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             System.out.println(e.getMessage());
             throw new MovidaFileException();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new MovidaFileException();
         }
 
