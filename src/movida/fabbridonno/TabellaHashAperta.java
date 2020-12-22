@@ -47,12 +47,22 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     }
 
     public boolean delete(K k) {
+        int i = 0;
+        //per come è fatta la funzione di hashing se arriviamo ad un null prima dell'elemento vuol dire che tale elemento non è presente
+        while( i<array.length && !(array[i].equals(null)) ) {
+            int h = ispezione(i++, hash(k, array.length), array.length);
+            if(array[h].getKey().equals(k)) {
+                array[h] = DELETED;
+                return true;
+            }
+        }
         return false;
     }
 
     public T search(K k) {
         int i = 0;
-        while(i<array.length) {
+        //per come è fatta la funzione di hashing se arriviamo ad un null prima dell'elemento vuol dire che tale elemento non è presente
+        while( i<array.length && !(array[i].equals(null)) ) {
             int h = ispezione(i++, hash(k, array.length), array.length);
             if(array[h].getKey().equals(k)) {
                 return array[h].getEl();
