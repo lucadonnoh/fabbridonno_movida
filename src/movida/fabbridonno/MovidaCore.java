@@ -94,7 +94,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     public void loadDirector(Movie m, Person Director) {
         Record<Movie, Person> regista = dizionariDirector.searchRecord(Director);
-        System.out.println(Director.toString());
         if (regista == null) {
             dizionariDirector.insert(m, Director);
         } else {
@@ -134,12 +133,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
                     myReader.nextLine();
             }
             myReader.close();
-            System.out.println("bella");
-            dizionariTitle.sort(sortIndex, true);
-            dizionariYear.sort(sortIndex, true);
-            dizionariVotes.sort(sortIndex, true);
-            dizionariDirector.sort(sortIndex, true);
-            dizionariCast.sort(sortIndex, true);
+            sortAll();
         } catch (LabelException e) {
             System.out.println(e.getMessage());
             throw new MovidaFileException();
@@ -185,6 +179,14 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
     }
 
+    public void sortAll(){
+        dizionariTitle.sort(sortIndex, true);
+        dizionariYear.sort(sortIndex, true);
+        dizionariVotes.sort(sortIndex, true);
+        dizionariDirector.sort(sortIndex, true);
+        dizionariCast.sort(sortIndex, true);
+    }
+
     public void clear() {
         dizionariTitle.clear();
         dizionariYear.clear();
@@ -208,6 +210,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return dizionariDirector.getCarico() + dizionariCast.getCarico();
     }
 
+    //TODO: io ci ho rimesso anche i sort se no poi non erano in ordine, però da errore e non ho sbatta ora
     public boolean deleteMovieByTitle(String title) {
         if (dizionariTitle.delete(title)) {
             clearSubDictionaries();
@@ -218,6 +221,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
                 loadCast(movie, movie.getCast());
                 loadDirector(movie, movie.getDirector());
             }
+            sortAll();
             return true;
         }
         return false;
@@ -341,7 +345,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         mc.loadFromFile(file);
         //Movie c = mc.getMovieByTitle("Cape Fear");
         // System.out.println(c.getDirector().getName());
-        //System.out.println("Numero film: " + mc.countMovies());
+        System.out.println("Numero film: " + mc.countMovies());
         // mc.dizionariTitle[mc.getmapIndex()].clear();
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
@@ -350,16 +354,16 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
         // System.out.println("Suca Juri");
-        //mc.deleteMovieByTitle("Cape Fear");
+        mc.deleteMovieByTitle("Cape Fear");
         //System.out.println(mc.countMovies());
         //System.out.println("Numero film: " + mc.countMovies());
         // System.out.println(mc.getPersonByName("Juri"));
-        //mc.dizionariTitle.stampa();
-        //mc.dizionariDirector.stampa();
+        mc.dizionariTitle.stampa();
+        mc.dizionariDirector.stampa();
         //mc.dizionariCast.stampa();
         //mc.dizionariYear.stampa();
         //mc.dizionariVotes.stampa();
-        //mc.searchMostActiveActors(3);
+        mc.searchMostActiveActors(3);
         // mc.dizionariDirector[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
         File file2 = new File("src/movida/fabbridonno/test2.txt");

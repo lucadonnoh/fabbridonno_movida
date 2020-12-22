@@ -136,9 +136,9 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     // referenziati.
     public void clear() {
         record = null;
+        carico = 0;
     }
 
-    // TODO: mettere a posto il cast fra el/movies/ecc
     private Movie[] nNextMovies(Record<T, K> p, int n) {
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
@@ -200,7 +200,8 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
                 movies[i] = (Record.toMovie(p.getEl()));
                 i++;
-            } // TODO: manca p.next o sbaglio?
+                p=p.next;
+            }
         }
         return movies;
     }
@@ -274,7 +275,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    //TODO: fare anche il verso decrescente
     private void quicksort(boolean b) {
         quicksortRec(0, this.carico - 1);
     }
