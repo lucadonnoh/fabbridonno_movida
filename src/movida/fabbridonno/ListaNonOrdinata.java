@@ -68,13 +68,6 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return true;
     }
 
-    public T search(K k) {
-        if (searchRecord(k) != null)
-            return searchRecord(k).getEl();
-        else
-            return null;
-    }
-
     public Record<T, K> searchRecord(K k) {
         if (record == null)
             return null;
@@ -87,16 +80,18 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return null;
     }
 
+    public T search(K k) {
+        if (searchRecord(k) != null)
+            return searchRecord(k).getEl();
+        else
+            return null;
+    }
+
     public Boolean searchKey(K k) {
-        if (record == null)
+        if (searchRecord(k) != null)
+            return true;
+        else
             return false;
-        Record<T, K> p = record;
-        while (p != null) {
-            if (p.getKey().equals(k))
-                return true;
-            p = p.next;
-        }
-        return false;
     }
 
     public void stampa() {
@@ -121,15 +116,15 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     @SuppressWarnings("unchecked")
     public Comparable<K>[] exportKeys() {
-        Comparable<K>[] movies = new Comparable[carico];
+        Comparable<K>[] keys = new Comparable[carico];
         int i = 0;
 
         Record<T, K> p = record;
         while (p != null) {
-            movies[i++] = p.getKey();
+            keys[i++] = p.getKey();
             p = p.next;
         }
-        return movies;
+        return keys;
     }
 
     // Java ha il garbage collector che eliminat tutti gli elementi non

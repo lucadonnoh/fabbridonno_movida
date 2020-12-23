@@ -70,10 +70,10 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
             int h = ispezione(i++, hash(k, array.length), array.length);
             if (array[h] == null || array[h] == DELETED) {
                 array[h] = new Record<T, K>(m, k);
+                carico++;
                 return;
             }
         }
-
     }
 
     public boolean delete(K k) {
@@ -84,6 +84,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
             int h = ispezione(i++, hash(k, array.length), array.length);
             if (array[h].getKey().equals(k)) {
                 array[h] = DELETED;
+                carico--;
                 return true;
             }
         }
@@ -94,47 +95,91 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     }
 
     public T search(K k) {
-        int i = 0;
-        // per come è fatta la funzione di hashing se arriviamo ad un null prima
-        // dell'elemento vuol dire che tale elemento non è presente
-        while (i < array.length && !(array[i].equals(null))) {
+        if (searchRecord(k) != null)
+            return searchRecord(k).getEl();
+        else
+            return null;
+    }
+
+    public void stampa() {
+        for (Record<T, K> r : array) {
+            r.print();
+        }
+    }
+
+    public Movie[] export() {
+        Movie[] movies = new Movie[carico];
+        for(int i=0; i<carico;i++){
+            movies[i] = (Movie)array[i].getEl();
+        }
+        return movies;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Comparable<K>[] exportKeys() {
+        Comparable<K>[] keys = new Comparable[carico];
+
+        for(int i=0; i<carico;i++){
+            keys[i] = array[i].getKey();
+        }
+        return keys;
+    }
+
+    public Record<T, K> searchRecord(K k) {
+        int i=0;
+        while (i<carico) {
             int h = ispezione(i++, hash(k, array.length), array.length);
-            if (array[h].getKey().equals(k)) {
-                return array[h].getEl();
+            if(array[h].getKey().equals(k)){
+                return array[h];
+            }
+            if (array[h] == null) {
+                return null;
             }
         }
         return null;
     }
 
-    public void stampa() {
-        return;
-    }
-
-    public Movie[] export() {
-        return null;
-    }
-
-    public Comparable<K>[] exportKeys() {
-        return null;
-    }
-
     public Boolean searchKey(K k) {
-        return null;
+
+        if (searchRecord(k) != null)
+            return true;
+        else
+            return false;
     }
 
     public int getCarico() {
-        return -1;
+        return carico;
     }
 
+    @SuppressWarnings("unchecked")
     public void clear() {
+        array = new Record[1];
+        carico = 0;
 
     }
 
     public Movie[] searchMoviesByKey(K k) {
-        return null;
+
+        int i = 0;
+        int h = ispezione(i++, hash(k, array.length), array.length);
+        ArrayList<Movie> list = new ArrayList<Movie>();
+        while(i<carico){
+            if(array[h].getKey().equals(k)){
+                list.add((Movie)array[h].getEl());
+            }
+            h = ispezione(i++, hash(k, array.length), array.length);
+        }
+        Movie[] movies = list.toArray(new Movie[0]);
+        return movies;
     }
 
     public Movie[] firstNMovies(int n) {
+        // Movie[] movies = new Movie[n];
+        // for (int i = 0; i < n; i++) {
+        //     int h = ispezione(i++, hash(i, array.length), array.length);
+        //     movies[i] = (Movie)array[h].getEl();
+        // }
+        // return movies;
         return null;
     }
 
@@ -148,10 +193,6 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     public void sort(int index, boolean b) {
 
-    }
-
-    public Record<T, K> searchRecord(K k) {
-        return null;
     }
 
     public void insertionSort(boolean b) {
