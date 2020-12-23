@@ -1,5 +1,7 @@
 package movida.fabbridonno;
 
+import java.util.ArrayList;
+
 import movida.commons.*;
 
 public class TabellaHashAperta<T, K extends Comparable<K>> implements DizionarioFilm<T, K> {
@@ -25,15 +27,43 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return (int) Math.floor(hk + c1 * i + c2 * i * i) % m;
     }
 
-    private void reshape()
-    {
+    private ArrayList<Record<T, K>> exportAll() {
+        ArrayList<Record<T, K>> list = new ArrayList<Record<T, K>>();
+        for (Record<T, K> r : array) {
+            list.add(r);
+        }
+        return list;
+    }
 
+    @SuppressWarnings("unchecked")
+    private void reshape(Boolean inc) {
+        ArrayList<Record<T, K>> records = exportAll();
+        if (inc) {
+            array = new Record[array.length * 2];
+        } else {
+            array = new Record[array.length / 2];
+        }
+        for (Record<T, K> r : records) {
+            insert(r.getAllEls(), r.getKey());
+        }
+    }
+
+    private void insert(ArrayList<T> allEls, K k) {
+        int i = 0;
+        while (true) {
+            int h = ispezione(i++, hash(k, array.length), array.length);
+            if (array[h] == null) {
+                array[h] = new Record<T, K>(null, k);
+                array[h].setAllEls(allEls);
+                return;
+            }
+        }
     }
 
     public void insert(T m, K k) {
         int i = 0;
-        if(carico == array.length) {
-            reshape();
+        if (carico == array.length) {
+            reshape(true);
         }
         // a questo punto c'è almeno uno spazio libero
         while (true) {
@@ -48,27 +78,32 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     public boolean delete(K k) {
         int i = 0;
-        //per come è fatta la funzione di hashing se arriviamo ad un null prima dell'elemento vuol dire che tale elemento non è presente
-        while( i<array.length && !(array[i].equals(null)) ) {
+        // per come è fatta la funzione di hashing se arriviamo ad un null prima
+        // dell'elemento vuol dire che tale elemento non è presente
+        while (i < array.length && !(array[i].equals(null))) {
             int h = ispezione(i++, hash(k, array.length), array.length);
-            if(array[h].getKey().equals(k)) {
+            if (array[h].getKey().equals(k)) {
                 array[h] = DELETED;
                 return true;
             }
+        }
+        if (carico <= array.length / 4) {
+            reshape(false);
         }
         return false;
     }
 
     public T search(K k) {
         int i = 0;
-        //per come è fatta la funzione di hashing se arriviamo ad un null prima dell'elemento vuol dire che tale elemento non è presente
-        while( i<array.length && !(array[i].equals(null)) ) {
+        // per come è fatta la funzione di hashing se arriviamo ad un null prima
+        // dell'elemento vuol dire che tale elemento non è presente
+        while (i < array.length && !(array[i].equals(null))) {
             int h = ispezione(i++, hash(k, array.length), array.length);
-            if(array[h].getKey().equals(k)) {
+            if (array[h].getKey().equals(k)) {
                 return array[h].getEl();
             }
         }
-        return null; // TODO: lanciare eccezione?
+        return null;
     }
 
     public void stampa() {

@@ -29,6 +29,7 @@ public final class Record<T, K extends Comparable<K>> {
      * @param k lakey associata all'elemento da conservare nel record
      */
 
+    
     public Record(T m, K k) {
         Els.add(m);
         key = k;
