@@ -1,6 +1,8 @@
 package movida.fabbridonno;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import movida.commons.*;
 
@@ -174,17 +176,25 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     }
 
     public Movie[] firstNMovies(int n) {
-        // Movie[] movies = new Movie[n];
-        // for (int i = 0; i < n; i++) {
-        //     int h = ispezione(i++, hash(i, array.length), array.length);
-        //     movies[i] = (Movie)array[h].getEl();
-        // }
-        // return movies;
-        return null;
+        Record<T,K>[] records = (Record<T,K>[])(exportAll().toArray());
+        Comparator<Record<T,K>> byKey = Comparator.comparing(Record::getKey);
+        Arrays.sort(records, byKey);
+        Movie[] movies = new Movie[n];
+        for(int i = 0; i<n; i++) {
+            movies[i] = (Movie)records[i].getEl();
+        }
+        return movies;
     }
 
     public Person[] firstNActors(int n) {
-        return null;
+        Record<T,K>[] records = (Record<T,K>[])(exportAll().toArray());
+        Comparator<Record<T,K>> byKey = Comparator.comparing(Record::getKey);
+        Arrays.sort(records, byKey);
+        Person[] actors = new Person[n];
+        for(int i = 0; i<n; i++) {
+            actors[i] = (Person)records[i].getEl();
+        }
+        return actors;
     }
 
     public Movie[] stringInTitle(String title) {
@@ -192,7 +202,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     }
 
     public void sort(int index, boolean b) {
-
+        return;
     }
 
     public void insertionSort(boolean b) {

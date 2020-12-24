@@ -79,7 +79,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         }
         return null;
     }
-
+    // TODO: sfruttare il fatto che la lista è ordinata
     public T search(K k) {
         if (searchRecord(k) != null)
             return searchRecord(k).getEl();
