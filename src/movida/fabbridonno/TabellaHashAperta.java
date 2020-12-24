@@ -7,7 +7,6 @@ import java.util.Comparator;
 import movida.commons.*;
 
 public class TabellaHashAperta<T, K extends Comparable<K>> implements DizionarioFilm<T, K> {
-    protected Movie[] v;
 
     private int carico;
     private Record<T, K>[] array;
@@ -175,6 +174,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return movies;
     }
 
+    @SuppressWarnings("unchecked")
     public Movie[] firstNMovies(int n) {
         Record<T,K>[] records = (Record<T,K>[])(exportAll().toArray());
         Comparator<Record<T,K>> byKey = Comparator.comparing(Record::getKey);
@@ -186,6 +186,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return movies;
     }
 
+    @SuppressWarnings("unchecked")
     public Person[] firstNActors(int n) {
         Record<T,K>[] records = (Record<T,K>[])(exportAll().toArray());
         Comparator<Record<T,K>> byKey = Comparator.comparing(Record::getKey);
@@ -198,14 +199,23 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     }
 
     public Movie[] stringInTitle(String title) {
-        return null;
+        int n=0;
+        for(int i = 0; i<carico; i++){
+            if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
+                n++;
+            }
+        }
+        Movie[] movies = new Movie[n];
+        for(int i = 0; i<carico; i++){
+            if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
+                movies[i] = Record.toMovie(array[i].getEl());
+            }
+        }
+        return movies;
     }
 
     public void sort(int index, boolean b) {
-        return;
-    }
-
-    public void insertionSort(boolean b) {
+        System.out.println("WARNING: la tabella hash non è ordinabile");
         return;
     }
 }

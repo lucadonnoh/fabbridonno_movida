@@ -178,13 +178,13 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             throw new MovidaFileException();
         }
     }
-
+    //TODO: rimettere i sort a true
     public void sortAll(){
-        dizionariTitle.sort(sortIndex, true);
-        dizionariYear.sort(sortIndex, true);
-        dizionariVotes.sort(sortIndex, true);
-        dizionariDirector.sort(sortIndex, true);
-        dizionariCast.sort(sortIndex, true);
+        dizionariTitle.sort(sortIndex, false);
+        dizionariYear.sort(sortIndex, false);
+        dizionariVotes.sort(sortIndex, false);
+        dizionariDirector.sort(sortIndex, false);
+        dizionariCast.sort(sortIndex, false);
     }
 
     public void clear() {

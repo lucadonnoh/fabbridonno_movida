@@ -54,6 +54,4 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 
 	public void sort(int index, boolean b);
 
-	public void insertionSort(boolean b);
-
 }

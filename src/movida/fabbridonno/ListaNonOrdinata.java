@@ -207,13 +207,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
                 insertionSort(b);
                 break;
             case 1:
-                quicksort(b);
+                quickSort(b);
             default:
                 break;
         }
     }
 
-    public void insertionSort(boolean b) {
+    private void insertionSort(boolean b) {
 
         // Initialize sorted linked list
         Record<T, K> sorted = null;
@@ -271,36 +271,51 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //TODO: fare anche il verso decrescente
-    private void quicksort(boolean b) {
-        quicksortRec(0, this.carico - 1);
+    private void quickSort(boolean b) {
+        quicksortRec(0, this.carico - 1, b);
     }
 
-    private void quicksortRec(int i, int f) {
+    private void quicksortRec(int i, int f, boolean b) {
         if (i >= f)
             return;
-        int m = partition(i, f);
-        quicksortRec(i, m - 1);
-        quicksortRec(m + 1, f);
+        int m = partition(i, f, b);
+        quicksortRec(i, m - 1, b);
+        quicksortRec(m + 1, f, b);
 
     }
 
-    private int partition(int i, int f) {
+    private int partition(int i, int f, boolean b) {
         int inf = i;
         int sup = f + 1;
 
         Record<T, K> x = getNthRecord(i);
 
-        while (true) {
-            do {
-                inf++;
-            } while (inf <= f && getNthRecord(inf).getKey().compareTo(x.getKey()) <= 0);
-            do {
-                sup--;
-            } while (getNthRecord(sup).getKey().compareTo(x.getKey()) > 0);
-            if (inf < sup) {
-                swap(getNthRecord(inf), getNthRecord(sup));
-            } else
-                break;
+        if(b){
+            while (true) {
+                do {
+                    inf++;
+                } while (inf <= f && getNthRecord(inf).getKey().compareTo(x.getKey()) <= 0);
+                do {
+                    sup--;
+                } while (getNthRecord(sup).getKey().compareTo(x.getKey()) > 0);
+                if (inf < sup) {
+                    swap(getNthRecord(inf), getNthRecord(sup));
+                } else
+                    break;
+            }
+        }else{
+            while (true) {
+                do {
+                    inf++;
+                } while (inf <= f && getNthRecord(inf).getKey().compareTo(x.getKey()) > 0);
+                do {
+                    sup--;
+                } while (getNthRecord(sup).getKey().compareTo(x.getKey()) < 0);
+                if (inf < sup) {
+                    swap(getNthRecord(inf), getNthRecord(sup));
+                } else
+                    break;
+            }
         }
 
         swap(getNthRecord(i), getNthRecord(sup));
