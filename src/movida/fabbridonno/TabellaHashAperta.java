@@ -31,7 +31,9 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     private ArrayList<Record<T, K>> exportAll() {
         ArrayList<Record<T, K>> list = new ArrayList<Record<T, K>>();
         for (Record<T, K> r : array) {
-            list.add(r);
+            if(r != null){
+                list.add(r);
+            }
         }
         return list;
     }
@@ -81,8 +83,11 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         int i = 0;
         // per come è fatta la funzione di hashing se arriviamo ad un null prima
         // dell'elemento vuol dire che tale elemento non è presente
-        while (i < array.length && !(array[i].equals(null))) {
+        while (i < array.length) {
             int h = ispezione(i++, hash(k, array.length), array.length);
+            if(array[h] == null){
+                return false;
+            }
             if (array[h].getKey().equals(k)) {
                 array[h] = DELETED;
                 carico--;
@@ -104,14 +109,22 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     public void stampa() {
         for (Record<T, K> r : array) {
-            r.print();
+            if(r != null){
+                r.print();
+            }
         }
     }
 
     public Movie[] export() {
+        int i=0;
+        int j=0;
         Movie[] movies = new Movie[carico];
-        for(int i=0; i<carico;i++){
-            movies[i] = (Movie)array[i].getEl();
+        while(i<carico){
+            if(array[j] != null){
+                movies[i] = (Movie)array[j].getEl();
+                i++;
+            }
+            j++;
         }
         return movies;
     }
@@ -119,9 +132,14 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     @SuppressWarnings("unchecked")
     public Comparable<K>[] exportKeys() {
         Comparable<K>[] keys = new Comparable[carico];
-
-        for(int i=0; i<carico;i++){
-            keys[i] = array[i].getKey();
+        int i=0;
+        int j=0;
+        while(i<carico){
+            if(array[j] != null){
+                keys[i] = array[j].getKey();
+                i++;
+            }
+            j++;
         }
         return keys;
     }
@@ -130,11 +148,11 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         int i=0;
         while (i<carico) {
             int h = ispezione(i++, hash(k, array.length), array.length);
-            if(array[h].getKey().equals(k)){
-                return array[h];
-            }
             if (array[h] == null) {
                 return null;
+            }
+            if(array[h].getKey().equals(k)){
+                return array[h];
             }
         }
         return null;

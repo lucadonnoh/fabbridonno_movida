@@ -108,9 +108,14 @@ public final class Record<T, K extends Comparable<K>> {
 
     //TODO: se vogliam essere perfettini andrebbe migliorato lo stampa dei film per titolo che chiave e record so uguali
     public void print(){
+        Boolean tanti= false;
         System.out.print("Chiave: " + key + "\nRecord: ");
         for(T m: Els){
-            System.out.print(m.toString());
+            if(tanti){
+                System.out.print("- ");
+            }
+            System.out.print(m.toString() + " ");
+            tanti= true;
         }
         System.out.print("\n\n");
     }

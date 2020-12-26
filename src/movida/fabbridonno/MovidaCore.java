@@ -303,7 +303,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
 
-
+    //TODO: c'è da mettere a posto sta cosa, dato che non crea attività e inoltre  se usiamo la hash è inutile riscrearla inserendoli in ordine in quanto non serve a una giolla
     public Person[] searchMostActiveActors(Integer N) {
         Person[] attori = getAllActors();
         int[] keys = new int[attori.length];
@@ -314,7 +314,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
 
         DizionarioFilm<Person, Integer> attività;
-        attività = (selectedMap == MapImplementation.ListaNonOrdinata) ? new ListaNonOrdinata<Person, Integer>() : new TabellaHashAperta<Person, Integer>();
+        attività = (selectedMap.equals(MapImplementation.ListaNonOrdinata)) ? new ListaNonOrdinata<Person, Integer>() : new TabellaHashAperta<Person, Integer>();
 
         for(i = 0; i<attori.length; i++)
         {

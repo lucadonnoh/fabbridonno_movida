@@ -4,17 +4,9 @@ import java.io.File;
 
 public class Test {
     public static void main(String[] args) {
-        Person p1 = new Person("Juri Fabbri");
-        Person p2 = new Person("Donno");
-        Person p3 = new Person("Di Iorio");
-        Person[] p4 = { p2, p3 };
-        Movie m = new Movie("Gianni", 2020, 69420, p4, p1);
-        ListaNonOrdinata l = new ListaNonOrdinata();
-        l.insert(m, m.getTitle());
-        // l.stampa();
 
         MovidaCore mc = new MovidaCore();
-        mc.setMap(MapImplementation.ListaNonOrdinata);
+        mc.setMap(MapImplementation.HashIndirizzamentoAperto);
         mc.setSort(SortingAlgorithm.QuickSort);
         File file = new File("src/movida/fabbridonno/test.txt");
         // File file2 = new File("src/movida/fabbridonno/test2.txt");
@@ -34,12 +26,15 @@ public class Test {
         //System.out.println(mc.countMovies());
         //System.out.println("Numero film: " + mc.countMovies());
         // System.out.println(mc.getPersonByName("Juri"));
-        mc.dizionariTitle.stampa();
-        mc.dizionariDirector.stampa();
+        //mc.dizionariTitle.stampa();
+        //mc.dizionariDirector.stampa();
         //mc.dizionariCast.stampa();
         //mc.dizionariYear.stampa();
         //mc.dizionariVotes.stampa();
-        mc.searchMostActiveActors(3);
+        Person[] NActors = mc.searchMostActiveActors(3);
+        for(int i=0;i<3;i++){
+            System.out.println(NActors[i]);
+        }
         // mc.dizionariDirector[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
         File file2 = new File("src/movida/fabbridonno/test2.txt");

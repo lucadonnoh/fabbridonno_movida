@@ -1,26 +1,8 @@
-Title: What Lies Beneath
-Year: 2000
+Title: Contact
+Year: 1997
 Director: Robert Zemeckis
-Cast: Harrison Ford, Michelle Pfeiffer
-Votes: 114295
-
-Title: The Sixth Sense
-Year: 1999
-Director: M. Night Shyamalan
-Cast: Bruce Willis, Haley Joel Osment
-Votes: 879298
-
-Title: The Fugitive
-Year: 1993
-Director: Andrew Davis
-Cast: Harrison Ford, Tommy Lee Jones
-Votes: 256213
-
-Title: Taxi Driver
-Year: 1976
-Director: Martin Scorsese
-Cast: Robert De Niro, Jodie Foster, Cybill Shepherd
-Votes: 684728
+Cast: Jodie Foster, Matthew McConaughey
+Votes: 244372
 
 Title: Scarface
 Year: 1983
@@ -40,15 +22,33 @@ Director: John McTiernan
 Cast: Bruce Willis, Alan Rickman
 Votes: 755228
 
-Title: Contact
-Year: 1997
-Director: Robert Zemeckis
-Cast: Jodie Foster, Matthew McConaughey
-Votes: 244372
+Title: Taxi Driver
+Year: 1976
+Director: Martin Scorsese
+Cast: Robert De Niro, Jodie Foster, Cybill Shepherd
+Votes: 684728
+
+Title: The Fugitive
+Year: 1993
+Director: Andrew Davis
+Cast: Harrison Ford, Tommy Lee Jones
+Votes: 256213
+
+Title: The Sixth Sense
+Year: 1999
+Director: M. Night Shyamalan
+Cast: Bruce Willis, Haley Joel Osment
+Votes: 879298
 
 Title: Air Force One
 Year: 1997
 Director: Wolfgang Petersen
 Cast: Harrison Ford, Gary Oldman
 Votes: 173540
+
+Title: What Lies Beneath
+Year: 2000
+Director: Robert Zemeckis
+Cast: Harrison Ford, Michelle Pfeiffer
+Votes: 114295
 
