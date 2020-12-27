@@ -19,6 +19,8 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 */
 	public boolean delete(K k);
 
+	public Record<T,K> searchRecord(K k);
+
 	/**
 	 * Restituisce l'elemento e con chiave <code>k</code>.
 	 * In caso di duplicati, l'elemento restituito
@@ -29,25 +31,24 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 */
 	public T search(K k);
 
-	public void stampa();
+	public Boolean searchKey(K k);
 
-	public Movie[] export();
+	public void stampa();
 
 	public int getCarico();
 
 	public void clear();
 
+	public Movie[] export();
+
+	public Comparable<K>[] exportKeys();
+
 	public Movie[] searchMoviesByKey(K k);
-
-	public Record<T,K> searchRecord(K k);
-
-	public Boolean searchKey(K k);
-
-	public Comparable<K>[] exportKeys() ;
 
 	public Movie[] firstNMovies(int n);
 
 	//TODO: vedere se tenerla
+	//TODO: sto todo sopra c'era già, direi che si può togliere? secondo me serve sta funzione perchè siam forzati a castare il tipo
 	public Person[] firstNActors(int n);
 
 	public Movie[] stringInTitle(String title);

@@ -14,25 +14,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         record = null;
     }
 
-    public Record<T, K> getRecord() {
-        return record;
-    }
-
-    public Record<T, K> getNthRecord(int n) {
-        Record<T, K> tmp = this.record;
-        while (tmp != null && n >= 0) {
-            if (n == 0)
-                return tmp;
-            n--;
-            tmp = tmp.next;
-        }
-        return null;
-    }
-
-    public int getCarico() {
-        return carico;
-    }
-
+    //Non serve cancellare p perchè java ha il garbage collector
     public void insert(T e, K k) {
 
         Record<T, K> p = new Record<T, K>(e, k);
@@ -50,6 +32,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     public boolean delete(K k) {
 
         Record<T, K> tmp = record, prev = null;
+        //Controllo se il primo elemento della lista è da cancellare
         if (tmp != null && tmp.getKey().equals(k)) {
 
             record = record.next;
@@ -60,7 +43,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             prev = tmp;
             tmp = tmp.next;
         }
-
+        //se tmp = null allora l'elemento non esiste
         if (tmp == null)
             return false;
         prev.next = tmp.next;
@@ -68,6 +51,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return true;
     }
 
+    //Ritorna il record associato alla chiave se è presente, null altrimenti
     public Record<T, K> searchRecord(K k) {
         if (record == null)
             return null;
@@ -79,19 +63,34 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         }
         return null;
     }
-    // TODO: sfruttare il fatto che la lista è ordinata
+
+    //TODO: io ho fatto che il searchRecord lo salvo così non devo rifarlo, ci sta?
+    //Ritorna l'elemento associato alla chiave k
     public T search(K k) {
-        if (searchRecord(k) != null)
-            return searchRecord(k).getEl();
-        else
-            return null;
+        Record<T,K> p = searchRecord(k);
+        if (p != null)
+            return p.getEl();
+        return null;
     }
 
+    //Ritorna True se la chiave è presente, False altrimenti
     public Boolean searchKey(K k) {
         if (searchRecord(k) != null)
             return true;
         else
             return false;
+    }
+
+    //Sarà usato nei sort
+    private Record<T, K> getNthRecord(int n) {
+        Record<T, K> tmp = this.record;
+        while (tmp != null && n >= 0) {
+            if (n == 0)
+                return tmp;
+            n--;
+            tmp = tmp.next;
+        }
+        return null;
     }
 
     public void stampa() {
@@ -102,11 +101,22 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         }
     }
 
+    public int getCarico() {
+        return carico;
+    }
+
+    // Java ha il garbage collector che eliminat tutti gli elementi non referenziati.
+    public void clear() {
+        record = null;
+        carico = 0;
+    }
+
+    //Funzione che esporta gli elementi dei record in un array
     public Movie[] export() {
         Movie[] movies = new Movie[carico];
         int i = 0;
-
         Record<T, K> p = record;
+
         while (p != null) {
             movies[i++] = (Movie) p.getEl();
             p = p.next;
@@ -114,12 +124,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return movies;
     }
 
+    //Funzione che esporta le chiavi dei record in un array
     @SuppressWarnings("unchecked")
     public Comparable<K>[] exportKeys() {
         Comparable<K>[] keys = new Comparable[carico];
         int i = 0;
-
         Record<T, K> p = record;
+
         while (p != null) {
             keys[i++] = p.getKey();
             p = p.next;
@@ -127,13 +138,22 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return keys;
     }
 
-    // Java ha il garbage collector che eliminat tutti gli elementi non
-    // referenziati.
-    public void clear() {
-        record = null;
-        carico = 0;
+
+    //Sfruttiamo il fatto che la lista sia sempre ordinata quindi se ci son chiavi uguali sono adiacenti
+    public Movie[] searchMoviesByKey(K k) {
+        Record<T, K> p = searchRecord(k);
+        Record<T, K> tmp = p;
+        int n = 0;
+        while (tmp.next.getKey().equals(k)) {
+            n++;
+            tmp = tmp.next;
+        }
+        Movie[] movies = new Movie[n];
+        movies = nNextMovies(p, n);
+        return movies;
     }
 
+    //Ritorna un array dei primi n film della lista p
     private Movie[] nNextMovies(Record<T, K> p, int n) {
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
@@ -143,6 +163,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return movies;
     }
 
+    //Ritorna un array dei primi n attori della lista p
     private Person[] nNextActors(Record<T, K> p, int n) {
         Person[] actors = new Person[n];
         for (int i = 0; i < n; i++) {
@@ -150,19 +171,6 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             p = p.next;
         }
         return actors;
-    }
-
-    public Movie[] searchMoviesByKey(K k) {
-        Record<T, K> p = searchRecord(k);
-        Record<T, K> tmp = p;
-        int n = 0;
-        while (tmp.next.getKey() == k) {
-            n++;
-            tmp = tmp.next;
-        }
-        Movie[] movies = new Movie[n];
-        movies = nNextMovies(p, n);
-        return movies;
     }
 
     public Movie[] firstNMovies(int n) {
@@ -179,9 +187,10 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return actors;
     }
 
+    //TODO: controlla se a bene la gestione di i/j perchè usavamo solo i in modo incasinato e ho provato a fixare
     public Movie[] stringInTitle(String title) {
         Record<T, K> p = record;
-        int i = 0;
+        int i = 0, j=0;
         while (p != null) {
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
                 i++;
@@ -189,18 +198,18 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             p = p.next;
         }
         p = record;
-        i = 0;
         Movie[] movies = new Movie[i];
-        while (p != null) {
+        while (p != null && j<i) {
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
-                movies[i] = (Record.toMovie(p.getEl()));
-                i++;
+                movies[j] = (Record.toMovie(p.getEl()));
+                j++;
                 p=p.next;
             }
         }
         return movies;
     }
 
+    //Il booleano indica se ordinare in senso crescente(true) o decrescente(false)
     public void sort(int index, boolean b) {
         switch (index) {
             case 0:
@@ -269,8 +278,6 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return sorted;
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //TODO: fare anche il verso decrescente
     private void quickSort(boolean b) {
         quicksortRec(0, this.carico - 1, b);
     }
