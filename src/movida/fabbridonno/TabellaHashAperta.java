@@ -13,21 +13,24 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     private Record<T, K> DELETED;
 
+    //La tabella viene istanziata di dimensione 1, poi viene ingrandita e rimpicciolità in base alle necessità
     @SuppressWarnings("unchecked")
     public TabellaHashAperta() {
         carico = 0;
         array = new Record[1];
     }
 
-    public int hash(Object k, int m) {
+    private int hash(Object k, int m) {
         return Math.abs(k.hashCode()) % m;
     }
 
-    public int ispezione(int i, int hk, int m) {
+    //È stata scelta questo tipo di ispezione per i vantaggi che porta
+    private int ispezione(int i, int hk, int m) {
         double c1 = 0.5, c2 = 0.5;
         return (int) Math.floor(hk + c1 * i + c2 * i * i) % m;
     }
 
+    //ritorna un'arraylist contenente tutti i record presenti al momento nella tabella hash
     private ArrayList<Record<T, K>> exportAll() {
         ArrayList<Record<T, K>> list = new ArrayList<Record<T, K>>();
         for (Record<T, K> r : array) {
@@ -38,22 +41,12 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return list;
     }
 
-    @SuppressWarnings("unchecked")
-    private void reshape(Boolean inc) {
-        ArrayList<Record<T, K>> records = exportAll();
-        if (inc) {
-            array = new Record[array.length * 2];
-        } else {
-            array = new Record[array.length / 2];
-        }
-        for (Record<T, K> r : records) {
-            insert(r.getAllEls(), r.getKey());
-        }
-    }
-
-    private void insert(ArrayList<T> allEls, K k) {
+    //TODO: non capisco se ci sian dei possibili errori o meno wtf mi sembra sus
+    //inserisce tutti gli elementi di una lista all'interno della tabella
+    private void insertFromList(ArrayList<T> allEls, K k) {
         int i = 0;
-        while (true) {
+        while (i < array.length) //TODO: avevamo messo while true, ma per sicurezza ho messo una guardia
+        {
             int h = ispezione(i++, hash(k, array.length), array.length);
             if (array[h] == null) {
                 array[h] = new Record<T, K>(null, k);
@@ -63,6 +56,23 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
+    //Se si riempie la tabella viene raddoppiata mentre se si arriva ad un quarto della capienza viene dimezzata.
+    //Vengono poi rinseriti nuovamente tutti gli elementi
+    @SuppressWarnings("unchecked")
+    private void reshape(Boolean inc) {
+        ArrayList<Record<T, K>> records = exportAll();
+        if (inc) {
+            array = new Record[array.length * 2];
+        } else {
+            array = new Record[array.length / 2];
+        }
+        for (Record<T, K> r : records) {
+            insertFromList(r.getAllEls(), r.getKey());
+        }
+    }
+
+    //TODO: il reshape lo teniamo all'inizio di quello che sborda o alla fine di quello che riempie?
+    //TODO: ha senso tenerlo così perchè così reshapi solo se hai davvero bisogno degli slot extra
     public void insert(T m, K k) {
         int i = 0;
         if (carico == array.length) {
@@ -100,11 +110,36 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return false;
     }
 
+    public Record<T, K> searchRecord(K k) {
+        int i=0;
+        while (i<carico)//Qui è corretto tenere i<carico in quanto non serve far piu ispezioni di quanti ne abbiamo in tabella
+        {
+            int h = ispezione(i++, hash(k, array.length), array.length);
+            if (array[h] == null) {
+                return null;
+            }
+            if(array[h].getKey().equals(k)){
+                return array[h];
+            }
+        }
+        return null;
+    }
+
+    //TODO: stesso discorso della lista: prima mi salvo il searchrecord, ha senso?
     public T search(K k) {
-        if (searchRecord(k) != null)
-            return searchRecord(k).getEl();
+        Record<T,K> p = searchRecord(k);
+        if ( p != null)
+            return p.getEl();
         else
             return null;
+    }
+
+    public Boolean searchKey(K k) {
+
+        if (searchRecord(k) != null)
+            return true;
+        else
+            return false;
     }
 
     public void stampa() {
@@ -113,6 +148,10 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
                 r.print();
             }
         }
+    }
+
+    public int getCarico() {
+        return carico;
     }
 
     public Movie[] export() {
@@ -132,8 +171,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     @SuppressWarnings("unchecked")
     public Comparable<K>[] exportKeys() {
         Comparable<K>[] keys = new Comparable[carico];
-        int i=0;
-        int j=0;
+        int i=0, j=0;
         while(i<carico){
             if(array[j] != null){
                 keys[i] = array[j].getKey();
@@ -144,45 +182,20 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return keys;
     }
 
-    public Record<T, K> searchRecord(K k) {
-        int i=0;
-        while (i<carico) {
-            int h = ispezione(i++, hash(k, array.length), array.length);
-            if (array[h] == null) {
-                return null;
-            }
-            if(array[h].getKey().equals(k)){
-                return array[h];
-            }
-        }
-        return null;
-    }
-
-    public Boolean searchKey(K k) {
-
-        if (searchRecord(k) != null)
-            return true;
-        else
-            return false;
-    }
-
-    public int getCarico() {
-        return carico;
-    }
-
     @SuppressWarnings("unchecked")
     public void clear() {
         array = new Record[1];
         carico = 0;
-
     }
 
+    //TODO: questa va testata nei prossimi giorni
     public Movie[] searchMoviesByKey(K k) {
 
         int i = 0;
         int h = ispezione(i++, hash(k, array.length), array.length);
         ArrayList<Movie> list = new ArrayList<Movie>();
-        while(i<carico){
+        while(i<carico)//Qui è corretto tenere i<carico in quanto non serve far piu ispezioni di quanti ne abbiamo in tabella
+        {
             if(array[h].getKey().equals(k)){
                 list.add((Movie)array[h].getEl());
             }
@@ -192,6 +205,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return movies;
     }
 
+    //Estrai tutti i film e li ordina in base alla chiave e ritorna i primi N film
     @SuppressWarnings("unchecked")
     public Movie[] firstNMovies(int n) {
         Record<T,K>[] records = (Record<T,K>[])(exportAll().toArray());
@@ -204,6 +218,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return movies;
     }
 
+    //Estrai tutti i film e li ordina in base alla chiave e ritorna i primi N attori
     @SuppressWarnings("unchecked")
     public Person[] firstNActors(int n) {
         Record<T,K>[] records = (Record<T,K>[])(exportAll().toArray());
@@ -216,17 +231,20 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return actors;
     }
 
+    //TODO: l'ho corretto ma ridacci una letta, prima ciclavamo solo su i<carico ma ovviamente non andava bene perchè non controllavi tutta la hash
+    //TODO: Guarda se così tornano la gestione di i/j ma dovrei aver fatto bene
     public Movie[] stringInTitle(String title) {
-        int n=0;
-        for(int i = 0; i<carico; i++){
+        int n=0, j=0;
+        for(int i = 0; i<array.length; i++){
             if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
                 n++;
             }
         }
         Movie[] movies = new Movie[n];
-        for(int i = 0; i<carico; i++){
+        for(int i = 0; i<array.length; i++){
             if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
-                movies[i] = Record.toMovie(array[i].getEl());
+                movies[j] = Record.toMovie(array[i].getEl());
+                j++;
             }
         }
         return movies;

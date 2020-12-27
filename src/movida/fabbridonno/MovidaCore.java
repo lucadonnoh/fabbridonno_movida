@@ -1,5 +1,8 @@
 package movida.fabbridonno;
 
+//TODO: c'è da ricontrollare tutto movidaCore ma il resto dovrebbe essere a posto l'ho gia checkato e riordinato
+//TODO: manca da commentare il codice sopra le funzioni, ci penso io domattina.
+
 import movida.commons.*;
 import java.io.File;
 import java.util.Scanner; // Import the Scanner class to read text files
@@ -303,7 +306,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
 
-    //TODO: c'è da mettere a posto sta cosa, dato che non crea attività e inoltre  se usiamo la hash è inutile riscrearla inserendoli in ordine in quanto non serve a una giolla
+    //TODO: c'è da mettere a posto sta cosa, "attività" non viene creato
     public Person[] searchMostActiveActors(Integer N) {
         Person[] attori = getAllActors();
         int[] keys = new int[attori.length];
