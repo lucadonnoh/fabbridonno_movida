@@ -52,6 +52,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     //Ritorna il record associato alla chiave se è presente, null altrimenti
+    //TODO: fare in modo che si fermi prima
     public Record<T, K> searchRecord(K k) {
         if (record == null)
             return null;
@@ -64,7 +65,6 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return null;
     }
 
-    //TODO: io ho fatto che il searchRecord lo salvo così non devo rifarlo, ci sta?
     //Ritorna l'elemento associato alla chiave k
     public T search(K k) {
         Record<T,K> p = searchRecord(k);
@@ -187,10 +187,9 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return actors;
     }
 
-    //TODO: controlla se a bene la gestione di i/j perchè usavamo solo i in modo incasinato e ho provato a fixare
     public Movie[] stringInTitle(String title) {
         Record<T, K> p = record;
-        int i = 0, j=0;
+        int i = 0;
         while (p != null) {
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
                 i++;
@@ -199,11 +198,11 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         }
         p = record;
         Movie[] movies = new Movie[i];
-        while (p != null) { //TODO: attenzione qua non va bene j<i, perché quelli da prendere non sono i primi j ma non si sa dove sono!!
-                            // prima: (p!= null && j<i)
+        i = 0;
+        while (p != null) { 
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
-                movies[j] = (Record.toMovie(p.getEl()));
-                j++;
+                movies[i] = (Record.toMovie(p.getEl()));
+                i++;
                 p=p.next;
             }
         }

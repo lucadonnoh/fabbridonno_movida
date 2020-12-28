@@ -207,7 +207,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return dizionariDirector.getCarico() + dizionariCast.getCarico();
     }
 
-    //TODO: io ci ho rimesso anche i sort se no poi non erano in ordine, però da errore e non ho sbatta ora
+    
     public boolean deleteMovieByTitle(String title) {
         if (dizionariTitle.delete(title)) {
             clearSubDictionaries();
@@ -309,8 +309,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             keys[i++] = dizionariCast.searchRecord(p).getCarico();
         }
 
-        DizionarioFilm<Person, Integer> attività;
-        attività = (selectedMap.equals(MapImplementation.ListaNonOrdinata)) ? new ListaNonOrdinata<Person, Integer>() : new TabellaHashAperta<Person, Integer>();
+        //perché non c'è l'ordinamento sulle hash, allora sfruttiamo la lista che abbiamo già
+        DizionarioFilm<Person, Integer> attività = new ListaNonOrdinata<Person, Integer>();
 
         for(i = 0; i<attori.length; i++)
         {

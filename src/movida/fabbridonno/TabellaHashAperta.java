@@ -20,7 +20,10 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         array = new Record[1];
     }
 
-    private int hash(Object k, int m) {
+    private int hash(K k, int m) {
+        if(k instanceof Person) {
+            return Math.abs(((Person)k).getName().hashCode()) % m; 
+        }
         return Math.abs(k.hashCode()) % m;
     }
 
@@ -41,13 +44,14 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return list;
     }
 
-    //TODO: non capisco se ci sian dei possibili errori o meno wtf mi sembra sus
+    
     //inserisce tutti gli elementi di una lista all'interno della tabella
     private void insertFromList(ArrayList<T> allEls, K k) {
         int i = 0;
-        while (i < array.length) //TODO: avevamo messo while true, ma per sicurezza ho messo una guardia
+        int l = array.length;
+        while (i < array.length) 
         {
-            int h = ispezione(i++, hash(k, array.length), array.length);
+            int h = ispezione(i++, hash(k, l), l);
             if (array[h] == null) {
                 array[h] = new Record<T, K>(null, k);
                 array[h].setAllEls(allEls);
@@ -71,8 +75,6 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
-    //TODO: il reshape lo teniamo all'inizio di quello che sborda o alla fine di quello che riempie?
-    // ? ha senso tenerlo così perchè così reshapi solo se hai davvero bisogno degli slot extra
     public void insert(T m, K k) {
         int i = 0;
         if (carico == array.length) {
@@ -125,7 +127,6 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return null;
     }
 
-    //TODO: stesso discorso della lista: prima mi salvo il searchrecord, ha senso?
     public T search(K k) {
         Record<T,K> p = searchRecord(k);
         if ( p != null)
@@ -236,8 +237,6 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return actors;
     }
 
-    //TODO: l'ho corretto ma ridacci una letta, prima ciclavamo solo su i<carico ma ovviamente non andava bene perchè non controllavi tutta la hash
-    //TODO: Guarda se così tornano la gestione di i/j ma dovrei aver fatto bene
     public Movie[] stringInTitle(String title) {
         int n=0, j=0;
         for(int i = 0; i<array.length; i++){

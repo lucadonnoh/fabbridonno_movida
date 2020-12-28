@@ -28,7 +28,7 @@ public class Test {
         // System.out.println(mc.getPersonByName("Juri"));
         //mc.dizionariTitle.stampa();
         //mc.dizionariDirector.stampa();
-        //mc.dizionariCast.stampa();
+        mc.dizionariCast.stampa();
         //mc.dizionariYear.stampa();
         //mc.dizionariVotes.stampa();
         Person[] NActors = mc.searchMostActiveActors(3);
