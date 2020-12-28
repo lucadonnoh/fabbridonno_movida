@@ -10,16 +10,8 @@ import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
 public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
-    private final SortingAlgorithm SAs[] = {
-        SortingAlgorithm.InsertionSort,
-        SortingAlgorithm.QuickSort
-    };
     private SortingAlgorithm selectedSort;
 
-    private final MapImplementation Maps[] = {
-        MapImplementation.ListaNonOrdinata,
-        MapImplementation.HashIndirizzamentoAperto
-    };
     private MapImplementation selectedMap;
 
     public DizionarioFilm<Movie, String> dizionariTitle;
@@ -42,16 +34,16 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
      *
      * @param a l'algoritmo da selezionare
      */
-    public boolean setSort(SortingAlgorithm a) { //TODO: da cambiare
+    public boolean setSort(SortingAlgorithm a) {
         if (selectedSort != a) {
-            for (int i = 0; i < SAs.length; i++) {
-                if (a == SAs[i]) {
-                    sortIndex = i;
-                    selectedSort = a;
-                    return true;
-                }
+            if(a == SortingAlgorithm.InsertionSort) {
+                selectedSort = SortingAlgorithm.InsertionSort;
+                return true;
+            } else if(a == SortingAlgorithm.QuickSort) {
+                selectedSort = SortingAlgorithm.QuickSort;
+                return true;
             }
-        }
+       }
         return false;
     }
 
@@ -65,14 +57,16 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
                 dizionariVotes = new ListaNonOrdinata<Movie, Integer>();
                 dizionariDirector = new ListaNonOrdinata<Movie, Person>();
                 dizionariCast = new ListaNonOrdinata<Movie, Person>();
+                return true;
             }
-            else
+            else if(m == MapImplementation.HashIndirizzamentoAperto)
             {
                 dizionariTitle = new TabellaHashAperta<Movie, String>();
                 dizionariYear = new TabellaHashAperta<Movie, Integer>();
                 dizionariVotes = new TabellaHashAperta<Movie, Integer>();
                 dizionariDirector = new TabellaHashAperta<Movie, Person>();
                 dizionariCast = new TabellaHashAperta<Movie, Person>();
+                return true;
             }
         }
         return false;
@@ -306,7 +300,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
 
-    //TODO: c'è da mettere a posto sta cosa, "attività" non viene creato
     public Person[] searchMostActiveActors(Integer N) {
         Person[] attori = getAllActors();
         int[] keys = new int[attori.length];

@@ -47,8 +47,6 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 
 	public Movie[] firstNMovies(int n);
 
-	//TODO: vedere se tenerla
-	//TODO: sto todo sopra c'era già, direi che si può togliere? secondo me serve sta funzione perchè siam forzati a castare il tipo
 	public Person[] firstNActors(int n);
 
 	public Movie[] stringInTitle(String title);

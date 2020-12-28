@@ -18,7 +18,6 @@ public final class Record<T, K extends Comparable<K>> {
      */
     public Record<T, K>     next;
 
-    //TODO: io ho tolto prev tanto era letteralmente inutile
     /**
      * Costruttore per l'allocazione di un nuovo record
      *

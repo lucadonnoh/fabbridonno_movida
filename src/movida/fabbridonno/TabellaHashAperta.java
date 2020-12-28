@@ -72,7 +72,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     }
 
     //TODO: il reshape lo teniamo all'inizio di quello che sborda o alla fine di quello che riempie?
-    //TODO: ha senso tenerlo così perchè così reshapi solo se hai davvero bisogno degli slot extra
+    // ? ha senso tenerlo così perchè così reshapi solo se hai davvero bisogno degli slot extra
     public void insert(T m, K k) {
         int i = 0;
         if (carico == array.length) {
@@ -221,11 +221,16 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     //Estrai tutti i film e li ordina in base alla chiave e ritorna i primi N attori
     @SuppressWarnings("unchecked")
     public Person[] firstNActors(int n) {
-        Record<T,K>[] records = (Record<T,K>[])(exportAll().toArray());
+        Object[] r = exportAll().toArray();
+        Record<T,K>[] records = new Record[r.length];
+        int i = 0;
+        for(Object el : r) {
+            records[i++] = (Record<T,K>)el;
+        }
         Comparator<Record<T,K>> byKey = Comparator.comparing(Record::getKey);
         Arrays.sort(records, byKey);
         Person[] actors = new Person[n];
-        for(int i = 0; i<n; i++) {
+        for(i = 0; i<n; i++) {
             actors[i] = (Person)records[i].getEl();
         }
         return actors;
@@ -251,7 +256,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     }
 
     public void sort(int index, boolean b) {
-        System.out.println("WARNING: la tabella hash non è ordinabile");
+        //System.out.println("WARNING: la tabella hash non è ordinabile");
         return;
     }
 }

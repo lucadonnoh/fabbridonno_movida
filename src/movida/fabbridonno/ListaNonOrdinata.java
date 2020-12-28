@@ -199,7 +199,8 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         }
         p = record;
         Movie[] movies = new Movie[i];
-        while (p != null && j<i) {
+        while (p != null) { //TODO: attenzione qua non va bene j<i, perché quelli da prendere non sono i primi j ma non si sa dove sono!!
+                            // prima: (p!= null && j<i)
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
                 movies[j] = (Record.toMovie(p.getEl()));
                 j++;
