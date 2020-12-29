@@ -9,16 +9,18 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
-public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
+public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMovidaCollaborations {
     private SortingAlgorithm selectedSort;
 
     private MapImplementation selectedMap;
-
+    // TODO: vedere cosa mettere private
     public DizionarioFilm<Movie, String> dizionariTitle;
     public DizionarioFilm<Movie, Integer> dizionariYear;
     public DizionarioFilm<Movie, Person> dizionariDirector;
     public DizionarioFilm<Movie, Integer> dizionariVotes;
     public DizionarioFilm<Movie, Person> dizionariCast;
+
+    public Graph graph = new Graph();
 
     private int sortIndex;
 
@@ -36,31 +38,28 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
      */
     public boolean setSort(SortingAlgorithm a) {
         if (selectedSort != a) {
-            if(a == SortingAlgorithm.InsertionSort) {
+            if (a == SortingAlgorithm.InsertionSort) {
                 selectedSort = SortingAlgorithm.InsertionSort;
                 return true;
-            } else if(a == SortingAlgorithm.QuickSort) {
+            } else if (a == SortingAlgorithm.QuickSort) {
                 selectedSort = SortingAlgorithm.QuickSort;
                 return true;
             }
-       }
+        }
         return false;
     }
 
     public boolean setMap(MapImplementation m) {
         if (selectedMap != m) {
             selectedMap = m;
-            if(m == MapImplementation.ListaNonOrdinata)
-            {
+            if (m == MapImplementation.ListaNonOrdinata) {
                 dizionariTitle = new ListaNonOrdinata<Movie, String>();
                 dizionariYear = new ListaNonOrdinata<Movie, Integer>();
                 dizionariVotes = new ListaNonOrdinata<Movie, Integer>();
                 dizionariDirector = new ListaNonOrdinata<Movie, Person>();
                 dizionariCast = new ListaNonOrdinata<Movie, Person>();
                 return true;
-            }
-            else if(m == MapImplementation.HashIndirizzamentoAperto)
-            {
+            } else if (m == MapImplementation.HashIndirizzamentoAperto) {
                 dizionariTitle = new TabellaHashAperta<Movie, String>();
                 dizionariYear = new TabellaHashAperta<Movie, Integer>();
                 dizionariVotes = new TabellaHashAperta<Movie, Integer>();
@@ -109,6 +108,41 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
     }
 
+    private void addCollab(Person p1, Person p2, Movie m) {
+        Person actorA, actorB;
+        if (p1.compareTo(p2) >= 0) {
+            actorA = p1;
+            actorB = p2;
+        } else {
+            actorA = p2;
+            actorB = p1;
+        }
+        graph.addActor(actorA);
+        graph.addActor(actorB);
+        Collaboration collab = new Collaboration(actorA, actorB);
+        collab.addMovie(m);
+        for (Collaboration c : graph.getCollab(actorA)) {
+            if (Collaboration.areEquivalent(c, collab)) {
+                c.addMovie(m);
+                return;
+            }
+        }
+        graph.getCollab(actorA).add(collab);
+        graph.getCollab(actorB).add(collab);
+    }
+
+    public void loadGraph() {
+        for (Movie m : dizionariTitle.export()) {
+            for (Person p1 : m.getCast()) {
+                for (Person p2 : m.getCast()) {
+                    if (!p1.equals(p2)) {
+                        addCollab(p1, p2, m);
+                    }
+                }
+            }
+        }
+    }
+
     public void loadFromFile(File f) {
         try {
             Scanner myReader = new Scanner(f);
@@ -131,6 +165,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             }
             myReader.close();
             sortAll();
+            loadGraph();
         } catch (LabelException e) {
             System.out.println(e.getMessage());
             throw new MovidaFileException();
@@ -175,8 +210,9 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             throw new MovidaFileException();
         }
     }
-    //TODO: rimettere i sort a true
-    public void sortAll(){
+
+    // TODO: rimettere i sort a true
+    public void sortAll() {
         dizionariTitle.sort(sortIndex, false);
         dizionariYear.sort(sortIndex, false);
         dizionariVotes.sort(sortIndex, false);
@@ -207,7 +243,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return dizionariDirector.getCarico() + dizionariCast.getCarico();
     }
 
-    
+    // TODO: vedere se fare meglio
     public boolean deleteMovieByTitle(String title) {
         if (dizionariTitle.delete(title)) {
             clearSubDictionaries();
@@ -234,7 +270,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         if (r == null)
             return null;
         Comparable<Person> c = r.getKey();
-        Person myPerson = (Person)c;
+        Person myPerson = (Person) c;
         return myPerson;
     }
 
@@ -299,21 +335,19 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return Record.toMovieArray(r.getAllEls());
     }
 
-
     public Person[] searchMostActiveActors(Integer N) {
         Person[] attori = getAllActors();
         int[] keys = new int[attori.length];
         int i = 0;
-        for(Person p : attori)
-        {
+        for (Person p : attori) {
             keys[i++] = dizionariCast.searchRecord(p).getCarico();
         }
 
-        //perché non c'è l'ordinamento sulle hash, allora sfruttiamo la lista che abbiamo già
+        // perché non c'è l'ordinamento sulle hash, allora sfruttiamo la lista che
+        // abbiamo già
         DizionarioFilm<Person, Integer> attività = new ListaNonOrdinata<Person, Integer>();
 
-        for(i = 0; i<attori.length; i++)
-        {
+        for (i = 0; i < attori.length; i++) {
             attività.insert(attori[i], keys[i]);
         }
 

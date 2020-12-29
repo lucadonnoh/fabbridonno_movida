@@ -52,7 +52,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     //Ritorna il record associato alla chiave se è presente, null altrimenti
-    //TODO: fare in modo che si fermi prima
+    //TODO: fare in modo che si fermi prima perché è ordinata
     public Record<T, K> searchRecord(K k) {
         if (record == null)
             return null;
