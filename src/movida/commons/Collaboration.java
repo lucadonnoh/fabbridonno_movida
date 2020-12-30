@@ -40,4 +40,8 @@ public class Collaboration {
 		return score / movies.size();
 	}
 
+	public ArrayList<Movie> getMovies() {
+		return movies;
+	}
+
 }

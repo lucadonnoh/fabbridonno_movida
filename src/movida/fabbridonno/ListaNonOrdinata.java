@@ -29,27 +29,66 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         carico++;
     }
 
-    public boolean delete(K k) {
-
-        Record<T, K> tmp = record, prev = null;
-        //Controllo se il primo elemento della lista è da cancellare
-        if (tmp != null && tmp.getKey().equals(k)) {
-
-            record = record.next;
-            carico--;
-            return true;
-        }
-        while (tmp != null && !tmp.getKey().equals(k)) {
-            prev = tmp;
-            tmp = tmp.next;
-        }
-        //se tmp = null allora l'elemento non esiste
-        if (tmp == null)
+    public boolean deleteEl(Movie m) {
+        if (record == null)
             return false;
-        prev.next = tmp.next;
-        carico--;
-        return true;
+        Record<T, K> p = record;
+        Record<T,K> prev = null;
+        while (p != null) {
+            if (p.getAllEls().contains(m)) {
+                if(p.getAllEls().size() == 1) {
+                    prev.next = p.next;
+                    return true;
+                }
+                p.getAllEls().remove(m);
+            }
+            prev = p;
+            p = p.next;
+        }
+        return false;
     }
+
+    // public boolean delete(String title, K k) {
+    //     Record<T, K> tmp = record, prev = null;
+    //     //Controllo se il primo elemento della lista è da cancellare
+    //     if (tmp != null && tmp.getKey().equals(k) && ((Movie)(tmp.getEl())).getTitle().equals(title)) {
+    //         record = record.next;
+    //         carico--;
+    //         return true;
+    //     }
+    //     while (tmp != null && !tmp.getKey().equals(k) && !((Movie)(tmp.getEl())).getTitle().equals(title)) {
+    //         prev = tmp;
+    //         tmp = tmp.next;
+    //     }
+    //     //se tmp = null allora l'elemento non esiste
+    //     if (tmp == null)
+    //         return false;
+    //     prev.next = tmp.next;
+    //     carico--;
+    //     return true;
+    // }
+
+    // public boolean delete(K k) {
+
+    //     Record<T, K> tmp = record, prev = null;
+    //     //Controllo se il primo elemento della lista è da cancellare
+    //     if (tmp != null && tmp.getKey().equals(k)) {
+
+    //         record = record.next;
+    //         carico--;
+    //         return true;
+    //     }
+    //     while (tmp != null && !tmp.getKey().equals(k)) {
+    //         prev = tmp;
+    //         tmp = tmp.next;
+    //     }
+    //     //se tmp = null allora l'elemento non esiste
+    //     if (tmp == null)
+    //         return false;
+    //     prev.next = tmp.next;
+    //     carico--;
+    //     return true;
+    // }
 
     //Ritorna il record associato alla chiave se è presente, null altrimenti
     //TODO: fare in modo che si fermi prima perché è ordinata

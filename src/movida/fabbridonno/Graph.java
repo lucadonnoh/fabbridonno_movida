@@ -13,7 +13,7 @@ public class Graph {
         graph = new HashMap<Person, Set<Collaboration>>();
     }
 
-    public Set<Collaboration> getCollab(Person p) {
+    public Set<Collaboration> getCollabs(Person p) {
         return graph.get(p);
     }
 
@@ -25,5 +25,21 @@ public class Graph {
         if(graph.containsKey(p)) return false;
         graph.put(p, new HashSet<Collaboration>());
         return true;
+    }
+
+    public boolean deleteMovie(Movie m) {
+        for(Set<Collaboration> collabs : graph.values()) {
+            for(Collaboration c : collabs) {
+                if(c.getMovies().contains(m)) {
+                    if(c.getMovies().size() == 1) {
+                        collabs.remove(c);
+                        return true;
+                    }
+                    c.getMovies().remove(m);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

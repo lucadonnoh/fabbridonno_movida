@@ -17,7 +17,11 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 *
 	 * @param k chiave dell'elemento da cancellare
 	 */
-	public boolean delete(K k);
+	public boolean deleteEl(Movie m);
+
+	// public boolean delete(String title, K k);
+
+	// public boolean delete(K k);
 
 	public Record<T,K> searchRecord(K k);
 

@@ -91,26 +91,61 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
-    public boolean delete(K k) {
-        int i = 0;
-        // per come è fatta la funzione di hashing se arriviamo ad un null prima
-        // dell'elemento vuol dire che tale elemento non è presente
-        while (i < array.length) {
-            int h = ispezione(i++, hash(k, array.length), array.length);
-            if(array[h] == null){
-                return false;
-            }
-            if (array[h].getKey().equals(k)) {
-                array[h] = DELETED;
-                carico--;
+    public boolean deleteEl(Movie m) {
+        for(Record<T,K> r : array) {
+            if(r.getAllEls().contains(m)) {
+                if(r.getAllEls().size() == 1) {
+                    r = DELETED;
+                    return true;
+                }
+                r.getAllEls().remove(m);
                 return true;
             }
         }
-        if (carico <= array.length / 4) {
-            reshape(false);
-        }
         return false;
     }
+
+    // public boolean delete(String title, K k) {
+    //     int i = 0;
+    //     // per come è fatta la funzione di hashing se arriviamo ad un null prima
+    //     // dell'elemento vuol dire che tale elemento non è presente
+    //     while (i < array.length) {
+    //         int h = ispezione(i++, hash(k, array.length), array.length);
+    //         if(array[h] == null){
+    //             return false;
+    //         }
+    //         if (array[h].getKey().equals(k) && ((Movie)array[h].getEl()).getTitle().equals(title)) {
+    //             array[h] = DELETED;
+    //             carico--;
+    //             return true;
+    //         }
+    //     }
+    //     if (carico <= array.length / 4) {
+    //         reshape(false);
+    //     }
+    //     return false; 
+    // }
+
+    // public boolean delete(K k) {
+    //     int i = 0;
+    //     // per come è fatta la funzione di hashing se arriviamo ad un null prima
+    //     // dell'elemento vuol dire che tale elemento non è presente
+    //     while (i < array.length) {
+    //         int h = ispezione(i++, hash(k, array.length), array.length);
+    //         if(array[h] == null){
+    //             return false;
+    //         }
+    //         if (array[h].getKey().equals(k)) {
+    //             array[h] = DELETED;
+    //             carico--;
+    //             return true;
+    //         }
+    //     }
+    //     if (carico <= array.length / 4) {
+    //         reshape(false);
+    //     }
+    //     return false;
+    // }
 
     public Record<T, K> searchRecord(K k) {
         int i=0;
