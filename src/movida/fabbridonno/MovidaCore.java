@@ -5,6 +5,7 @@ package movida.fabbridonno;
 
 import movida.commons.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
@@ -364,6 +365,20 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         Person[] NActors = new Person[N];
         NActors = attività.firstNActors(N);
         return NActors;
+    }
+
+    public Person[] getDirectCollaboratorsOf(Person p) {
+        int i = 0;
+        Person[] collaborators = new Person[graph.getCollabs(p).size()];
+        for(Collaboration c : graph.getCollabs(p)) {
+            collaborators[i++] = (c.getActorA().equals(p)) ? c.getActorB() : c.getActorA();
+        }
+        return collaborators;
+    }
+
+    public Person[] getTeamOf(Person p) {
+        ArrayList<Person> team = new ArrayList<Person>();
+        
     }
 
 }

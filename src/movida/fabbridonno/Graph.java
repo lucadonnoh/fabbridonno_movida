@@ -28,16 +28,19 @@ public class Graph {
     }
 
     public boolean deleteMovie(Movie m) {
-        for(Set<Collaboration> collabs : graph.values()) {
-            for(Collaboration c : collabs) {
+        for(Person p : graph.keySet()) {
+            for(Collaboration c : getCollabs(p)) {
                 if(c.getMovies().contains(m)) {
                     if(c.getMovies().size() == 1) {
-                        collabs.remove(c);
+                        getCollabs(p).remove(c);
                         return true;
                     }
                     c.getMovies().remove(m);
                     return true;
                 }
+            }
+            if(getCollabs(p).isEmpty()) {
+                graph.remove(p);
             }
         }
         return false;
