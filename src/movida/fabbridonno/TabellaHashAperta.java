@@ -18,11 +18,12 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     public TabellaHashAperta() {
         carico = 0;
         array = new Record[1];
+        DELETED = new Record<T,K>(null, null);
     }
 
     private int hash(K k, int m) {
         if(k instanceof Person) {
-            return Math.abs(((Person)k).getName().hashCode()) % m; 
+            return Math.abs(((Person)k).getName().hashCode()) % m;
         }
         return Math.abs(k.hashCode()) % m;
     }
@@ -92,12 +93,15 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     public boolean deleteEl(Movie m) {
         for(Record<T,K> r : array) {
-            if(r.getAllEls().contains(m)) {
+            if(r!=null && r.getAllEls().contains(m)) {
                 if(r.getAllEls().size() == 1) {
-                    r = DELETED;
+                    int i = Arrays.asList(array).indexOf(r);
+                    array[i] = DELETED;
+                    carico--;
                     return true;
                 }
                 r.getAllEls().remove(m);
+                carico--;
                 return true;
             }
         }
@@ -194,7 +198,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         int j=0;
         Movie[] movies = new Movie[carico];
         while(i<carico){
-            if(array[j] != null){
+            if(array[j] != null && array[j] != DELETED){
                 movies[i] = (Movie)array[j].getEl();
                 i++;
             }

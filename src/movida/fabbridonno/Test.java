@@ -22,8 +22,8 @@ public class Test {
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
         // System.out.println("Suca Juri");
-        mc.printGraph();
         mc.deleteMovieByTitle("Cape Fear");
+        mc.printGraph();
         //System.out.println(mc.countMovies());
         //System.out.println("Numero film: " + mc.countMovies());
         // System.out.println(mc.getPersonByName("Juri"));
