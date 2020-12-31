@@ -6,7 +6,7 @@ public class Test {
     public static void main(String[] args) {
 
         MovidaCore mc = new MovidaCore();
-        mc.setMap(MapImplementation.HashIndirizzamentoAperto);
+        mc.setMap(MapImplementation.ListaNonOrdinata);
         mc.setSort(SortingAlgorithm.QuickSort);
         File file = new File("src/movida/fabbridonno/test.txt");
         // File file2 = new File("src/movida/fabbridonno/test2.txt");
@@ -22,8 +22,11 @@ public class Test {
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
         // System.out.println("Suca Juri");
-        mc.deleteMovieByTitle("Cape Fear");
-        mc.printGraph();
+        //mc.deleteMovieByTitle("Cape Fear");
+        Movie[] ms = mc.searchMoviesByTitle("Cape Fea");
+        for(Movie m:ms){
+            System.out.println(m.getYear());
+        }
         //System.out.println(mc.countMovies());
         //System.out.println("Numero film: " + mc.countMovies());
         // System.out.println(mc.getPersonByName("Juri"));

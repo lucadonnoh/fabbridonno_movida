@@ -189,17 +189,34 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     public Movie[] searchMoviesByKey(K k) {
 
         int i = 0;
-        int h = ispezione(i++, hash(k, array.length), array.length);
         ArrayList<Movie> list = new ArrayList<Movie>();
+        int h;
         while(i<carico)//Qui è corretto tenere i<carico in quanto non serve far piu ispezioni di quanti ne abbiamo in tabella
         {
+            h = ispezione(i++, hash(k, array.length), array.length);
             if(array[h].getKey().equals(k)){
                 list.add((Movie)array[h].getEl());
             }
-            h = ispezione(i++, hash(k, array.length), array.length);
         }
         Movie[] movies = list.toArray(new Movie[0]);
         return movies;
+    }
+
+    public Movie[] searchMoviesByPerson(K k){
+        int i = 0;
+        ArrayList<Movie> list = new ArrayList<Movie>();
+        int h;
+        while(i<carico)//Qui è corretto tenere i<carico in quanto non serve far piu ispezioni di quanti ne abbiamo in tabella
+        {
+            h = ispezione(i++, hash(k, array.length), array.length);
+            if(array[h].getKey().equals(k)){
+                for(T m : array[h].getAllEls())
+                list.add((Movie) m);
+            }
+        }
+        Movie[] movies = list.toArray(new Movie[0]);
+        return movies;
+
     }
 
     //Estrai tutti i film e li ordina in base alla chiave e ritorna i primi N film
@@ -236,15 +253,19 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     public Movie[] stringInTitle(String title) {
         int n=0, j=0;
         for(int i = 0; i<array.length; i++){
-            if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
-                n++;
+            if(array[i] != null){
+                if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
+                    n++;
+                }
             }
         }
         Movie[] movies = new Movie[n];
         for(int i = 0; i<array.length; i++){
-            if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
-                movies[j] = Record.toMovie(array[i].getEl());
-                j++;
+            if(array[i] != null){
+                if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
+                    movies[j] = Record.toMovie(array[i].getEl());
+                    j++;
+                }
             }
         }
         return movies;

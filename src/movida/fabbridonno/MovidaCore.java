@@ -245,21 +245,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return dizionariDirector.getCarico() + dizionariCast.getCarico();
     }
 
-    // TODO: vedere se va
     public boolean deleteMovieByTitle(String title) {
-        // if (dizionariTitle.delete(title)) {
-        // clearSubDictionaries();
-        // Movie[] movies = getAllMovies();
-        // for (Movie movie : movies) {
-        // dizionariYear.insert(movie, movie.getYear());
-        // dizionariVotes.insert(movie, movie.getVotes());
-        // loadCast(movie, movie.getCast());
-        // loadDirector(movie, movie.getDirector());
-        // }
-        // sortAll();
-        // return true;
-        // }
-        // return false;
         Movie movie = dizionariTitle.search(title);
         if (movie == null)
             return false;
@@ -324,7 +310,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public Movie[] searchMoviesDirectedBy(String name) {
-        return dizionariDirector.searchMoviesByKey(new Person(name));
+        return dizionariDirector.searchMoviesByPerson(new Person(name));
     }
 
     public Movie[] searchMoviesByTitle(String title) {

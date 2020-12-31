@@ -49,6 +49,8 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 
 	public Movie[] searchMoviesByKey(K k);
 
+	public Movie[] searchMoviesByPerson(K k);
+
 	public Movie[] firstNMovies(int n);
 
 	public Person[] firstNActors(int n);

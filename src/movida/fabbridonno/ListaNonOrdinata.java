@@ -179,8 +179,12 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
 
     //Sfruttiamo il fatto che la lista sia sempre ordinata quindi se ci son chiavi uguali sono adiacenti
+    //TODO: lo pigliamo in culo sulle persone perchè quelli cons tessa chiave son tutti nello stesso record <.<
     public Movie[] searchMoviesByKey(K k) {
         Record<T, K> p = searchRecord(k);
+        if(p==null){
+            return null;
+        }
         Record<T, K> tmp = p;
         int n = 0;
         while (tmp.next.getKey().equals(k)) {
@@ -189,6 +193,19 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         }
         Movie[] movies = new Movie[n];
         movies = nNextMovies(p, n);
+        return movies;
+    }
+
+    public Movie[] searchMoviesByPerson(K k) {
+        int i=0;
+        Record<T, K> p = searchRecord(k);
+        if(p==null) return null;
+        ArrayList<T> l = p.getAllEls();
+        Movie[] movies = new Movie[l.size()];
+        for(T film : l){
+            movies[i] = (Movie)film;
+            i++;
+        }
         return movies;
     }
 
@@ -242,8 +259,8 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
                 movies[i] = (Record.toMovie(p.getEl()));
                 i++;
-                p=p.next;
             }
+            p=p.next;
         }
         return movies;
     }
