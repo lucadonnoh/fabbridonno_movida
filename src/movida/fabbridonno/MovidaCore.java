@@ -5,8 +5,13 @@ package movida.fabbridonno;
 
 import movida.commons.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner; // Import the Scanner class to read text files
+import java.util.Set;
 import java.io.PrintWriter;
+import java.util.Iterator;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
 public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
@@ -122,7 +127,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         Collaboration collab = new Collaboration(actorA, actorB);
         for (Collaboration c : graph.getCollabs(p1)) {
             if (Collaboration.areEquivalent(c, collab)) {
-                System.out.println("provaaa");
                 c.addMovie(m);
                 return;
             }
@@ -246,20 +250,21 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     // TODO: vedere se va
     public boolean deleteMovieByTitle(String title) {
         // if (dizionariTitle.delete(title)) {
-        //     clearSubDictionaries();
-        //     Movie[] movies = getAllMovies();
-        //     for (Movie movie : movies) {
-        //         dizionariYear.insert(movie, movie.getYear());
-        //         dizionariVotes.insert(movie, movie.getVotes());
-        //         loadCast(movie, movie.getCast());
-        //         loadDirector(movie, movie.getDirector());
-        //     }
-        //     sortAll();
-        //     return true;
+        // clearSubDictionaries();
+        // Movie[] movies = getAllMovies();
+        // for (Movie movie : movies) {
+        // dizionariYear.insert(movie, movie.getYear());
+        // dizionariVotes.insert(movie, movie.getVotes());
+        // loadCast(movie, movie.getCast());
+        // loadDirector(movie, movie.getDirector());
+        // }
+        // sortAll();
+        // return true;
         // }
         // return false;
         Movie movie = dizionariTitle.search(title);
-        if(movie == null) return false;
+        if (movie == null)
+            return false;
         dizionariYear.deleteEl(movie);
         dizionariVotes.deleteEl(movie);
         dizionariDirector.deleteEl(movie);
@@ -368,6 +373,40 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     void printGraph(){
         graph.printGraph();
+    }
+
+    public Person[] getDirectCollaboratorsOf(Person p) {
+        int i = 0;
+        Person[] collaborators = new Person[graph.getCollabs(p).size()];
+        for (Collaboration c : graph.getCollabs(p)) {
+            collaborators[i++] = (c.getActorA().equals(p)) ? c.getActorB() : c.getActorA();
+        }
+        return collaborators;
+    }
+
+    public Person[] getTeamOf(Person actor) {
+        HashSet<Person> visited = new HashSet<Person>();
+        Queue<Person> queue = new LinkedList<Person>();
+
+        queue.add(actor);
+        visited.add(actor);
+
+        while (!queue.isEmpty()) {
+            Person p = queue.poll();
+            Person q;
+            for (Collaboration c : graph.getCollabs(p)) {
+                q = (c.getActorA().equals(p)) ? c.getActorB() : c.getActorA();
+                if (!visited.contains(q)) {
+                    queue.add(q);
+                    visited.add(q);
+                }
+            }
+        }
+        return visited.toArray(new Person[0]);
+    }
+
+    public Collaboration[] maximizeCollaborationsInTheTeamOf(Person actor) {
+        return null;
     }
 
 }

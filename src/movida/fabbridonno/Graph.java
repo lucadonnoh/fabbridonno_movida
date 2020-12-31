@@ -3,7 +3,6 @@ package movida.fabbridonno;
 import movida.commons.Collaboration;
 import movida.commons.Movie;
 import movida.commons.Person;
-import java.util.Iterator;
 
 import java.util.*;
 
@@ -15,7 +14,13 @@ public class Graph {
     }
 
     public Set<Collaboration> getCollabs(Person p) {
-        return graph.get(p);
+        //Set<Collaboration> collabs = graph.get(p);
+        for(Map.Entry<Person,Set<Collaboration>> entry : graph.entrySet()){
+                if(entry.getKey().toString().equals(p.toString())){
+                    return entry.getValue();
+                }
+      }
+      return null;
     }
 
     public void addCollab(Person p, Collaboration c) {
@@ -23,22 +28,29 @@ public class Graph {
     }
 
     public boolean addActor(Person p) {
-        if(graph.containsKey(p)) return false;
+        for(Person k : graph.keySet()){
+            if(k.toString().equals(p.toString())){
+                return false;
+            }
+        }
         graph.put(p, new HashSet<Collaboration>());
         return true;
     }
 
     public boolean deleteMovie(Movie m) {
-        for(Set<Collaboration> collabs : graph.values()) {
-            for(Collaboration c : collabs) {
+        for(Person p : graph.keySet()) {
+            for(Collaboration c : getCollabs(p)) {
                 if(c.getMovies().contains(m)) {
                     if(c.getMovies().size() == 1) {
-                        collabs.remove(c);
+                        getCollabs(p).remove(c);
                         return true;
                     }
                     c.getMovies().remove(m);
                     return true;
                 }
+            }
+            if(getCollabs(p).isEmpty()) {
+                graph.remove(p);
             }
         }
         return false;
