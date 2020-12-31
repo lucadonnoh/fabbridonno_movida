@@ -108,48 +108,6 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return false;
     }
 
-    // public boolean delete(String title, K k) {
-    //     int i = 0;
-    //     // per come è fatta la funzione di hashing se arriviamo ad un null prima
-    //     // dell'elemento vuol dire che tale elemento non è presente
-    //     while (i < array.length) {
-    //         int h = ispezione(i++, hash(k, array.length), array.length);
-    //         if(array[h] == null){
-    //             return false;
-    //         }
-    //         if (array[h].getKey().equals(k) && ((Movie)array[h].getEl()).getTitle().equals(title)) {
-    //             array[h] = DELETED;
-    //             carico--;
-    //             return true;
-    //         }
-    //     }
-    //     if (carico <= array.length / 4) {
-    //         reshape(false);
-    //     }
-    //     return false; 
-    // }
-
-    // public boolean delete(K k) {
-    //     int i = 0;
-    //     // per come è fatta la funzione di hashing se arriviamo ad un null prima
-    //     // dell'elemento vuol dire che tale elemento non è presente
-    //     while (i < array.length) {
-    //         int h = ispezione(i++, hash(k, array.length), array.length);
-    //         if(array[h] == null){
-    //             return false;
-    //         }
-    //         if (array[h].getKey().equals(k)) {
-    //             array[h] = DELETED;
-    //             carico--;
-    //             return true;
-    //         }
-    //     }
-    //     if (carico <= array.length / 4) {
-    //         reshape(false);
-    //     }
-    //     return false;
-    // }
-
     public Record<T, K> searchRecord(K k) {
         int i=0;
         while (i<carico)//Qui è corretto tenere i<carico in quanto non serve far piu ispezioni di quanti ne abbiamo in tabella

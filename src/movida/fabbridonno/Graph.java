@@ -37,23 +37,24 @@ public class Graph {
         return true;
     }
 
-    public boolean deleteMovie(Movie m) {
-        for(Person p : graph.keySet()) {
-            for(Collaboration c : getCollabs(p)) {
+    public void deleteMovie(Movie m) {
+        for(Iterator<Person> pIter = graph.keySet().iterator(); pIter.hasNext();) {
+            Person p = pIter.next();
+            Set<Collaboration> collabs = getCollabs(p);
+            for (Iterator<Collaboration> cIter = collabs.iterator(); cIter.hasNext();) {
+                Collaboration c=cIter.next();
                 if(c.getMovies().contains(m)) {
                     if(c.getMovies().size() == 1) {
-                        getCollabs(p).remove(c);
-                        return true;
+                        cIter.remove();
+                    }else{
+                        c.getMovies().remove(m);
                     }
-                    c.getMovies().remove(m);
-                    return true;
                 }
             }
             if(getCollabs(p).isEmpty()) {
-                graph.remove(p);
+                pIter.remove();
             }
         }
-        return false;
     }
 
 

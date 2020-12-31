@@ -9,9 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner; // Import the Scanner class to read text files
-import java.util.Set;
 import java.io.PrintWriter;
-import java.util.Iterator;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
 public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
