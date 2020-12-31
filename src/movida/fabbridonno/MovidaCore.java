@@ -9,7 +9,7 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
 //public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
 
-public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMovidaCollaborations {
+public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     private SortingAlgorithm selectedSort;
 
     private MapImplementation selectedMap;
@@ -110,7 +110,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
 
     private void addCollab(Person p1, Person p2, Movie m) {
         Person actorA, actorB;
-        if (p1.compareTo(p2) >= 0) {
+        if (p1.compareTo(p2) <= 0) {
             actorA = p1;
             actorB = p2;
         } else {
@@ -120,18 +120,18 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         graph.addActor(actorA);
         graph.addActor(actorB);
         Collaboration collab = new Collaboration(actorA, actorB);
-        for (Collaboration c : graph.getCollabs(actorA)) {
+        for (Collaboration c : graph.getCollabs(p1)) {
             if (Collaboration.areEquivalent(c, collab)) {
+                System.out.println("provaaa");
                 c.addMovie(m);
                 return;
             }
         }
         collab.addMovie(m);
-        graph.getCollabs(actorA).add(collab);
-        graph.getCollabs(actorB).add(collab);
+        graph.getCollabs(p1).add(collab);
     }
 
-    public void loadGraph() {
+    private void loadGraph() {
         for (Movie m : dizionariTitle.export()) {
             for (Person p1 : m.getCast()) {
                 for (Person p2 : m.getCast()) {
@@ -364,6 +364,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         Person[] NActors = new Person[N];
         NActors = attività.firstNActors(N);
         return NActors;
+    }
+
+    void printGraph(){
+        graph.printGraph();
     }
 
 }

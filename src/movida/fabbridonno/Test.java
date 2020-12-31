@@ -22,19 +22,17 @@ public class Test {
         // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
         // mc.dizionariTitle[mc.getmapIndex()].stampa();
         // System.out.println("Suca Juri");
+        mc.printGraph();
         mc.deleteMovieByTitle("Cape Fear");
         //System.out.println(mc.countMovies());
         //System.out.println("Numero film: " + mc.countMovies());
         // System.out.println(mc.getPersonByName("Juri"));
         //mc.dizionariTitle.stampa();
         //mc.dizionariDirector.stampa();
-        mc.dizionariCast.stampa();
+        //mc.dizionariCast.stampa();
         //mc.dizionariYear.stampa();
         //mc.dizionariVotes.stampa();
-        Person[] NActors = mc.searchMostActiveActors(3);
-        for(int i=0;i<3;i++){
-            System.out.println(NActors[i]);
-        }
+        //Person[] NActors = mc.searchMostActiveActors(3);
         // mc.dizionariDirector[mc.getmapIndex()].stampa();
         // System.out.println(mc.countMovies());
         File file2 = new File("src/movida/fabbridonno/test2.txt");

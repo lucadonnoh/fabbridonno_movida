@@ -44,7 +44,6 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return list;
     }
 
-    
     //inserisce tutti gli elementi di una lista all'interno della tabella
     private void insertFromList(ArrayList<T> allEls, K k) {
         int i = 0;

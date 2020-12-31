@@ -3,6 +3,7 @@ package movida.fabbridonno;
 import movida.commons.Collaboration;
 import movida.commons.Movie;
 import movida.commons.Person;
+import java.util.Iterator;
 
 import java.util.*;
 
@@ -41,5 +42,21 @@ public class Graph {
             }
         }
         return false;
+    }
+
+
+    public void printGraph(){
+        Person p;
+        for(Map.Entry<Person,Set<Collaboration>> entry : graph.entrySet()){
+            for(Collaboration c : entry.getValue()) {
+                if(c.getActorA().equals(entry.getKey())){
+                    p = c.getActorB();
+                }else{
+                    p=c.getActorA();
+                }
+                System.out.println(entry.getKey() + " " + p.toString() + " " + c.getMovies());
+            }
+            System.out.println();
+        }
     }
 }

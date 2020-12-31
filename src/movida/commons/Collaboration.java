@@ -9,7 +9,7 @@ public class Collaboration {
 	ArrayList<Movie> movies;
 
 	static public boolean areEquivalent(Collaboration c1, Collaboration c2) {
-		return (c1.getActorA().equals(c2.getActorA()) && c1.getActorB().equals(c2.getActorB()));
+		return (c1.getActorA().toString().equals(c2.getActorA().toString()) && c1.getActorB().toString().equals(c2.getActorB().toString()));
 	}
 
 	public Collaboration(Person actorA, Person actorB) {
