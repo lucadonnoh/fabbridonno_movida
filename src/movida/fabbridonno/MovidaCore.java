@@ -202,7 +202,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             }
             writer.flush();
             writer.close();
-            System.out.println("Salvataggio su nuovo file completato");
             return;
         } catch (Exception e) {
             throw new MovidaFileException();
@@ -389,4 +388,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return null;
     }
 
+    public void print(){
+        dizionariTitle.stampa();
+    }
 }

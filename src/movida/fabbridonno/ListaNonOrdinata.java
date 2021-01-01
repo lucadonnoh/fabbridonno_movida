@@ -37,6 +37,10 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         while (p != null) {
             if (p.getAllEls().contains(m)) {
                 if(p.getAllEls().size() == 1) {
+                    if(prev == null){
+                        record = p.next;
+                        return true;
+                    }
                     prev.next = p.next;
                     return true;
                 }
