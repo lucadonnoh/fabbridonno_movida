@@ -181,7 +181,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     private String printCast(Person[] cast) {
         int i;
         String s = "";
-        for (i = 0; i < cast.length - 2; i++) {
+        for (i = 0; i < cast.length - 1; i++) {
             s += (cast[i].getName() + ", ");
         }
         s += (cast[i].getName());
@@ -191,12 +191,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     public void saveToFile(File f) {
         try {
             PrintWriter writer = new PrintWriter(f);
-            // if (f.createNewFile()) {
-            // System.out.println("File created: " + f.getName());
-            // } else {
-            // System.out.println("File already exists.");
-            // writer.print("");
-            // }
             writer.print("");
             for (Movie m : dizionariTitle.export()) {
                 writer.write("Title: " + m.getTitle() + "\n");
@@ -208,6 +202,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             }
             writer.flush();
             writer.close();
+            System.out.println("Salvataggio su nuovo file completato");
+            return;
         } catch (Exception e) {
             throw new MovidaFileException();
         }
@@ -215,11 +211,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     // TODO: rimettere i sort a true
     public void sortAll() {
-        dizionariTitle.sort(sortIndex, false);
-        dizionariYear.sort(sortIndex, false);
-        dizionariVotes.sort(sortIndex, false);
-        dizionariDirector.sort(sortIndex, false);
-        dizionariCast.sort(sortIndex, false);
+        dizionariTitle.sort(sortIndex, true);
+        dizionariYear.sort(sortIndex, true);
+        dizionariVotes.sort(sortIndex, true);
+        dizionariDirector.sort(sortIndex, true);
+        dizionariCast.sort(sortIndex, true);
     }
 
     public void clear() {
