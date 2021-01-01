@@ -17,7 +17,7 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 *
 	 * @param k chiave dell'elemento da cancellare
 	 */
-	public boolean deleteEl(Movie m);
+	public void deleteEl(Movie m);
 
 	// public boolean delete(String title, K k);
 
@@ -42,6 +42,8 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	public int getCarico();
 
 	public void clear();
+
+	public boolean isEmpty();
 
 	public Movie[] export();
 

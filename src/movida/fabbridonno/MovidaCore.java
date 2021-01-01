@@ -225,6 +225,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         dizionariVotes.clear();
     }
 
+    //TODO: non serve a un cazzo?
     public void clearSubDictionaries() {
         dizionariYear.clear();
         dizionariDirector.clear();
@@ -388,7 +389,25 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return null;
     }
 
+    //FUNZIONI PER I TEST
+
     public void print(){
+        if(dizionariTitle.isEmpty()){
+            System.out.println("Non ci sono film");
+        }
+        dizionariCast.stampa();
+        return;
+    }
+
+    public void printAll(){
         dizionariTitle.stampa();
+        dizionariYear.stampa();
+        dizionariVotes.stampa();
+        dizionariDirector.stampa();
+        dizionariCast.stampa();
+    }
+
+    public Graph getGraph(){
+        return this.graph;
     }
 }

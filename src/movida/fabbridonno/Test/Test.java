@@ -16,7 +16,7 @@ public class Test {
     }
 
     public void reset(){
-        mc = new MovidaCore();
+        mc.clear();
         return;
     }
 
@@ -24,14 +24,21 @@ public class Test {
         mc.print();
     }
 
-    public Boolean test_Find_and_Delete(String s){
+    public void test_Find_and_Delete(String s){
         Movie m = mc.getMovieByTitle(s);
         if(m == null){
             System.out.println("Il film non è stato trovato\n");
-            return false;
+            return;
         }
         System.out.println("Trovato " + m.getTitle() + " procedo ad eliminarlo\n");
-        return mc.deleteMovieByTitle(s);
+        mc.deleteMovieByTitle(s);
+        mc.print();
+        return;
+    }
+
+    public boolean findPerson(String s){
+        if(mc.getPersonByName(s) != null) return true;
+        return false;
     }
 
     public void test_Salvataggio(){
@@ -40,11 +47,13 @@ public class Test {
         System.out.println("Salvataggio su nuovo file completato");
     }
 
+
     public static void main(String[] args) {
-            Test t = new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.InsertionSort);
+            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.InsertionSort);
             t.print();
-            t.test_Find_and_Delete("Taxi Driver");
-            t.print();
+            System.out.println(t.findPerson("Steven Bauer"));
+            t.test_Find_and_Delete("Scarface");
+            System.out.println(t.findPerson("Steven Bauer"));
 
 
     //     MovidaCore mc = new MovidaCore();

@@ -29,27 +29,29 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         carico++;
     }
 
-    public boolean deleteEl(Movie m) {
+    public void deleteEl(Movie m) {
         if (record == null)
-            return false;
+            return;
         Record<T, K> p = record;
         Record<T,K> prev = null;
-        while (p != null) {
+        while (p.next != null) {
             if (p.getAllEls().contains(m)) {
                 if(p.getAllEls().size() == 1) {
                     if(prev == null){
-                        record = p.next;
-                        return true;
+                        p=p.next;
+                        record = p;
+                    }else{
+                        prev.next = p.next;
                     }
-                    prev.next = p.next;
-                    return true;
+                    carico--;
+                }else{
+                    p.getAllEls().remove(m);
                 }
-                p.getAllEls().remove(m);
             }
             prev = p;
             p = p.next;
         }
-        return false;
+        return;
     }
 
     // public boolean delete(String title, K k) {
@@ -152,6 +154,10 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     public void clear() {
         record = null;
         carico = 0;
+    }
+
+    public boolean isEmpty() {
+        return carico == 0;
     }
 
     //Funzione che esporta gli elementi dei record in un array

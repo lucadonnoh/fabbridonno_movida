@@ -91,21 +91,19 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
-    public boolean deleteEl(Movie m) {
+    public void deleteEl(Movie m) {
         for(Record<T,K> r : array) {
             if(r!=null && r.getAllEls().contains(m)) {
                 if(r.getAllEls().size() == 1) {
                     int i = Arrays.asList(array).indexOf(r);
                     array[i] = DELETED;
                     carico--;
-                    return true;
                 }
-                r.getAllEls().remove(m);
-                carico--;
-                return true;
+                else{
+                    r.getAllEls().remove(m);
+                }
             }
         }
-        return false;
     }
 
     public Record<T, K> searchRecord(K k) {
@@ -183,6 +181,10 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     public void clear() {
         array = new Record[1];
         carico = 0;
+    }
+
+    public boolean isEmpty(){
+        return carico == 0;
     }
 
     //TODO: questa va testata nei prossimi giorni
