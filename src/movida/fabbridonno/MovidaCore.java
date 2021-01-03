@@ -5,7 +5,6 @@ package movida.fabbridonno;
 
 import movida.commons.*;
 import java.io.File;
-import java.util.AbstractMap;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -391,7 +390,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public Collaboration[] maximizeCollaborationsInTheTeamOf(Person actor) {
-        
         HashMap<Person, Double> d = new HashMap<Person, Double>();
         HashMap<Person, Collaboration> maxCollabs = new HashMap<Person, Collaboration>();
         Comparator<Entry> comparator = Comparator.comparing(Entry::getValue).reversed();
@@ -405,7 +403,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             }
         }
         q.add(entry);
-        
         while(!q.isEmpty()) {
             Person actor1 = q.poll().getKey();
             for(Collaboration c : graph.getCollabs(actor1)) {
