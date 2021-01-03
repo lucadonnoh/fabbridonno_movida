@@ -93,14 +93,16 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     public void deleteEl(Movie m) {
         for(Record<T,K> r : array) {
-            if(r!=null && r.getAllEls().contains(m)) {
-                if(r.getAllEls().size() == 1) {
+            ArrayList<T> l = r.getAllEls();
+            if(r!=null && l.contains(m)) {
+                if(l.size() == 1) {
                     int i = Arrays.asList(array).indexOf(r);
                     array[i] = DELETED;
                     carico--;
                 }
                 else{
-                    r.getAllEls().remove(m);
+                    l.remove(m);
+                    r.setAllEls(l);
                 }
             }
         }

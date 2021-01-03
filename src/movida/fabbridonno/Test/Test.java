@@ -10,7 +10,10 @@ public class Test {
     public Test(MapImplementation map, SortingAlgorithm algo){
         mc.setMap(MapImplementation.ListaNonOrdinata);
         mc.setSort(SortingAlgorithm.QuickSort);
-        File file = new File("src/movida/fabbridonno/test.txt");
+    }
+
+    public void loadFile(){
+        File file = new File("src/movida/fabbridonno/Test/Filetest/test.txt");
         mc.loadFromFile(file);
         System.out.println("Caricamento dei dati completati");
     }
@@ -22,6 +25,14 @@ public class Test {
 
     public void print(){
         mc.print();
+    }
+
+    public void printDirector(){
+        mc.printDirector();
+    }
+
+    public void printCast(){
+        mc.printCast();
     }
 
     public void test_Find_and_Delete(String s){
@@ -41,7 +52,7 @@ public class Test {
     }
 
     public void test_Salvataggio(){
-        File file = new File("src/movida/fabbridonno/salvati.txt");
+        File file = new File("src/movida/fabbridonno/Test/FileTest/salvati.txt");
         mc.saveToFile(file);
         System.out.println("Salvataggio su nuovo file completato");
     }
@@ -106,9 +117,22 @@ public class Test {
         }
     }
 
+    public void loadWrongFile(){
+            //File f = new File("src/movida/fabbridonno/Test/Filetest/wrongMissingColon");      //Va
+            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingColumn");
+            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingSpace");      //Va
+            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongExtraSpace");        //Va
+            //TODO: l'unica cosa sarebbe un doppio spazio a metà di un nome tipo "Cape  Fear" però figa
+            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongLabel");
+            File f = new File("src/movida/fabbridonno/Test/FileTest/wrongDoubleNewLine");
+            mc.loadFromFile(f);
+    }
+
 
     public static void main(String[] args) {
             Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.InsertionSort);
-            
+            //t.loadFile();
+            t.loadWrongFile();
+            t.test_Salvataggio();
     }
 }

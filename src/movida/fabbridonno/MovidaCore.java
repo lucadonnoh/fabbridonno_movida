@@ -78,14 +78,20 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     private String format(String nf, String label) {
-        if (!nf.split(": ")[0].equals(label))
-            throw new LabelException();
+        if (!nf.split(": ")[0].equals(label)) throw new LabelException();
+        if (nf.split(": ")[1].endsWith(" ") || nf.split(": ")[1].startsWith(" ")) throw new LabelException();
         return nf.split(": ")[1];
     }
 
     private Person[] formatCast(String nf) {
         String s = format(nf, "Cast");
         String[] a = s.split(", ");
+        if(a[0].startsWith(" ")) throw new LabelException();
+        //TODO: vedere se si può trovare un modo di fixare il cast senza una virgola ma doubt
+        // for(int i=0; i<a.length;i++){
+        //     String[] c = a[i].split(" ");
+        //     if(c.length > 2) throw new LabelException();
+        // }
         Person[] cast = new Person[a.length];
         for (int i = 0; i < a.length; i++) {
             cast[i] = new Person(a[i]);
@@ -424,7 +430,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
                     maxCollabs.put(actor2, c);
                 }
             }
-            
         }
 
         return maxCollabs.values().toArray(new Collaboration[0]);
@@ -437,6 +442,22 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             System.out.println("Non ci sono film");
         }
         dizionariTitle.stampa();
+        return;
+    }
+
+    public void printDirector() {
+        if (dizionariTitle.isEmpty()) {
+            System.out.println("Non ci sono film");
+        }
+        dizionariDirector.stampa();
+        return;
+    }
+
+    public void printCast() {
+        if (dizionariTitle.isEmpty()) {
+            System.out.println("Non ci sono film");
+        }
+        dizionariCast.stampa();
         return;
     }
 
