@@ -27,12 +27,11 @@ public class Test {
     public void test_Find_and_Delete(String s){
         Movie m = mc.getMovieByTitle(s);
         if(m == null){
-            System.out.println("Il film non è stato trovato\n");
+            System.out.println("Il film non è stato trovato");
             return;
         }
-        System.out.println("Trovato " + m.getTitle() + " procedo ad eliminarlo\n");
+        System.out.println("\nTrovato " + m.getTitle() + " procedo ad eliminarlo");
         mc.deleteMovieByTitle(s);
-        mc.print();
         return;
     }
 
@@ -47,56 +46,69 @@ public class Test {
         System.out.println("Salvataggio su nuovo file completato");
     }
 
+    public void test_FilmAndPersone(){
+        System.out.println("In totale in ci sono " + mc.countMovies() + " film");
+        System.out.println("In totale in ci sono " + mc.countPeople() + " persone");
+        System.out.println("\nI film sono: ");
+        for(Movie m : mc.getAllMovies()) System.out.println(m.toString());
+        System.out.println("\nLe persone sono: ");
+        for(Person p : mc.getAllPeople()) System.out.println(p.toString());
+    }
+
+    public void test_MoviesinYear(Integer year){
+        System.out.println("I film usciti nell'anno " + year + " sono:" );
+        for(Movie m: mc.searchMoviesInYear(year)){
+            System.out.println(m.toString());
+        }
+    }
+
+    public void test_MoviesDirectedBy(String name){
+        System.out.println("I film usciti diretti da " + name + " sono:" );
+        for(Movie m: mc.searchMoviesDirectedBy(name)){
+            System.out.println(m.toString());
+        }
+    }
+
+    public void test_MoviesbyTitle(String s){
+        System.out.println("I film usciti contenenti la stringa " + s + " sono:" );
+        for(Movie m: mc.searchMoviesByTitle(s)){
+            System.out.println(m.toString());
+        }
+    }
+
+    public void test_MostVotedMovies(Integer n){
+        System.out.println("Gli " + n + " film più votati sono:" );
+        for(Movie m: mc.searchMostVotedMovies(n)){
+            System.out.println(m.toString());
+        }
+    }
+
+    //TODO: testa
+    public void test_MostRecentMovies(Integer n){
+        System.out.println("I " + n + " film più recenti sono:" );
+        for(Movie m: mc.searchMostRecentMovies(n)){
+            System.out.println(m.toString());
+        }
+    }
+
+    public void test_MoviesStarredBy(String name){
+        System.out.println("I film in cui ha partecipato " + name + " sono:");
+        for(Movie m: mc.searchMoviesStarredBy(name)){
+            System.out.println(m.toString());
+        }
+    }
+
+    //TODO: testa
+    public void test_MostActiveActors(Integer n){
+        System.out.println("I " + n + " attori più attivi sono:");
+        for(Person p: mc.searchMostActiveActors(n)){
+            System.out.println(p.toString());
+        }
+    }
+
 
     public static void main(String[] args) {
             Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.InsertionSort);
-            t.print();
-            System.out.println(t.findPerson("Steven Bauer"));
-            t.test_Find_and_Delete("Scarface");
-            System.out.println(t.findPerson("Steven Bauer"));
-
-
-    //     MovidaCore mc = new MovidaCore();
-    //     mc.setMap(MapImplementation.ListaNonOrdinata);
-    //     mc.setSort(SortingAlgorithm.QuickSort);
-    //     File file = new File("src/movida/fabbridonno/test.txt");
-    //     // File file2 = new File("src/movida/fabbridonno/test2.txt");
-    //     mc.loadFromFile(file);
-    //     //Movie c = mc.getMovieByTitle("Cape Fear");
-    //     // System.out.println(c.getDirector().getName());
-    //     System.out.println("Numero film: " + mc.countMovies());
-    //     // mc.dizionariTitle[mc.getmapIndex()].clear();
-    //     // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
-    //     // mc.dizionariTitle[mc.getmapIndex()].stampa();
-    //     // mc.dizionariTitle.sort(1, true);
-    //     // System.out.println(mc.countMovies());
-    //     // mc.dizionariTitle[mc.getmapIndex()].insert(m, m.getTitle());
-    //     // mc.dizionariTitle[mc.getmapIndex()].stampa();
-    //     // System.out.println("Suca Juri");
-    //     //mc.deleteMovieByTitle("Cape Fear");
-    //     Person[] ms = mc.getAllPeople();
-    //     System.out.println(ms.length);
-    //     for(Person m:ms){
-    //         System.out.println(m.toString());
-    //     }
-    //     //System.out.println(mc.countMovies());
-    //     //System.out.println("Numero film: " + mc.countMovies());
-    //     // System.out.println(mc.getPersonByName("Juri"));
-    //     //mc.dizionariTitle.stampa();
-    //     //mc.dizionariDirector.stampa();
-    //     //mc.dizionariCast.stampa();
-    //     //mc.dizionariYear.stampa();
-    //     //mc.dizionariVotes.stampa();
-    //     //Person[] NActors = mc.searchMostActiveActors(3);
-    //     // mc.dizionariDirector[mc.getmapIndex()].stampa();
-    //     // System.out.println(mc.countMovies());
-    //     File file2 = new File("src/movida/fabbridonno/test2.txt");
-    //     //Person p = mc.getPersonByName("Jodie Foster");
-    //     //System.out.println(p.getName());
-    //     // Movie[] ms = mc.searchMoviesStarredBy("Robert De Niro");
-    //     //Person[] ps = mc.getAllPeople();
-    //     //int i;
-    //     mc.saveToFile(file2);
-    // }
+            
     }
 }

@@ -34,18 +34,21 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             return;
         Record<T, K> p = record;
         Record<T,K> prev = null;
-        while (p.next != null) {
-            if (p.getAllEls().contains(m)) {
-                if(p.getAllEls().size() == 1) {
+        while (p != null) {
+            ArrayList<T> l = p.getAllEls();
+            if (l.contains(m)) {
+                if(l.size() == 1) {
+                    carico--;
                     if(prev == null){
                         p=p.next;
                         record = p;
+                        continue;
                     }else{
                         prev.next = p.next;
                     }
-                    carico--;
                 }else{
-                    p.getAllEls().remove(m);
+                    l.remove(m);
+                    p.setAllEls(l);
                 }
             }
             prev = p;

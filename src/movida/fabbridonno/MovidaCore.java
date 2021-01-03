@@ -150,8 +150,9 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             Scanner myReader = new Scanner(f);
             while (myReader.hasNextLine()) {
                 String title = format(myReader.nextLine(), "Title");
-                if ((dizionariTitle.search(title) != null))
-                    dizionariTitle.deleteEl(dizionariTitle.search(title));
+                if ((dizionariTitle.search(title) != null)){
+                    deleteMovieByTitle(title);
+                }
                 int year = Integer.parseInt(format(myReader.nextLine(), "Year"));
                 Person director = new Person(format(myReader.nextLine(), "Director"));
                 Person[] cast = formatCast(myReader.nextLine());
@@ -395,7 +396,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         if(dizionariTitle.isEmpty()){
             System.out.println("Non ci sono film");
         }
-        dizionariCast.stampa();
+        dizionariTitle.stampa();
         return;
     }
 
