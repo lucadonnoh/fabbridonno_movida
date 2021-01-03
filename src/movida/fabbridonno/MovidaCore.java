@@ -5,8 +5,12 @@ package movida.fabbridonno;
 
 import movida.commons.*;
 import java.io.File;
+import java.util.AbstractMap;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
@@ -225,7 +229,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         dizionariVotes.clear();
     }
 
-    //TODO: non serve a un cazzo?
+    // TODO: non serve a un cazzo?
     public void clearSubDictionaries() {
         dizionariYear.clear();
         dizionariDirector.clear();
@@ -351,7 +355,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return NActors;
     }
 
-    void printGraph(){
+    void printGraph() {
         graph.printGraph();
     }
 
@@ -386,20 +390,59 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public Collaboration[] maximizeCollaborationsInTheTeamOf(Person actor) {
-        return null;
+        
+        HashMap<Person, Double> d = new HashMap<Person, Double>();
+        HashMap<Person, Collaboration> maxCollabs = new HashMap<Person, Collaboration>();
+        Comparator<Entry> comparator = Comparator.comparing(Entry::getValue).reversed();
+		PriorityQueue<Entry> q = new PriorityQueue<Entry>(comparator);
+        Entry entry = new Entry(actor, 0.0);
+        for(Person p : getTeamOf(actor)) {
+            if(p.equals(actor)) {
+                d.put(actor, Double.POSITIVE_INFINITY);
+            } else {
+                d.put(p, Double.NEGATIVE_INFINITY);
+            }
+        }
+        q.add(entry);
+        
+        while(!q.isEmpty()) {
+            Person actor1 = q.poll().getKey();
+            for(Collaboration c : graph.getCollabs(actor1)) {
+                Person actor2;
+                if(c.getActorA().equals(actor1)) {
+                    actor2 = c.getActorB();
+                } else {
+                    actor2 = c.getActorA();
+                }
+
+                if(d.get(actor2) == Double.NEGATIVE_INFINITY) {
+                    q.add(new Entry(actor2, c.getScore()));
+                    d.replace(actor2, c.getScore());
+                    maxCollabs.put(actor2, c);
+                } else if (c.getScore() > d.get(actor2)) {
+                    q.remove(new Entry(actor2, 69.420));
+                    q.add(new Entry(actor2, c.getScore()));
+                    d.replace(actor2, c.getScore());
+                    maxCollabs.put(actor2, c);
+                }
+            }
+            
+        }
+
+        return maxCollabs.values().toArray(new Collaboration[0]);
     }
 
-    //FUNZIONI PER I TEST
+    // FUNZIONI PER I TEST
 
-    public void print(){
-        if(dizionariTitle.isEmpty()){
+    public void print() {
+        if (dizionariTitle.isEmpty()) {
             System.out.println("Non ci sono film");
         }
         dizionariCast.stampa();
         return;
     }
 
-    public void printAll(){
+    public void printAll() {
         dizionariTitle.stampa();
         dizionariYear.stampa();
         dizionariVotes.stampa();
@@ -407,7 +450,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         dizionariCast.stampa();
     }
 
-    public Graph getGraph(){
+    public Graph getGraph() {
         return this.graph;
     }
 }
