@@ -1,9 +1,3 @@
-Title: cape fear
-Year: 1991
-Director: Martin Scorsese
-Cast: Robert De Niro, Nick Nolte, Jessica Lange, Juliette Lewis
-Votes: 163093
-
 Title: Cape Fear
 Year: 1991
 Director: Martin Scorsese
@@ -13,13 +7,13 @@ Votes: 163093
 Title: Taxi Driver
 Year: 1976
 Director: Martin Scorsese
-Cast: Robert De Niro, Jodie Foster, Cybill Shepherd, Albert Brooks
+Cast: Robert De Niro, Jodie Foster, Cybill Shepherd, Albert Brooks, Jessica Lange, John Travolta
 Votes: 684728
 
 Title: Pulp Fiction
 Year: 1994
 Director: Quentin Tarantino
-Cast: John Travolta, Uma Thurman
+Cast: John Travolta, Uma Thurman, Robert De Niro, Jessica Lange
 Votes: 1743616
 
 Title: Contact
@@ -41,13 +35,13 @@ Cast: Bruce Willis, Haley Joel Osment, Toni Collette
 Votes: 879298
 
 Title: Scarface
-Year: 1983
+Year: 1999
 Director: Brian De Palma
 Cast: Al Pacino, Michelle Pfeiffer, Steven Bauer
 Votes: 703754
 
 Title: What Lies Beneath
-Year: 2000
+Year: 1999
 Director: Robert Zemeckis
 Cast: Harrison Ford, Michelle Pfeiffer, Katharine Towne
 Votes: 114295

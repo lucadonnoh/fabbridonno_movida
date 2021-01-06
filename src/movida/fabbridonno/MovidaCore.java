@@ -351,8 +351,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             attività.insert(attori[i], keys[i]);
         }
 
-        attività.sort(0, false);
-        if(N>attori.length) N = attori.length;
+        attività.sort(sortIndex, false);
+        if(N>attori.length){
+            N = attori.length;
+        }
         Person[] NActors = new Person[N];
         NActors = attività.firstNActors(N);
         return NActors;

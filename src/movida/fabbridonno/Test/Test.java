@@ -55,8 +55,11 @@ public class Test {
     }
 
     public boolean findPerson(String s){
-        if(mc.getPersonByName(s) != null) return true;
-        System.out.println("\nLa persona" + s + "non è stata trovata");
+        if(mc.getPersonByName(s) != null){
+            System.out.println("\nLa persona " + s + " è presente");
+            return true;
+        }
+        System.out.println("\nLa persona " + s + " non è stata trovata");
         return false;
     }
 
@@ -76,36 +79,37 @@ public class Test {
     }
 
     public void test_MoviesinYear(Integer year){
+        Movie[] films = mc.searchMoviesInYear(year);
+        if(films.length == 0){
+            System.out.println("\nNon sono presenti film usciti nell'anno " + year);
+            return;
+        }
         System.out.println("\nI film usciti nell'anno " + year + " sono:" );
-        for(Movie m: mc.searchMoviesInYear(year)){
+        for(Movie m: films){
             System.out.println(m.toString());
         }
     }
 
     public void test_MoviesDirectedBy(String name){
+        Movie[] films = mc.searchMoviesDirectedBy(name);
+        if(films.length == 0){
+            System.out.println("\nIl regista " + name + " non ha diretto in nessun film");
+            return;
+        }
         System.out.println("\nI film diretti da " + name + " sono:" );
-        for(Movie m: mc.searchMoviesDirectedBy(name)){
+        for(Movie m: films){
             System.out.println(m.toString());
         }
     }
 
     public void test_MoviesbyTitle(String s){
+        Movie[] films = mc.searchMoviesByTitle(s);
+        if(films.length == 0){
+            System.out.println("\nNon ci sono film contenenti la stringa " + s);
+            return;
+        }
         System.out.println("\nI film contenenti la stringa " + s + " sono:" );
-        for(Movie m: mc.searchMoviesByTitle(s)){
-            System.out.println(m.toString());
-        }
-    }
-
-    public void test_MostVotedMovies(Integer n){
-        System.out.println("\nGli " + n + " film più votati sono:" );
-        for(Movie m: mc.searchMostVotedMovies(n)){
-            System.out.println(m.toString());
-        }
-    }
-
-    public void test_MostRecentMovies(Integer n){
-        System.out.println("\nI " + n + " film più recenti sono:" );
-        for(Movie m: mc.searchMostRecentMovies(n)){
+        for(Movie m: films){
             System.out.println(m.toString());
         }
     }
@@ -122,9 +126,24 @@ public class Test {
         }
     }
 
+    public void test_MostVotedMovies(Integer n){
+        System.out.println("\nI " + n + " film più votati sono:" );
+        for(Movie m: mc.searchMostVotedMovies(n)){
+            System.out.println(m.toString());
+        }
+    }
+
+    public void test_MostRecentMovies(Integer n){
+        System.out.println("\nI " + n + " film più recenti sono:" );
+        for(Movie m: mc.searchMostRecentMovies(n)){
+            System.out.println(m.toString());
+        }
+    }
+
     public void test_MostActiveActors(Integer n){
+        Person[] actors = mc.searchMostActiveActors(n);
         System.out.println("\nI " + n + " attori più attivi sono:");
-        for(Person p: mc.searchMostActiveActors(n)){
+        for(Person p: actors){
             System.out.println(p.toString());
         }
     }
@@ -143,7 +162,11 @@ public class Test {
     public static void main(String[] args) {
             Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.InsertionSort);
             t.loadFile();
-            t.findPerson("Juri");
+            t.test_FilmAndPersone();
+            t.findPerson("Al Pacino");
+            t.test_Find_and_Delete("Scarface");
+            t.findPerson("Al Pacino");
+            t.test_FilmAndPersone();
             t.test_Salvataggio();
     }
 }
