@@ -216,7 +216,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     public Movie[] searchMoviesByRecord(K k) {
         int i=0;
         Record<T, K> p = searchRecord(k);
-        if(p==null) return null;
+        if(p==null) return new Movie[0];
         ArrayList<T> l = p.getAllEls();
         Movie[] movies = new Movie[l.size()];
         for(T film : l){
@@ -283,6 +283,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         }
         p = record;
         Movie[] movies = new Movie[i];
+        if(i==0) return movies;
         i = 0;
         while (p != null) {
             if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
