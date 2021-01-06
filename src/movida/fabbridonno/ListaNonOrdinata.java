@@ -129,7 +129,11 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             return false;
     }
 
-    //Sarà usato nei sort
+    /**
+     * Ritorna l'n-esimo Record della lista
+     * @param n posizione del Record
+     * @return il Record
+     */
     private Record<T, K> getNthRecord(int n) {
         Record<T, K> tmp = this.record;
         while (tmp != null && n >= 0) {
@@ -220,7 +224,12 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return movies;
     }
 
-    //Ritorna un array dei primi n film della lista p
+    /**
+     * Ritorna gli n Movie successivi al Record passato come parametro
+     * @param p Record da cui partire
+     * @param n numero di Movie da prendere
+     * @return array di Movie
+     */
     private Movie[] nNextMovies(Record<T, K> p, int n) {
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
@@ -230,7 +239,12 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return movies;
     }
 
-    //Ritorna un array dei primi n attori della lista p
+    /**
+     * Ritorna gli n Person successivi al Record passato come parametro
+     * @param p Record da cui partire
+     * @param n numero di Person da prendere
+     * @return array di Person 
+     */
     private Person[] nNextActors(Record<T, K> p, int n) {
         if(n>carico) n=carico;
         Person[] actors = new Person[n];
@@ -291,6 +305,10 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         }
     }
 
+    /**
+     * Effettua l'insertion sort
+     * @param b se true crescente, altrimenti decrescente
+     */
     private void insertionSort(boolean b) {
 
         // Initialize sorted linked list
@@ -310,11 +328,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         record = sorted;
     }
 
-    /*
-     * function to insert a new_Record in a list. Note that this function expects a
-     * pointer to head_ref as this can modify the head of the input linked list
-     * (similar to push())
-     */
+    //TODO: fare commento
     private Record<T, K> sortedInsert(Record<T, K> newRecord, Record<T, K> sorted, boolean b) {
         /* Special case for the head end */
         if (b) {
@@ -347,9 +361,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return sorted;
     }
 
+    /**
+     * Effettua il quicksort
+     * @param b se true crescente, altrimenti decrescente
+     */
     private void quickSort(boolean b) {
         quicksortRec(0, this.carico - 1, b);
-    }
+    } //TODO: i commenti di quelli sotto li fai tu jurino (forse non servono)
 
     private void quicksortRec(int i, int f, boolean b) {
         if (i >= f)
