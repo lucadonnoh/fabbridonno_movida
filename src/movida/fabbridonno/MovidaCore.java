@@ -102,7 +102,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return cast;
     }
 
-    public void loadDirector(Movie m, Person Director) {
+    private void loadDirector(Movie m, Person Director) {
         Record<Movie, Person> regista = dizionariDirector.searchRecord(Director);
         if (regista == null) {
             dizionariDirector.insert(m, Director);
@@ -111,7 +111,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
     }
 
-    public void loadCast(Movie m, Person[] cast) {
+    private void loadCast(Movie m, Person[] cast) {
         for (int i = 0; i < cast.length; i++) {
             Record<Movie, Person> attore = dizionariCast.searchRecord(cast[i]);
             if (attore == null) {
