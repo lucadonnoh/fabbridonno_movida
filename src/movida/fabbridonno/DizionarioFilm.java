@@ -78,9 +78,8 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 */
 	public Comparable<K>[] exportKeys();
 
-	/**
-	 * Ritorna 
-	 */
+	public Movie[] vettoreVuoto();
+
 	public Movie[] searchMoviesByKey(K k);
 
 	public Movie[] searchMoviesByPerson(K k);

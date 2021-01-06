@@ -46,7 +46,7 @@ public class Test {
     public void test_Find_and_Delete(String s){
         Movie m = mc.getMovieByTitle(s);
         if(m == null){
-            System.out.println("\nIl film non è stato trovato");
+            System.out.println("\nIl film" + s + "non è stato trovato");
             return;
         }
         System.out.println("\nTrovato " + m.getTitle() + " procedo ad eliminarlo");
@@ -56,6 +56,7 @@ public class Test {
 
     public boolean findPerson(String s){
         if(mc.getPersonByName(s) != null) return true;
+        System.out.println("\nLa persona" + s + "non è stata trovata");
         return false;
     }
 
@@ -142,12 +143,7 @@ public class Test {
     public static void main(String[] args) {
             Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.InsertionSort);
             t.loadFile();
-            //t.printCast();
-            t.printVotes();
-            t.test_MostActiveActors(5);
-            t.test_MostRecentMovies(4);
-            t.test_MostVotedMovies(4);
-            //t.loadWrongFile();
+            t.findPerson("Juri");
             t.test_Salvataggio();
     }
 }
