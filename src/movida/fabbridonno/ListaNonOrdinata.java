@@ -228,6 +228,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     //Ritorna un array dei primi n film della lista p
     private Movie[] nNextMovies(Record<T, K> p, int n) {
+        if(n<carico) n=carico;
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
             movies[i] = Record.toMovie(p.getEl());
@@ -238,6 +239,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     //Ritorna un array dei primi n attori della lista p
     private Person[] nNextActors(Record<T, K> p, int n) {
+        if(n<carico) n=carico;
         Person[] actors = new Person[n];
         for (int i = 0; i < n; i++) {
             actors[i] = Record.toPerson(p.getEl());

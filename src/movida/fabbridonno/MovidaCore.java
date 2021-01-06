@@ -156,6 +156,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
     }
 
+    //TODO: gestire il case sensitive grr
     public void loadFromFile(File f) {
         try {
             Scanner myReader = new Scanner(f);
