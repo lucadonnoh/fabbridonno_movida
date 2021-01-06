@@ -78,11 +78,19 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 */
 	public Comparable<K>[] exportKeys();
 
-	public Movie[] vettoreVuoto();
-
+	/**
+	 * Trova i Movie con una certa key.
+	 * @param k chiave dei Movie da cercare
+	 * @return array di Movie
+	 */
 	public Movie[] searchMoviesByKey(K k);
 
-	public Movie[] searchMoviesByPerson(K k);
+	/**
+	 * 
+	 * @param k
+	 * @return
+	 */
+	public Movie[] searchMoviesByRecord(K k);
 
 	public Movie[] firstNMovies(int n);
 
