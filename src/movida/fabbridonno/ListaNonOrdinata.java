@@ -190,13 +190,17 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return keys;
     }
 
+    public Movie[] vettoreVuoto(){
+        Movie[] movies = new Movie[0];
+        return movies;
+    }
 
     //Sfruttiamo il fatto che la lista sia sempre ordinata quindi se ci son chiavi uguali sono adiacenti
-    //TODO: lo pigliamo in culo sulle persone perchè quelli cons tessa chiave son tutti nello stesso record <.<
+    //TODO: lo pigliamo in culo sulle persone perchè quelli con stessa chiave son tutti nello stesso record <.<
     public Movie[] searchMoviesByKey(K k) {
         Record<T, K> p = searchRecord(k);
         if(p==null){
-            return null;
+            return vettoreVuoto();
         }
         Record<T, K> tmp = p;
         int n = 0;
