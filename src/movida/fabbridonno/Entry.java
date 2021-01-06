@@ -14,7 +14,7 @@ public class Entry extends AbstractMap.SimpleEntry<Person, Double> {
         super(key, value);
     }
 
-    @Override 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -26,5 +26,4 @@ public class Entry extends AbstractMap.SimpleEntry<Person, Double> {
             return false;
         }
     }
-    
 }

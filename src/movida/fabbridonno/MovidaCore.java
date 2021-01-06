@@ -57,8 +57,9 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     public boolean setMap(MapImplementation m) {
         if (selectedMap != m) {
-            selectedMap = m;
+            //selectedMap = m; //TODO: lasciarlo qui sarebbe errore perchè se tu non gli passi nessuno dei due cosa fa?
             if (m == MapImplementation.ListaNonOrdinata) {
+                selectedMap = m;
                 dizionariTitle = new ListaNonOrdinata<Movie, String>();
                 dizionariYear = new ListaNonOrdinata<Movie, Integer>();
                 dizionariVotes = new ListaNonOrdinata<Movie, Integer>();
@@ -66,6 +67,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
                 dizionariCast = new ListaNonOrdinata<Movie, Person>();
                 return true;
             } else if (m == MapImplementation.HashIndirizzamentoAperto) {
+                selectedMap = m;
                 dizionariTitle = new TabellaHashAperta<Movie, String>();
                 dizionariYear = new TabellaHashAperta<Movie, Integer>();
                 dizionariVotes = new TabellaHashAperta<Movie, Integer>();
@@ -218,25 +220,17 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
     }
 
-    // TODO: rimettere i sort a true
+    //TODO: quei due sono a false perchè i metodi relativi vogliono quelli con piu voti e piu recenti quindi decrescenti
     public void sortAll() {
         dizionariTitle.sort(sortIndex, true);
-        dizionariYear.sort(sortIndex, true);
-        dizionariVotes.sort(sortIndex, true);
+        dizionariYear.sort(sortIndex, false);
+        dizionariVotes.sort(sortIndex, false);
         dizionariDirector.sort(sortIndex, true);
         dizionariCast.sort(sortIndex, true);
     }
 
     public void clear() {
         dizionariTitle.clear();
-        dizionariYear.clear();
-        dizionariDirector.clear();
-        dizionariCast.clear();
-        dizionariVotes.clear();
-    }
-
-    // TODO: non serve a un cazzo?
-    public void clearSubDictionaries() {
         dizionariYear.clear();
         dizionariDirector.clear();
         dizionariCast.clear();
@@ -334,8 +328,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     public Movie[] searchMoviesStarredBy(String name) {
         Person p = new Person(name);
         Record<Movie, Person> r = dizionariCast.searchRecord(p);
-        if (r == null)
-            return null;
+        if (r == null){
+            Movie[] vuoto = new Movie[0];
+            return vuoto;
+        }
         return Record.toMovieArray(r.getAllEls());
     }
 
@@ -356,6 +352,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
 
         attività.sort(0, false);
+        if(N>attori.length) N = attori.length;
         Person[] NActors = new Person[N];
         NActors = attività.firstNActors(N);
         return NActors;
@@ -442,6 +439,22 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             System.out.println("Non ci sono film");
         }
         dizionariTitle.stampa();
+        return;
+    }
+
+    public void printYear() {
+        if (dizionariTitle.isEmpty()) {
+            System.out.println("Non ci sono film");
+        }
+        dizionariYear.stampa();
+        return;
+    }
+
+    public void printVotes() {
+        if (dizionariTitle.isEmpty()) {
+            System.out.println("Non ci sono film");
+        }
+        dizionariVotes.stampa();
         return;
     }
 
