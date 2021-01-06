@@ -265,6 +265,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
             }
         }
         Movie[] movies = new Movie[n];
+        if(n == 0 ) return movies;
         for(int i = 0; i<array.length; i++){
             if(array[i] != null){
                 if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
