@@ -189,11 +189,6 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return carico == 0;
     }
 
-    public Movie[] vettoreVuoto(){
-        Movie[] movies = new Movie[0];
-        return movies;
-    }
-
     //TODO: questa va testata nei prossimi giorni
     public Movie[] searchMoviesByKey(K k) {
 
@@ -211,7 +206,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return movies;
     }
 
-    public Movie[] searchMoviesByPerson(K k){
+    public Movie[] searchMoviesByRecord(K k){
         int i = 0;
         ArrayList<Movie> list = new ArrayList<Movie>();
         int h;
