@@ -168,9 +168,10 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         Movie[] movies = new Movie[carico];
         int i = 0;
         Record<T, K> p = record;
+        if(Record.toMovie(p.getEl()) == null) return null;
 
         while (p != null) {
-            movies[i++] = (Movie) p.getEl();
+            movies[i++] = Record.toMovie(p.getEl());
             p = p.next;
         }
         return movies;

@@ -35,20 +35,52 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 */
 	public T search(K k);
 
+	/**
+	 * Restituisce se se un elemento
+	 * con la chiave <code>k</code> è presente.
+	 * 
+	 * @param k chiave dell'elemento 
+	 * @return <code>true</code> se l'elemento è presente, <code>false</code> altrimenti.
+	 */
 	public Boolean searchKey(K k);
 
+	/**
+	 * Printa tutti i record con chiave e valore.
+	 */
 	public void stampa();
 
+	/**
+	 * Ritorna il numero di elementi salvati nel dizionario.
+	 * @return il carico del dizionario.
+	 */
 	public int getCarico();
 
+	/**
+	 * Cancella tutti gli elementi del dizionario.
+	 */
 	public void clear();
 
+	/**
+	 * Ritorna se il dizionario è vuoto.
+	 * @return <code>true</code> se è vuoto, <code>false</code> altrimenti.
+	 */
 	public boolean isEmpty();
 
+	/**
+	 * Esporta i Movie se il dizionario li contiene.
+	 * @return array di <code>Movie</code> se li contiene, null altrimenti.
+	 */
 	public Movie[] export();
 
+	/**
+	 * Esporta le chiavi.
+	 * @return array di Comparable contente le chiavi.
+	 */
 	public Comparable<K>[] exportKeys();
 
+	/**
+	 * Ritorna 
+	 */
 	public Movie[] searchMoviesByKey(K k);
 
 	public Movie[] searchMoviesByPerson(K k);
