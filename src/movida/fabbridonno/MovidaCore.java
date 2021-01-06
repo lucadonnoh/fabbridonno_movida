@@ -311,7 +311,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
     }
 
     public Movie[] searchMoviesDirectedBy(String name) {
-        return dizionariDirector.searchMoviesByPerson(new Person(name));
+        return dizionariDirector.searchMoviesByRecord(new Person(name));
     }
 
     public Movie[] searchMoviesByTitle(String title) {
