@@ -23,6 +23,11 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 
 	// public boolean delete(K k);
 
+	/**
+	 * Ritorna il record di chiave K
+	 * @param k la chiave del record
+	 * @return il Record
+	 */
 	public Record<T,K> searchRecord(K k);
 
 	/**
@@ -86,18 +91,38 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	public Movie[] searchMoviesByKey(K k);
 
 	/**
-	 * 
-	 * @param k
-	 * @return
+	 * Ritorna tutti i film dentro un Record
+	 * @param k la chiave del Record
+	 * @return i Movie dentro il record con chiave k
 	 */
 	public Movie[] searchMoviesByRecord(K k);
 
+	/**
+	 * Ritorna i primi n Movie del dizionario
+	 * @param n numero di primi Movies da ritornare
+	 * @return array di Movie
+	 */
 	public Movie[] firstNMovies(int n);
 
+	/**
+	 * Ritorna i primi n Person del dizionario
+	 * @param n numeri di primi Person da ritornre
+	 * @return array di Person
+	 */
 	public Person[] firstNActors(int n);
 
+	/**
+	 * Ritorna i film che contengono la stringa title
+	 * @param title stringa da cercare
+	 * @return array di Movie
+	 */
 	public Movie[] stringInTitle(String title);
 
+	/**
+	 * Ordina il dizionario
+	 * @param index quale ordinamento usare
+	 * @param b se <code>true</code> crescente, altrimenti decrescente.
+	 */
 	public void sort(int index, boolean b);
 
 }

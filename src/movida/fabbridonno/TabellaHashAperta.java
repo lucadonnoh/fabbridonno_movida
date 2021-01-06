@@ -21,6 +21,12 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         DELETED = new Record<T,K>(null, null);
     }
 
+    /**
+     * Effettua l'hash della chiave
+     * @param k valore della chiave
+     * @param m lunghezza dell'array
+     * @return l'hash della chiave
+     */
     private int hash(K k, int m) {
         if(k instanceof Person) {
             return Math.abs(((Person)k).getName().hashCode()) % m;
@@ -28,13 +34,22 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return Math.abs(k.hashCode()) % m;
     }
 
-    //È stata scelta questo tipo di ispezione per i vantaggi che porta
+    /**
+     * Effettua una ispezione quadratica
+     * @param i numero di tentativo
+     * @param hk hash della chiave
+     * @param m lunghezza dell'array
+     * @return indice dell'elemento nell'array
+     */
     private int ispezione(int i, int hk, int m) {
         double c1 = 0.5, c2 = 0.5;
         return (int) Math.floor(hk + c1 * i + c2 * i * i) % m;
     }
 
-    //ritorna un'arraylist contenente tutti i record presenti al momento nella tabella hash
+    /**
+     * Ritorna tutti i record della tabella
+     * @return ArrayList di tutti i record
+     */
     private ArrayList<Record<T, K>> exportAll() {
         ArrayList<Record<T, K>> list = new ArrayList<Record<T, K>>();
         for (Record<T, K> r : array) {
@@ -45,7 +60,11 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return list;
     }
 
-    //inserisce tutti gli elementi di una lista all'interno della tabella
+    /**
+     * Inserisce gli elementi di un Record
+     * @param allEls ArrayList di elementi del Record
+     * @param k chiave del Record
+     */
     private void insertFromList(ArrayList<T> allEls, K k) {
         int i = 0;
         int l = array.length;
@@ -60,8 +79,10 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
-    //Se si riempie la tabella viene raddoppiata mentre se si arriva ad un quarto della capienza viene dimezzata.
-    //Vengono poi rinseriti nuovamente tutti gli elementi
+    /**
+     * Modifica la dimensione della tabella: se è piena la raddoppia, se ci sono meno della metà degli elementi la dimezza.
+     * @param inc se <code>true</code> la raddoppia, altrimenti la dimezza.
+     */
     @SuppressWarnings("unchecked")
     private void reshape(Boolean inc) {
         ArrayList<Record<T, K>> records = exportAll();
