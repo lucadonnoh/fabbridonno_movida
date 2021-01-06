@@ -231,6 +231,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     //Estrai tutti i film e li ordina in base alla chiave e ritorna i primi N film
     @SuppressWarnings("unchecked")
     public Movie[] firstNMovies(int n) {
+        if(n>carico) n=carico;
         Record<T,K>[] records = exportAll().toArray(new Record[0]);
         Comparator<Record<T,K>> byKey = Comparator.comparing(Record::getKey);
         Arrays.sort(records, byKey);
