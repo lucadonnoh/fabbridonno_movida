@@ -17,6 +17,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     //Non serve cancellare p perchè java ha il garbage collector
     public void insert(T e, K k) {
 
+
         Record<T, K> p = new Record<T, K>(e, k);
 
         if (record == null)
@@ -273,7 +274,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         Record<T, K> p = record;
         int i = 0;
         while (p != null) {
-            if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
+            if ((Record.toMovie(p.getEl())).getTitle().toLowerCase().contains(title.toLowerCase())) {
                 i++;
             }
             p = p.next;
@@ -283,7 +284,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         if(i==0) return movies;
         i = 0;
         while (p != null) {
-            if ((Record.toMovie(p.getEl())).getTitle().contains(title)) {
+            if ((Record.toMovie(p.getEl())).getTitle().toLowerCase().contains(title.toLowerCase())) {
                 movies[i] = (Record.toMovie(p.getEl()));
                 i++;
             }

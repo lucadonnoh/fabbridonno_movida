@@ -116,34 +116,12 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
     }
 
-    private void addCollab(Person p1, Person p2, Movie m) {
-        Person actorA, actorB;
-        if (p1.compareTo(p2) <= 0) {
-            actorA = p1;
-            actorB = p2;
-        } else {
-            actorA = p2;
-            actorB = p1;
-        }
-        graph.addActor(actorA);
-        graph.addActor(actorB);
-        Collaboration collab = new Collaboration(actorA, actorB);
-        for (Collaboration c : graph.getCollabs(p1)) {
-            if (Collaboration.areEquivalent(c, collab)) {
-                c.addMovie(m);
-                return;
-            }
-        }
-        collab.addMovie(m);
-        graph.getCollabs(p1).add(collab);
-    }
-
     private void loadGraph() {
         for (Movie m : dizionariTitle.export()) {
             for (Person p1 : m.getCast()) {
                 for (Person p2 : m.getCast()) {
                     if (!p1.equals(p2)) {
-                        addCollab(p1, p2, m);
+                        graph.addCollab(p1, p2, m);
                     }
                 }
             }
@@ -156,7 +134,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
             Scanner myReader = new Scanner(f);
             while (myReader.hasNextLine()) {
                 String title = format(myReader.nextLine(), "Title");
-                if ((dizionariTitle.search(title) != null)){
+                if ((dizionariTitle.searchKey(title))){
                     deleteMovieByTitle(title);
                 }
                 int year = Integer.parseInt(format(myReader.nextLine(), "Year"));
@@ -215,7 +193,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         }
     }
 
-    //TODO: quei due sono a false perchè i metodi relativi vogliono quelli con piu voti e piu recenti quindi decrescenti
     public void sortAll() {
         dizionariTitle.sort(sortIndex, true);
         dizionariYear.sort(sortIndex, false);

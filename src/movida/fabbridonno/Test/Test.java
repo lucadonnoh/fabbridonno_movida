@@ -186,16 +186,28 @@ public class Test {
 
 
     public static void main(String[] args) {
+<<<<<<< HEAD
             Test t=new Test(MapImplementation.HashIndirizzamentoAperto, SortingAlgorithm.QuickSort);
+=======
+            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
+            System.out.println(t.setMap(MapImplementation.ListaNonOrdinata));
+            System.out.println(t.setSort(SortingAlgorithm.QuickSort));
+>>>>>>> d5876ec05f72b13810a6ac3fa39d798a71b72f04
             t.loadFile();
             t.test_FilmAndPersone();
             t.findPerson("Al Pacino");
             t.test_Find_and_Delete("Scarface");
             t.findPerson("Al Pacino");
             t.test_FilmAndPersone();
+<<<<<<< HEAD
             // System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
             // System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
             // t.sort();
+=======
+            //System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
+            System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
+            t.sort();
+>>>>>>> d5876ec05f72b13810a6ac3fa39d798a71b72f04
             t.test_Salvataggio();
     }
 }

@@ -26,4 +26,9 @@ public class Entry extends AbstractMap.SimpleEntry<Person, Double> {
             return false;
         }
     }
+
+    @Override
+    public int hashCode() {
+        return this.getKey().hashCode();
+    }
 }

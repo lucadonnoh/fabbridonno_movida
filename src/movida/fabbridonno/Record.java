@@ -135,8 +135,12 @@ public final class Record<T, K extends Comparable<K>> {
      * Ritorna la chiave del Record
      * @return la chiave del Record
      */
+    @SuppressWarnings("unchecked")
     public K getKey()
     {
+        if(this.key instanceof String) {
+            return (K)((String) key).toLowerCase();
+        }
         return key;
     }
 
