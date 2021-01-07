@@ -14,13 +14,7 @@ public class Graph {
     }
 
     public Set<Collaboration> getCollabs(Person p) {
-        //Set<Collaboration> collabs = graph.get(p);
-        for(Map.Entry<Person,Set<Collaboration>> entry : graph.entrySet()){
-                if(entry.getKey().toString().equals(p.toString())){
-                    return entry.getValue();
-                }
-      }
-      return null;
+        return graph.get(p);
     }
 
     public void addCollab(Person p, Collaboration c) {
@@ -28,8 +22,8 @@ public class Graph {
     }
 
     public boolean addActor(Person p) {
-        for(Person k : graph.keySet()){
-            if(k.toString().equals(p.toString())){
+        for (Person k : graph.keySet()) {
+            if (k.toString().equals(p.toString())) {
                 return false;
             }
         }
@@ -38,34 +32,33 @@ public class Graph {
     }
 
     public void deleteMovie(Movie m) {
-        for(Iterator<Person> pIter = graph.keySet().iterator(); pIter.hasNext();) {
+        for (Iterator<Person> pIter = graph.keySet().iterator(); pIter.hasNext();) {
             Person p = pIter.next();
             Set<Collaboration> collabs = getCollabs(p);
             for (Iterator<Collaboration> cIter = collabs.iterator(); cIter.hasNext();) {
-                Collaboration c=cIter.next();
-                if(c.getMovies().contains(m)) {
-                    if(c.getMovies().size() == 1) {
+                Collaboration c = cIter.next();
+                if (c.getMovies().contains(m)) {
+                    if (c.getMovies().size() == 1) {
                         cIter.remove();
-                    }else{
+                    } else {
                         c.getMovies().remove(m);
                     }
                 }
             }
-            if(getCollabs(p).isEmpty()) {
+            if (getCollabs(p).isEmpty()) {
                 pIter.remove();
             }
         }
     }
 
-
-    public void printGraph(){
+    public void printGraph() {
         Person p;
-        for(Map.Entry<Person,Set<Collaboration>> entry : graph.entrySet()){
-            for(Collaboration c : entry.getValue()) {
-                if(c.getActorA().equals(entry.getKey())){
+        for (Map.Entry<Person, Set<Collaboration>> entry : graph.entrySet()) {
+            for (Collaboration c : entry.getValue()) {
+                if (c.getActorA().equals(entry.getKey())) {
                     p = c.getActorB();
-                }else{
-                    p=c.getActorA();
+                } else {
+                    p = c.getActorA();
                 }
                 System.out.println(entry.getKey() + " " + p.toString() + " " + c.getMovies());
             }

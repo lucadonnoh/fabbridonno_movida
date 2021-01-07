@@ -1,7 +1,6 @@
 package movida.fabbridonno;
 
 //TODO: c'è da ricontrollare tutto movidaCore ma il resto dovrebbe essere a posto l'ho gia checkato e riordinato
-//TODO: manca da commentare il codice sopra le funzioni, ci penso io domattina.
 
 import movida.commons.*;
 import java.io.File;
@@ -57,7 +56,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     public boolean setMap(MapImplementation m) {
         if (selectedMap != m) {
-            //selectedMap = m; //TODO: lasciarlo qui sarebbe errore perchè se tu non gli passi nessuno dei due cosa fa?
             if (m == MapImplementation.ListaNonOrdinata) {
                 selectedMap = m;
                 dizionariTitle = new ListaNonOrdinata<Movie, String>();
@@ -89,11 +87,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         String s = format(nf, "Cast");
         String[] a = s.split(", ");
         if(a[0].startsWith(" ")) throw new LabelException();
-        //TODO: vedere se si può trovare un modo di fixare il cast senza una virgola ma doubt
-        // for(int i=0; i<a.length;i++){
-        //     String[] c = a[i].split(" ");
-        //     if(c.length > 2) throw new LabelException();
-        // }
         Person[] cast = new Person[a.length];
         for (int i = 0; i < a.length; i++) {
             cast[i] = new Person(a[i]);

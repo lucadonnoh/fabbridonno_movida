@@ -160,13 +160,5 @@ public class Test {
 
 
     public static void main(String[] args) {
-            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.InsertionSort);
-            t.loadFile();
-            t.test_FilmAndPersone();
-            t.findPerson("Al Pacino");
-            t.test_Find_and_Delete("Scarface");
-            t.findPerson("Al Pacino");
-            t.test_FilmAndPersone();
-            t.test_Salvataggio();
     }
 }
