@@ -45,9 +45,11 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         if (selectedSort != a) {
             if (a == SortingAlgorithm.InsertionSort) {
                 selectedSort = SortingAlgorithm.InsertionSort;
+                sortIndex = 0;
                 return true;
             } else if (a == SortingAlgorithm.QuickSort) {
                 selectedSort = SortingAlgorithm.QuickSort;
+                sortIndex = 1;
                 return true;
             }
         }
