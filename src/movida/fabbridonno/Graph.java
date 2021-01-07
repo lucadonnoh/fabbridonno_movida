@@ -23,7 +23,7 @@ public class Graph {
 
     public boolean addActor(Person p) {
         for (Person k : graph.keySet()) {
-            if (k.toString().equals(p.toString())) {
+            if (k.equals(p)){
                 return false;
             }
         }
