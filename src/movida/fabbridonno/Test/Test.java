@@ -8,8 +8,20 @@ public class Test {
     private MovidaCore mc = new MovidaCore();
 
     public Test(MapImplementation map, SortingAlgorithm algo){
-        mc.setMap(MapImplementation.ListaNonOrdinata);
-        mc.setSort(SortingAlgorithm.QuickSort);
+        mc.setMap(map);
+        mc.setSort(algo);
+    }
+
+    public boolean setMap(MapImplementation map){
+        return mc.setMap(map);
+    }
+
+    public boolean setSort(SortingAlgorithm algo){
+        return mc.setSort(algo);
+    }
+
+    public void sort(){
+        mc.sortAll();
     }
 
     public void loadFile(){
@@ -160,13 +172,18 @@ public class Test {
 
 
     public static void main(String[] args) {
-            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.InsertionSort);
+            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
+            System.out.println(t.setMap(MapImplementation.ListaNonOrdinata));
+            System.out.println(t.setSort(SortingAlgorithm.QuickSort));
             t.loadFile();
             t.test_FilmAndPersone();
             t.findPerson("Al Pacino");
             t.test_Find_and_Delete("Scarface");
             t.findPerson("Al Pacino");
             t.test_FilmAndPersone();
+            System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
+            System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
+            t.sort();
             t.test_Salvataggio();
     }
 }
