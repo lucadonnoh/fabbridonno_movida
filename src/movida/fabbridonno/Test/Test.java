@@ -1,6 +1,10 @@
 package movida.fabbridonno.Test;
+
 import movida.commons.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+
 import movida.fabbridonno.MovidaCore;
 
 public class Test {
@@ -87,7 +91,9 @@ public class Test {
         System.out.println("\nI film sono: ");
         for(Movie m : mc.getAllMovies()) System.out.println(m.toString());
         System.out.println("\nLe persone sono: ");
-        for(Person p : mc.getAllPeople()) System.out.println(p.toString());
+        for(Person p : mc.getAllPeople()){
+            System.out.println(p.toString());
+        }
     }
 
     public void test_MoviesinYear(Integer year){
@@ -160,6 +166,14 @@ public class Test {
         }
     }
 
+    public Set<Collaboration> test_GetCollabs(Person p){
+        return mc.getGraph().getCollabs(p);
+    }
+
+    public void test_printGraph(Person p){
+        mc.getGraph().printGraph();
+    }
+
     public void loadWrongFile(){
             File f = new File("src/movida/fabbridonno/Test/Filetest/wrongMissingColon");
             //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingColumn");
@@ -172,21 +186,16 @@ public class Test {
 
 
     public static void main(String[] args) {
-<<<<<<< HEAD
-            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
-            System.out.println(t.setMap(MapImplementation.ListaNonOrdinata));
-            System.out.println(t.setSort(SortingAlgorithm.QuickSort));
+            Test t=new Test(MapImplementation.HashIndirizzamentoAperto, SortingAlgorithm.QuickSort);
             t.loadFile();
             t.test_FilmAndPersone();
             t.findPerson("Al Pacino");
             t.test_Find_and_Delete("Scarface");
             t.findPerson("Al Pacino");
             t.test_FilmAndPersone();
-            System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
-            System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
-            t.sort();
+            // System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
+            // System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
+            // t.sort();
             t.test_Salvataggio();
-=======
->>>>>>> 14b65d3cc418d74680f90f04e25714ba2bf3bb5f
     }
 }

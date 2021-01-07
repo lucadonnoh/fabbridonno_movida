@@ -93,7 +93,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         for (int i = 0; i < a.length; i++) {
             cast[i] = new Person(a[i]);
         }
-
         return cast;
     }
 

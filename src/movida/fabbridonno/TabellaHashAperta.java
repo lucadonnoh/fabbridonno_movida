@@ -114,16 +114,18 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     public void deleteEl(Movie m) {
         for(Record<T,K> r : array) {
-            ArrayList<T> l = r.getAllEls();
-            if(r!=null && l.contains(m)) {
-                if(l.size() == 1) {
-                    int i = Arrays.asList(array).indexOf(r);
-                    array[i] = DELETED;
-                    carico--;
-                }
-                else{
-                    l.remove(m);
-                    r.setAllEls(l);
+            if(r!=null){
+                ArrayList<T> l = r.getAllEls();
+                if(l.contains(m)) {
+                    if(l.size() == 1) {
+                        int i = Arrays.asList(array).indexOf(r);
+                        array[i] = DELETED;
+                        carico--;
+                    }
+                    else{
+                        l.remove(m);
+                        r.setAllEls(l);
+                    }
                 }
             }
         }
@@ -134,7 +136,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         while (i<carico)//Qui è corretto tenere i<carico in quanto non serve far piu ispezioni di quanti ne abbiamo in tabella
         {
             int h = ispezione(i++, hash(k, array.length), array.length);
-            if (array[h] == null) {
+            if (array[h] == null || array[h] == DELETED) {
                 return null;
             }
             if(array[h].getKey().equals(k)){
@@ -191,7 +193,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         Comparable<K>[] keys = new Comparable[carico];
         int i=0, j=0;
         while(i<carico){
-            if(array[j] != null){
+            if(array[j] != null && array[j] != DELETED){
                 keys[i] = array[j].getKey();
                 i++;
             }
