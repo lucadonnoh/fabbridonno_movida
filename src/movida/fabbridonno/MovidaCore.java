@@ -285,6 +285,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
         return dizionariDirector.searchMoviesByRecord(new Person(name));
     }
 
+    //TODO: mettere a posto che cerchi in minuscolo/maiuscolo
     public Movie[] searchMoviesByTitle(String title) {
         return dizionariTitle.stringInTitle(title);
     }

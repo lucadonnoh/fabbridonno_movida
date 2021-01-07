@@ -62,7 +62,7 @@ public class Test {
     public void test_Find_and_Delete(String s){
         Movie m = mc.getMovieByTitle(s);
         if(m == null){
-            System.out.println("\nIl film" + s + "non è stato trovato");
+            System.out.println("\nIl film " + s + " non è stato trovato");
             return;
         }
         System.out.println("\nTrovato " + m.getTitle() + " procedo ad eliminarlo");
@@ -186,28 +186,19 @@ public class Test {
 
 
     public static void main(String[] args) {
-<<<<<<< HEAD
             Test t=new Test(MapImplementation.HashIndirizzamentoAperto, SortingAlgorithm.QuickSort);
-=======
-            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
-            System.out.println(t.setMap(MapImplementation.ListaNonOrdinata));
-            System.out.println(t.setSort(SortingAlgorithm.QuickSort));
->>>>>>> d5876ec05f72b13810a6ac3fa39d798a71b72f04
             t.loadFile();
-            t.test_FilmAndPersone();
-            t.findPerson("Al Pacino");
-            t.test_Find_and_Delete("Scarface");
-            t.findPerson("Al Pacino");
-            t.test_FilmAndPersone();
-<<<<<<< HEAD
+            //t.test_FilmAndPersone();
+            t.test_MoviesinYear(1991);
+            t.findPerson("Juliette Lewis");
+            t.test_Find_and_Delete("Contact");
+            t.test_Find_and_Delete("Cape Fear");
+            t.findPerson("Juliette Lewis");
+            t.test_MoviesinYear(1991);
+            //t.test_FilmAndPersone();
             // System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
             // System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
             // t.sort();
-=======
-            //System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
-            System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
-            t.sort();
->>>>>>> d5876ec05f72b13810a6ac3fa39d798a71b72f04
             t.test_Salvataggio();
     }
 }

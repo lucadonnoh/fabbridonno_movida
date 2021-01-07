@@ -58,51 +58,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         return;
     }
 
-    // public boolean delete(String title, K k) {
-    //     Record<T, K> tmp = record, prev = null;
-    //     //Controllo se il primo elemento della lista è da cancellare
-    //     if (tmp != null && tmp.getKey().equals(k) && ((Movie)(tmp.getEl())).getTitle().equals(title)) {
-    //         record = record.next;
-    //         carico--;
-    //         return true;
-    //     }
-    //     while (tmp != null && !tmp.getKey().equals(k) && !((Movie)(tmp.getEl())).getTitle().equals(title)) {
-    //         prev = tmp;
-    //         tmp = tmp.next;
-    //     }
-    //     //se tmp = null allora l'elemento non esiste
-    //     if (tmp == null)
-    //         return false;
-    //     prev.next = tmp.next;
-    //     carico--;
-    //     return true;
-    // }
-
-    // public boolean delete(K k) {
-
-    //     Record<T, K> tmp = record, prev = null;
-    //     //Controllo se il primo elemento della lista è da cancellare
-    //     if (tmp != null && tmp.getKey().equals(k)) {
-
-    //         record = record.next;
-    //         carico--;
-    //         return true;
-    //     }
-    //     while (tmp != null && !tmp.getKey().equals(k)) {
-    //         prev = tmp;
-    //         tmp = tmp.next;
-    //     }
-    //     //se tmp = null allora l'elemento non esiste
-    //     if (tmp == null)
-    //         return false;
-    //     prev.next = tmp.next;
-    //     carico--;
-    //     return true;
-    // }
-
     //Ritorna il record associato alla chiave se è presente, null altrimenti
     //TODO: fare in modo che si fermi prima perché è ordinata
+    @SuppressWarnings("unchecked")
     public Record<T, K> searchRecord(K k) {
+        if ((k instanceof String)) {
+            k = (K) ((String) k).toLowerCase();
+        }
         if (record == null)
             return null;
         Record<T, K> p = record;

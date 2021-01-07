@@ -53,7 +53,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     private ArrayList<Record<T, K>> exportAll() {
         ArrayList<Record<T, K>> list = new ArrayList<Record<T, K>>();
         for (Record<T, K> r : array) {
-            if(r != null){
+            if(r != null && r != DELETED){
                 list.add(r);
             }
         }
@@ -114,7 +114,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     public void deleteEl(Movie m) {
         for(Record<T,K> r : array) {
-            if(r!=null){
+            if(r!=null && r != DELETED){
                 ArrayList<T> l = r.getAllEls();
                 if(l.contains(m)) {
                     if(l.size() == 1) {
@@ -131,16 +131,24 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
+    @SuppressWarnings("unchecked")
     public Record<T, K> searchRecord(K k) {
         int i=0;
+        if ((k instanceof String)) {
+            k = (K) ((String) k).toLowerCase();
+        }
+
         while (i<carico)//Qui è corretto tenere i<carico in quanto non serve far piu ispezioni di quanti ne abbiamo in tabella
         {
             int h = ispezione(i++, hash(k, array.length), array.length);
-            if (array[h] == null || array[h] == DELETED) {
+            if (array[h] == null) {
                 return null;
             }
-            if(array[h].getKey().equals(k)){
-                return array[h];
+            //TODO: io ho fatto in modo che se in una ricerca trovi un deleted non si stoppi ma continui, questo perchè ci potrebbero essere casi di hash uguali e quindi cerchi oltre
+            if(array[h] != DELETED){
+                if(array[h].getKey().equals(k)){
+                    return array[h];
+                }
             }
         }
         return null;
@@ -212,7 +220,6 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         return carico == 0;
     }
 
-    //TODO: questa va testata nei prossimi giorni
     public Movie[] searchMoviesByKey(K k) {
 
         int i = 0;
@@ -221,8 +228,10 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         while(i<carico)//Qui è corretto tenere i<carico in quanto non serve far piu ispezioni di quanti ne abbiamo in tabella
         {
             h = ispezione(i++, hash(k, array.length), array.length);
-            if(array[h].getKey().equals(k)){
-                list.add((Movie)array[h].getEl());
+            if(array[h] != DELETED && array[h] != null){
+                if(array[h].getKey().equals(k)){
+                    list.add((Movie)array[h].getEl());
+                }
             }
         }
         Movie[] movies = list.toArray(new Movie[0]);
@@ -281,7 +290,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     public Movie[] stringInTitle(String title) {
         int n=0, j=0;
         for(int i = 0; i<array.length; i++){
-            if(array[i] != null){
+            if(array[i] != null && array[i] != DELETED){
                 if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
                     n++;
                 }
@@ -290,7 +299,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         Movie[] movies = new Movie[n];
         if(n == 0 ) return movies;
         for(int i = 0; i<array.length; i++){
-            if(array[i] != null){
+            if(array[i] != null && array[i] != DELETED){
                 if(Record.toMovie(array[i].getEl()).getTitle().contains(title)){
                     movies[j] = Record.toMovie(array[i].getEl());
                     j++;
