@@ -18,7 +18,30 @@ public class Graph {
     }
 
     public void addCollab(Person p, Collaboration c) {
+        if(graph.get(p) == null) return;
         graph.get(p).add(c);
+    }
+
+    public void addCollab(Person p1, Person p2, Movie m) {
+        Person actorA, actorB;
+        if (p1.compareTo(p2) <= 0) {
+            actorA = p1;
+            actorB = p2;
+        } else {
+            actorA = p2;
+            actorB = p1;
+        }
+        addActor(actorA);
+        addActor(actorB);
+        Collaboration collab = new Collaboration(actorA, actorB);
+        for (Collaboration c : getCollabs(p1)) {
+            if (Collaboration.areEquivalent(c, collab)) {
+                c.addMovie(m);
+                return;
+            }
+        }
+        collab.addMovie(m);
+        getCollabs(p1).add(collab);
     }
 
     public boolean addActor(Person p) {

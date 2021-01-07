@@ -57,6 +57,16 @@ public class Movie {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		return (this.getTitle().equalsIgnoreCase(((Movie)obj).getTitle()));
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getTitle().toLowerCase().hashCode();
+	}
+
+	@Override
 	public String toString(){
 		return this.title;
 	}

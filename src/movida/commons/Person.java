@@ -32,9 +32,10 @@ public class Person implements Comparable<Person> {
 		return this.name;
 	}
 
+	@Override
 	public int compareTo(Person p)
 	{
-		return this.name.compareTo(p.getName());
+		return this.name.toLowerCase().compareTo(p.getName().toLowerCase());
 	}
 
 	@Override
@@ -46,13 +47,13 @@ public class Person implements Comparable<Person> {
 		}
 
 		final Person p = (Person)o;
-		if(this.name.compareTo(p.getName()) != 0) return false;
-		return true;
+		if(this.name.equalsIgnoreCase(p.getName())) return true;
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return this.name.hashCode();
+		return this.name.toLowerCase().hashCode();
 	}
 
 	@Override

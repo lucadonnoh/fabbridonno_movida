@@ -172,7 +172,6 @@ public class Test {
 
 
     public static void main(String[] args) {
-<<<<<<< HEAD
             Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
             System.out.println(t.setMap(MapImplementation.ListaNonOrdinata));
             System.out.println(t.setSort(SortingAlgorithm.QuickSort));
@@ -182,11 +181,9 @@ public class Test {
             t.test_Find_and_Delete("Scarface");
             t.findPerson("Al Pacino");
             t.test_FilmAndPersone();
-            System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
+            //System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
             System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
             t.sort();
             t.test_Salvataggio();
-=======
->>>>>>> 14b65d3cc418d74680f90f04e25714ba2bf3bb5f
     }
 }
