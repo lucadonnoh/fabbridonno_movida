@@ -8,10 +8,14 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     private Record<T, K> record;
     private int carico;
+    private Boolean crescente;
+    private Boolean ordinata;
 
     public ListaNonOrdinata() {
         carico = 0;
         record = null;
+        crescente = true;
+        ordinata = false;
     }
 
     //Non serve cancellare p perchè java ha il garbage collector
@@ -69,6 +73,12 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             return null;
         Record<T, K> p = record;
         while (p != null) {
+            if(this.ordinata && this.crescente) {
+                if(p.getKey().compareTo(k) > 0) return null;
+            }
+            if(this.ordinata && !this.crescente) {
+                if(p.getKey().compareTo(k) < 0) return null;
+            }
             if (p.getKey().equals(k))
                 return p;
             p = p.next;
@@ -257,6 +267,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     //Il booleano indica se ordinare in senso crescente(true) o decrescente(false)
     public void sort(int index, boolean b) {
+        crescente = b;
         switch (index) {
             case 0:
                 insertionSort(b);
@@ -266,6 +277,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             default:
                 break;
         }
+        ordinata = true;
     }
 
     /**

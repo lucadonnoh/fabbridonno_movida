@@ -223,7 +223,7 @@ public class Test {
 
 
     public static void main(String[] args) {
-            Test t=new Test(MapImplementation.HashIndirizzamentoAperto, SortingAlgorithm.QuickSort);
+            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
             t.loadFile();
             Person p = new Person("Harrison Ford");
             //t.test_FilmAndPersone();
