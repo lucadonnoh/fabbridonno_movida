@@ -186,14 +186,14 @@ public class Test {
 
 
     public static void main(String[] args) {
-            Test t=new Test(MapImplementation.HashIndirizzamentoAperto, SortingAlgorithm.QuickSort);
+            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
             t.loadFile();
-            //t.test_FilmAndPersone();
+            t.test_FilmAndPersone();
             t.test_MoviesinYear(1991);
             t.findPerson("Juliette Lewis");
             t.test_Find_and_Delete("Contact");
-            t.test_Find_and_Delete("Cape Fear");
-            t.findPerson("Juliette Lewis");
+            //t.test_Find_and_Delete("Cape Fear");
+            t.findPerson("Robert de niro");
             t.test_MoviesinYear(1991);
             //t.test_FilmAndPersone();
             // System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));

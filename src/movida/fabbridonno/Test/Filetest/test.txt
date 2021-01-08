@@ -4,6 +4,12 @@ Director: Martin Scorsese
 Cast: Robert De Niro, Nick Nolte, Jessica Lange, Juliette Lewis
 Votes: 163093
 
+Title: cape Fear
+Year: 1991
+Director: Martin Scorsese
+Cast: Robert de Niro, Nick Nolte, Jessica Lange, Juliette Lewis
+Votes: 42069
+
 Title: Taxi Driver
 Year: 1991
 Director: Martin Scorsese
