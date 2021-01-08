@@ -31,7 +31,7 @@ public class Test {
     public void loadFile(){
         File file = new File("src/movida/fabbridonno/Test/Filetest/test.txt");
         mc.loadFromFile(file);
-        System.out.println("Caricamento dei dati completati");
+        System.out.println("\nCaricamento dei dati completati");
     }
 
     public void reset(){
@@ -166,11 +166,48 @@ public class Test {
         }
     }
 
-    public Set<Collaboration> test_GetCollabs(Person p){
-        return mc.getGraph().getCollabs(p);
+    public void test_GetCollabs(Person p){
+        Set<Collaboration> collabs = mc.getGraph().getCollabs(p);
+        System.out.println("\n");
+        if(collabs == null){
+            System.out.println("La persona non è nel grafo");
+            return;
+        }
+
+        for(Collaboration c : collabs){
+            System.out.println(c.getActorA().toString() + " " + c.getActorB().toString());
+        }
+        return;
     }
 
-    public void test_printGraph(Person p){
+    public void test_getDirectCollaboratorsOf(Person p){
+        System.out.println("\n");
+        Person[] collabs = mc.getDirectCollaboratorsOf(p);
+        if(collabs.length == 0) System.out.println("La persona non è nel grafo");
+        for(Person pers:collabs){
+            System.out.println(pers.toString());
+        }
+    }
+
+    public void test_getTeamOf(Person p){
+        System.out.println("\n");
+        Person[] collabs = mc.getTeamOf(p);
+        if(collabs.length == 0) System.out.println("La persona non è nel grafo");
+        for(Person pers:collabs){
+            System.out.println(pers.toString());
+        }
+    }
+
+    public void test_maximizeCollaborationsInTheTeamOf(Person p){
+        System.out.println("\n");
+        Collaboration[] collabs = mc.maximizeCollaborationsInTheTeamOf(p);
+        if(collabs.length == 0) System.out.println("La persona non è nel grafo");
+        for(Collaboration c:collabs){
+            System.out.println(c.getActorA().toString() + " " + c.getActorB().toString() + " " + c.getScore());
+        }
+    }
+
+    public void test_printGraph(){
         mc.getGraph().printGraph();
     }
 
@@ -188,13 +225,23 @@ public class Test {
     public static void main(String[] args) {
             Test t=new Test(MapImplementation.HashIndirizzamentoAperto, SortingAlgorithm.QuickSort);
             t.loadFile();
+            Person p = new Person("Harrison Ford");
             //t.test_FilmAndPersone();
-            t.test_MoviesinYear(1991);
-            t.findPerson("Juliette Lewis");
-            t.test_Find_and_Delete("Contact");
+            //t.test_printGraph();
+            //t.test_GetCollabs(p);
+            t.test_getDirectCollaboratorsOf(p);
+            t.test_getTeamOf(p);
+            t.test_maximizeCollaborationsInTheTeamOf(p);
+            // t.test_MoviesinYear(1991);
+            //t.findPerson("Juliette Lewis");
+            t.test_Find_and_Delete("Scarface");
             t.test_Find_and_Delete("Cape Fear");
-            t.findPerson("Juliette Lewis");
-            t.test_MoviesinYear(1991);
+            // t.test_printGraph();
+            //t.test_GetCollabs(p);
+            // t.test_getDirectCollaboratorsOf(p);
+            // t.test_getTeamOf(p);
+            // t.test_maximizeCollaborationsInTheTeamOf(p);
+            //t.test_MoviesinYear(1991);
             //t.test_FilmAndPersone();
             // System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
             // System.out.println(t.setSort(SortingAlgorithm.InsertionSort));

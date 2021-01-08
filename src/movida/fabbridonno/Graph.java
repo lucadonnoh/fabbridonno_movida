@@ -17,9 +17,20 @@ public class Graph {
         return graph.get(p);
     }
 
+    //TODO: mai usata
     public void addCollab(Person p, Collaboration c) {
         if(graph.get(p) == null) return;
         graph.get(p).add(c);
+    }
+
+    private boolean addActor(Person p) {
+        for (Person k : graph.keySet()) {
+            if (k.equals(p)){
+                return false;
+            }
+        }
+        graph.put(p, new HashSet<Collaboration>());
+        return true;
     }
 
     public void addCollab(Person p1, Person p2, Movie m) {
@@ -42,16 +53,6 @@ public class Graph {
         }
         collab.addMovie(m);
         getCollabs(p1).add(collab);
-    }
-
-    public boolean addActor(Person p) {
-        for (Person k : graph.keySet()) {
-            if (k.equals(p)){
-                return false;
-            }
-        }
-        graph.put(p, new HashSet<Collaboration>());
-        return true;
     }
 
     public void deleteMovie(Movie m) {

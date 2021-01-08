@@ -102,7 +102,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
             reshape(true);
         }
         // a questo punto c'è almeno uno spazio libero
-        while (true) {
+        while (i<array.length) {
             int h = ispezione(i++, hash(k, array.length), array.length);
             if (array[h] == null || array[h] == DELETED) {
                 array[h] = new Record<T, K>(m, k);
@@ -112,6 +112,8 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
+    //Dato che la funzione deve valere sia per i dizionari con 1 solo elemento sia per quelli con un'ArrayList come elemento
+    //Non facciamo l'ispezione perchè si otterrebbe comunque una complessità lineare
     public void deleteEl(Movie m) {
         for(Record<T,K> r : array) {
             if(r!=null && r != DELETED){
@@ -121,6 +123,9 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
                         int i = Arrays.asList(array).indexOf(r);
                         array[i] = DELETED;
                         carico--;
+                        if (carico <= array.length/4) {
+                            reshape(false);
+                        }
                     }
                     else{
                         l.remove(m);

@@ -12,9 +12,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
-//public class MovidaCore implements IMovidaConfig,IMovidaDB,IMovidaSearch,IMovidaCollaborations {
-
-public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
+public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMovidaCollaborations {
     private SortingAlgorithm selectedSort;
 
     private MapImplementation selectedMap;
@@ -338,6 +336,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch {
 
     public Person[] getDirectCollaboratorsOf(Person p) {
         int i = 0;
+        if(graph.getCollabs(p) == null) return new Person[0];
         Person[] collaborators = new Person[graph.getCollabs(p).size()];
         for (Collaboration c : graph.getCollabs(p)) {
             collaborators[i++] = (c.getActorA().equals(p)) ? c.getActorB() : c.getActorA();
