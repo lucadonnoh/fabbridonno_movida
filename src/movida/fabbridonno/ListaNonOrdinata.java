@@ -142,6 +142,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     //Funzione che esporta gli elementi dei record in un array
     public Movie[] export() {
+        if(carico == 0) return new Movie[0];
         Movie[] movies = new Movie[carico];
         int i = 0;
         Record<T, K> p = record;

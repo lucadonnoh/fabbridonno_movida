@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import movida.commons.*;
 
+//TODO: nella hash il next non serve a nulla, amen?
 public final class Record<T, K extends Comparable<K>> {
     /**
      * Elemento da conservare nel record
@@ -154,7 +155,7 @@ public final class Record<T, K extends Comparable<K>> {
     }
 
     /**
-     * Stampa il Record 
+     * Stampa il Record
      */
     public void print(){
         Boolean tanti= false;
@@ -168,4 +169,6 @@ public final class Record<T, K extends Comparable<K>> {
         }
         System.out.print("\n\n");
     }
+
 }
+

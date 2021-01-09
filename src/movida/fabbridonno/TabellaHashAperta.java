@@ -3,6 +3,7 @@ package movida.fabbridonno;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.ArrayList;
 
 import movida.commons.*;
 
@@ -10,7 +11,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     private int carico;
     private Record<T, K>[] array;
-
+    //TODO: volevo metterlo static ma mi da errore "Cannot make a static reference to the non-static type"
     private Record<T, K> DELETED;
 
     //La tabella viene istanziata di dimensione 1, poi viene ingrandita e rimpicciolità in base alle necessità
@@ -79,6 +80,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
+
     /**
      * Modifica la dimensione della tabella: se è piena la raddoppia, se ci sono meno della metà degli elementi la dimezza.
      * @param inc se <code>true</code> la raddoppia, altrimenti la dimezza.
@@ -89,7 +91,11 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         if (inc) {
             array = new Record[array.length * 2];
         } else {
-            array = new Record[array.length / 2];
+            int l = array.length;
+            while(carico <= l/4){
+                l = l/2;
+            }
+            array = new Record[l];
         }
         for (Record<T, K> r : records) {
             insertFromList(r.getAllEls(), r.getKey());
@@ -100,6 +106,9 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         int i = 0;
         if (carico == array.length) {
             reshape(true);
+        }
+        if ((k instanceof String)) {
+            k = (K) ((String) k).toLowerCase();
         }
         // a questo punto c'è almeno uno spazio libero
         while (i<array.length) {
@@ -120,12 +129,10 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
                 ArrayList<T> l = r.getAllEls();
                 if(l.contains(m)) {
                     if(l.size() == 1) {
+                        //TODO: dopo il reshape l'equals non va piu e quindi torna -1 ???
                         int i = Arrays.asList(array).indexOf(r);
                         array[i] = DELETED;
                         carico--;
-                        if (carico <= array.length/4) {
-                            reshape(false);
-                        }
                     }
                     else{
                         l.remove(m);
@@ -133,6 +140,13 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
                     }
                 }
             }
+        }
+        //TODO: l'ho messo fuori dal for perchè è meglio prima cancellare tutto poi
+        //mettersi a rifare l'array, se no potresti avere piu reshape nella stessa cancellazione che ha poco senso
+        //tanto è lineare e quindi non ci son vantaggi potenziali dal reshape
+        //Ho messo while perchè potrebbero esser necessarie più reshape
+        if(carico < (Integer)(array.length/4)) {
+            reshape(false);
         }
     }
 
@@ -177,7 +191,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     public void stampa() {
         for (Record<T, K> r : array) {
-            if(r != null){
+            if(r != null && r != DELETED){
                 r.print();
             }
         }

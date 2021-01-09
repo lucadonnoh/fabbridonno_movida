@@ -442,6 +442,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
     public void printCast() {
         if (dizionariTitle.isEmpty()) {
             System.out.println("Non ci sono film");
+            return;
         }
         dizionariCast.stampa();
         return;

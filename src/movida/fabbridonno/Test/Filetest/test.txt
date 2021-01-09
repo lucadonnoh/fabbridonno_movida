@@ -4,14 +4,8 @@ Director: Martin Scorsese
 Cast: Robert De Niro, Nick Nolte, Jessica Lange, Juliette Lewis
 Votes: 163093
 
-Title: cape Fear
-Year: 1991
-Director: Martin Scorsese
-Cast: Robert de Niro, Nick Nolte, Jessica Lange, Juliette Lewis
-Votes: 42069
-
 Title: Taxi Driver
-Year: 1991
+Year: 1976
 Director: Martin Scorsese
 Cast: Robert De Niro, Jodie Foster, Cybill Shepherd, Albert Brooks
 Votes: 684728
@@ -31,7 +25,7 @@ Votes: 244372
 Title: Die Hard
 Year: 1988
 Director: John McTiernan
-Cast: Bruce Willis, Alan Rickman, Bonnie Bedelia, Sela Ward
+Cast: Bruce Willis, Alan Rickman, Bonnie Bedelia
 Votes: 755228
 
 Title: The Sixth Sense
@@ -43,14 +37,14 @@ Votes: 879298
 Title: Scarface
 Year: 1983
 Director: Brian De Palma
-Cast: Al Pacino, Michelle Pfeiffer, Steven Bauer, Sela Ward, Katharine Towne
-Votes: 1703754
+Cast: Al Pacino, Michelle Pfeiffer, Steven Bauer
+Votes: 703754
 
 Title: What Lies Beneath
 Year: 2000
 Director: Robert Zemeckis
 Cast: Harrison Ford, Michelle Pfeiffer, Katharine Towne
-Votes: 1124295
+Votes: 114295
 
 Title: Air Force One
 Year: 1997
@@ -61,5 +55,11 @@ Votes: 173540
 Title: The Fugitive
 Year: 1993
 Director: Andrew Davis
-Cast: Harrison Ford, Tommy Lee Jones
+Cast: Harrison Ford, Tommy Lee Jones, Sela Ward
+Votes: 256213
+
+Title: The Fugitivessss
+Year: 1993
+Director: Andrew Davis
+Cast: Pippo, Pluto, Topolino, Cazzo, Culo, Cristo, Gallagher, ErNoyz, Traffik, Gigi, Gianni
 Votes: 256213

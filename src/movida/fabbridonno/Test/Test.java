@@ -223,19 +223,28 @@ public class Test {
 
 
     public static void main(String[] args) {
-            Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
+            Test t=new Test(MapImplementation.HashIndirizzamentoAperto, SortingAlgorithm.QuickSort);
             t.loadFile();
             Person p = new Person("Harrison Ford");
-            //t.test_FilmAndPersone();
+            t.printCast();
+            // t.test_FilmAndPersone();
             //t.test_printGraph();
             //t.test_GetCollabs(p);
-            t.test_getDirectCollaboratorsOf(p);
-            t.test_getTeamOf(p);
-            t.test_maximizeCollaborationsInTheTeamOf(p);
+            // t.test_getDirectCollaboratorsOf(p);
+            // t.test_getTeamOf(p);
+            // t.test_maximizeCollaborationsInTheTeamOf(p);
             // t.test_MoviesinYear(1991);
             //t.findPerson("Juliette Lewis");
             t.test_Find_and_Delete("Scarface");
             t.test_Find_and_Delete("Cape Fear");
+            t.test_Find_and_Delete("The Sixth Sense");
+            t.test_Find_and_Delete("Air Force One");
+            t.test_Find_and_Delete("What Lies Beneath");
+            t.test_Find_and_Delete("Taxi Driver");
+            t.test_Find_and_Delete("The Fugitives");
+            t.test_Find_and_Delete("The Fugitive");
+            t.test_Find_and_Delete("The Fugitivessss");
+            t.printCast();
             // t.test_printGraph();
             //t.test_GetCollabs(p);
             // t.test_getDirectCollaboratorsOf(p);
