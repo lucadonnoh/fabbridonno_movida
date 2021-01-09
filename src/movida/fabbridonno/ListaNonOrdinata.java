@@ -50,6 +50,8 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
                         continue;
                     }else{
                         prev.next = p.next;
+                        p=prev.next;
+                        continue;
                     }
                 }else{
                     l.remove(m);
@@ -66,11 +68,12 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     //TODO: fare in modo che si fermi prima perché è ordinata
     @SuppressWarnings("unchecked")
     public Record<T, K> searchRecord(K k) {
+        if (record == null)
+            return null;
+
         if ((k instanceof String)) {
             k = (K) ((String) k).toLowerCase();
         }
-        if (record == null)
-            return null;
         Record<T, K> p = record;
         while (p != null) {
             if(this.ordinata && this.crescente) {

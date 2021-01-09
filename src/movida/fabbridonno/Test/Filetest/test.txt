@@ -34,6 +34,12 @@ Director: M. Night Shyamalan
 Cast: Bruce Willis, Haley Joel Osment, Toni Collette
 Votes: 879298
 
+Title: Cape FEAR
+Year: 1991
+Director: Martin Scorsese
+Cast: Robert De Niro, Nick Nolte, Jessica Lange, Juliette Lewis
+Votes: 163093
+
 Title: Scarface
 Year: 1983
 Director: Brian De Palma
@@ -56,10 +62,4 @@ Title: The Fugitive
 Year: 1993
 Director: Andrew Davis
 Cast: Harrison Ford, Tommy Lee Jones, Sela Ward
-Votes: 256213
-
-Title: The Fugitivessss
-Year: 1993
-Director: Andrew Davis
-Cast: Pippo, Pluto, Topolino, Cazzo, Culo, Cristo, Gallagher, ErNoyz, Traffik, Gigi, Gianni
 Votes: 256213

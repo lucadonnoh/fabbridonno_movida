@@ -409,7 +409,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
 
     public void print() {
         if (dizionariTitle.isEmpty()) {
-            System.out.println("Non ci sono film");
+            System.out.println("Non ci sono film in MovidaCore");
         }
         dizionariTitle.stampa();
         return;
@@ -417,7 +417,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
 
     public void printYear() {
         if (dizionariTitle.isEmpty()) {
-            System.out.println("Non ci sono film");
+            System.out.println("Non ci sono film in MovidaCore");
         }
         dizionariYear.stampa();
         return;
@@ -425,7 +425,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
 
     public void printVotes() {
         if (dizionariTitle.isEmpty()) {
-            System.out.println("Non ci sono film");
+            System.out.println("Non ci sono film in MovidaCore");
         }
         dizionariVotes.stampa();
         return;
@@ -433,7 +433,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
 
     public void printDirector() {
         if (dizionariTitle.isEmpty()) {
-            System.out.println("Non ci sono film");
+            System.out.println("Non ci sono film in MovidaCore");
         }
         dizionariDirector.stampa();
         return;
@@ -441,7 +441,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
 
     public void printCast() {
         if (dizionariTitle.isEmpty()) {
-            System.out.println("Non ci sono film");
+            System.out.println("Non ci sono film in MovidaCore");
             return;
         }
         dizionariCast.stampa();

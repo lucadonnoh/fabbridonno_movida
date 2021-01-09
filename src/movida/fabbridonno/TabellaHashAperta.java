@@ -91,11 +91,14 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         if (inc) {
             array = new Record[array.length * 2];
         } else {
-            int l = array.length;
+            if(carico == 0) array = new Record[1];
+            else{
+                int l = array.length;
             while(carico <= l/4){
                 l = l/2;
             }
             array = new Record[l];
+            }
         }
         for (Record<T, K> r : records) {
             insertFromList(r.getAllEls(), r.getKey());
