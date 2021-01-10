@@ -345,6 +345,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
     }
 
     public Person[] getTeamOf(Person actor) {
+        if(graph.getCollabs(actor) == null) return new Person[0];
         HashSet<Person> visited = new HashSet<Person>();
         Queue<Person> queue = new LinkedList<Person>();
 
@@ -366,8 +367,9 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
     }
 
     public Collaboration[] maximizeCollaborationsInTheTeamOf(Person actor) {
+        if(getTeamOf(actor).length == 0) return new Collaboration[0];
         HashMap<Person, Double> d = new HashMap<Person, Double>();
-        HashMap<Person, Collaboration> maxCollabs = new HashMap<Person, Collaboration>();
+        HashMap<Person, Collaboration> maxCollab = new HashMap<Person, Collaboration>();
         Comparator<Entry> comparator = Comparator.comparing(Entry::getValue).reversed();
 		PriorityQueue<Entry> q = new PriorityQueue<Entry>(comparator);
         Entry entry = new Entry(actor, 0.0);
@@ -392,17 +394,18 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
                 if(d.get(actor2) == Double.NEGATIVE_INFINITY) {
                     q.add(new Entry(actor2, c.getScore()));
                     d.replace(actor2, c.getScore());
-                    maxCollabs.put(actor2, c);
-                } else if (c.getScore() > d.get(actor2)) {
-                    q.remove(new Entry(actor2, 69.420));
-                    q.add(new Entry(actor2, c.getScore()));
-                    d.replace(actor2, c.getScore());
-                    maxCollabs.put(actor2, c);
+                    maxCollab.put(actor2, c);
+                } else if (c.getScore() > d.get(actor2) ) {
+                    if(q.remove(new Entry(actor2, 69.420))){
+                        q.add(new Entry(actor2, c.getScore()));
+                        d.replace(actor2, c.getScore());
+                        maxCollab.put(actor2, c);
+                    }
                 }
             }
         }
 
-        return maxCollabs.values().toArray(new Collaboration[0]);
+        return maxCollab.values().toArray(new Collaboration[0]);
     }
 
     // FUNZIONI PER I TEST
