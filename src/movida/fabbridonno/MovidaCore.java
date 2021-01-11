@@ -167,7 +167,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         for (i = 0; i < cast.length - 1; i++) {
             s += (cast[i].getName() + ", ");
         }
-        s += (cast[i].getName());
+        s += (cast[i].getName());   //È fatto cosi perchè non vogliamo una virgola in fondo
         return s;
     }
 
@@ -252,7 +252,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         for (int i = 0; i < compCast.length; i++) {
             actors[i] = (Person) compCast[i];
         }
-
         return actors;
     }
 

@@ -226,17 +226,19 @@ public class Test {
             Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
             t.loadFile();
             Person p = new Person("Harrison Ford");
+            t.test_MostRecentMovies(30);
+            t.test_MostActiveActors(50);
             // t.printCast();
             // t.test_FilmAndPersone();
             // t.test_printGraph();
             // t.test_GetCollabs(p);
             // t.test_getDirectCollaboratorsOf(p);
-            t.test_getTeamOf(p);
-            t.test_maximizeCollaborationsInTheTeamOf(p);
+            // t.test_getTeamOf(p);
+            // t.test_maximizeCollaborationsInTheTeamOf(p);
             // t.test_MoviesinYear(1991);
             // t.findPerson("Juliette Lewis");
             // t.test_Find_and_Delete("Scarface");
-            // t.test_Find_and_Delete("cape fear");
+            //t.test_Find_and_Delete("cape fear");
             // t.test_Find_and_Delete("boh");
             // t.printCast();
             // t.test_printGraph();
@@ -246,6 +248,6 @@ public class Test {
             // t.test_maximizeCollaborationsInTheTeamOf(p);
             // t.test_MoviesinYear(1991);
             // t.test_FilmAndPersone();
-            // t.test_Salvataggio();
+            t.test_Salvataggio();
     }
 }

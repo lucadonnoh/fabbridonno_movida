@@ -3,7 +3,6 @@ package movida.fabbridonno;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.ArrayList;
 
 import movida.commons.*;
 
@@ -69,7 +68,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
     private void insertFromList(ArrayList<T> allEls, K k) {
         int i = 0;
         int l = array.length;
-        while (i < array.length) 
+        while (i < array.length)
         {
             int h = ispezione(i++, hash(k, l), l);
             if (array[h] == null) {
@@ -105,6 +104,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void insert(T m, K k) {
         int i = 0;
         if (carico == array.length) {
