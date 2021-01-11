@@ -2,7 +2,6 @@ package movida.fabbridonno.Test;
 
 import movida.commons.*;
 import java.io.File;
-import java.util.HashSet;
 import java.util.Set;
 
 import movida.fabbridonno.MovidaCore;
@@ -226,26 +225,28 @@ public class Test {
             Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
             t.loadFile();
             Person p = new Person("Harrison Ford");
-            //t.test_FilmAndPersone();
-            //t.test_printGraph();
-            //t.test_GetCollabs(p);
+            t.test_MostRecentMovies(30);
+            t.test_MostActiveActors(50);
+            t.printCast();
+            t.test_FilmAndPersone();
+            t.test_printGraph();
+            t.test_GetCollabs(p);
             t.test_getDirectCollaboratorsOf(p);
             t.test_getTeamOf(p);
             t.test_maximizeCollaborationsInTheTeamOf(p);
-            // t.test_MoviesinYear(1991);
-            //t.findPerson("Juliette Lewis");
+            t.test_MoviesinYear(1991);
+            t.findPerson("Juliette Lewis");
             t.test_Find_and_Delete("Scarface");
-            t.test_Find_and_Delete("Cape Fear");
-            // t.test_printGraph();
-            //t.test_GetCollabs(p);
-            // t.test_getDirectCollaboratorsOf(p);
-            // t.test_getTeamOf(p);
-            // t.test_maximizeCollaborationsInTheTeamOf(p);
-            //t.test_MoviesinYear(1991);
-            //t.test_FilmAndPersone();
-            // System.out.println(t.setMap(MapImplementation.HashIndirizzamentoAperto));
-            // System.out.println(t.setSort(SortingAlgorithm.InsertionSort));
-            // t.sort();
+            t.test_Find_and_Delete("cape fear");
+            t.test_Find_and_Delete("boh");
+            t.printCast();
+            t.test_printGraph();
+            t.test_GetCollabs(p);
+            t.test_getDirectCollaboratorsOf(p);
+            t.test_getTeamOf(p);
+            t.test_maximizeCollaborationsInTheTeamOf(p);
+            t.test_MoviesinYear(1991);
+            t.test_FilmAndPersone();
             t.test_Salvataggio();
     }
 }

@@ -6,7 +6,7 @@ public class LabelException extends RuntimeException {
 
 	@Override
 	public String getMessage() {
-		return "Le etichette delle proprieta di un film non sono corrette";
+		return "\nLe etichette delle proprieta di un film non sono corrette";
     }
 
 }

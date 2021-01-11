@@ -2,6 +2,7 @@ package movida.fabbridonno;
 import movida.commons.*;
 
 public interface DizionarioFilm<T, K extends Comparable<K>> {
+
 	/**
 	 * Aggiunge al dizionario la coppia <code>(e,k)</code>.
 	 *
@@ -19,9 +20,27 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 */
 	public void deleteEl(Movie m);
 
-	// public boolean delete(String title, K k);
+	/**
+	 * Ritorna il numero di elementi salvati nel dizionario.
+	 * @return il carico del dizionario.
+	 */
+	public int getCarico();
 
-	// public boolean delete(K k);
+	/**
+	 * Ritorna se il dizionario è vuoto.
+	 * @return <code>true</code> se è vuoto, <code>false</code> altrimenti.
+	 */
+	public boolean isEmpty();
+
+	/**
+	 * Cancella tutti gli elementi del dizionario.
+	 */
+	public void clear();
+
+	/**
+	 * Printa tutti i record con chiave e valore.
+	 */
+	public void stampa();
 
 	/**
 	 * Ritorna il record di chiave K
@@ -50,28 +69,6 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	public Boolean searchKey(K k);
 
 	/**
-	 * Printa tutti i record con chiave e valore.
-	 */
-	public void stampa();
-
-	/**
-	 * Ritorna il numero di elementi salvati nel dizionario.
-	 * @return il carico del dizionario.
-	 */
-	public int getCarico();
-
-	/**
-	 * Cancella tutti gli elementi del dizionario.
-	 */
-	public void clear();
-
-	/**
-	 * Ritorna se il dizionario è vuoto.
-	 * @return <code>true</code> se è vuoto, <code>false</code> altrimenti.
-	 */
-	public boolean isEmpty();
-
-	/**
 	 * Esporta i Movie se il dizionario li contiene.
 	 * @return array di <code>Movie</code> se li contiene, null altrimenti.
 	 */
@@ -82,20 +79,6 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 * @return array di Comparable contente le chiavi.
 	 */
 	public Comparable<K>[] exportKeys();
-
-	/**
-	 * Trova i Movie con una certa key.
-	 * @param k chiave dei Movie da cercare
-	 * @return array di Movie
-	 */
-	public Movie[] searchMoviesByKey(K k);
-
-	/**
-	 * Ritorna tutti i film dentro un Record
-	 * @param k la chiave del Record
-	 * @return i Movie dentro il record con chiave k
-	 */
-	public Movie[] searchMoviesByRecord(K k);
 
 	/**
 	 * Ritorna i primi n Movie del dizionario
@@ -117,6 +100,20 @@ public interface DizionarioFilm<T, K extends Comparable<K>> {
 	 * @return array di Movie
 	 */
 	public Movie[] stringInTitle(String title);
+
+	/**
+	 * Trova i Movie con una certa key.
+	 * @param k chiave dei Movie da cercare
+	 * @return array di Movie
+	 */
+	public Movie[] searchMoviesByKey(K k);
+
+	/**
+	 * Ritorna tutti i film dentro un Record
+	 * @param k la chiave del Record
+	 * @return i Movie dentro il record con chiave k
+	 */
+	public Movie[] searchMoviesByRecord(K k);
 
 	/**
 	 * Ordina il dizionario

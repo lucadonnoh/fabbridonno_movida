@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import movida.commons.*;
 
+//TODO: nella hash il next non serve a nulla, amen?
 public final class Record<T, K extends Comparable<K>> {
     /**
      * Elemento da conservare nel record
@@ -30,6 +31,97 @@ public final class Record<T, K extends Comparable<K>> {
         next = null;
     }
 
+    /**
+     * Imposta la chiave del record
+     * @param k chiave da settare
+     */
+    public void setKey(K k)
+    {
+        this.key = k;
+    }
+
+    /**
+     * Imposta tutti gli elementi di un record
+     * @param al elementi da settare
+     */
+    public void setAllEls(ArrayList<T> al)
+    {
+        Els = al;
+    }
+
+    /**
+     * Aggiunge un elemento al Record
+     * @param m elemento da aggiungere
+     */
+    public void addEl(T m)
+    {
+        Els.add(m);
+    }
+
+    /**
+     * Ritorna la chiave del Record
+     * @return la chiave del Record
+     */
+    @SuppressWarnings("unchecked")
+    public K getKey()
+    {
+        if(this.key instanceof String) {
+            return (K)((String) key).toLowerCase();
+        }
+        return key;
+    }
+
+    /**
+     * Ritorna quanti elementi contiene il record
+     * @return numero di elementi
+     */
+    public int getCarico()
+    {
+        return Els.size(); // O(1)
+    }
+
+    /**
+     * Ritorna il primo elemento del record
+     * @return primo elemento
+     */
+    public T getEl()
+    {
+        return Els.get(0);
+    }
+
+    /**
+     * Ritorna tutti gli elementi del record
+     * @return un ArrayList degli elementi del record
+     */
+    public ArrayList<T> getAllEls()
+    {
+        ArrayList<T> al = new ArrayList<T>();
+        for(T m : Els)
+        {
+            al.add(m);
+        }
+        return al;
+    }
+
+    
+
+    
+
+    /**
+     * Stampa il Record
+     */
+    public void print(){
+        Boolean tanti= false;
+        System.out.print("Chiave: " + key + "\nRecord: ");
+        for(T m: Els){
+            if(tanti){
+                System.out.print("- ");
+            }
+            System.out.print(m.toString() + " ");
+            tanti= true;
+        }
+        System.out.print("\n\n");
+    }
 
     /**
      * Controlla se un generic è un Movie
@@ -80,92 +172,5 @@ public final class Record<T, K extends Comparable<K>> {
         }
         return (Person)t;
     }
-
-    /**
-     * Aggiunge un elemento al Record
-     * @param m elemento da aggiungere
-     */
-    public void addEl(T m)
-    {
-        Els.add(m);
-    }
-
-    /**
-     * Ritorna quanti elementi contiene il record
-     * @return numero di elementi
-     */
-    public int getCarico()
-    {
-        return Els.size(); // O(1)
-    }
-
-    /**
-     * Ritorna il primo elemento del record
-     * @return primo elemento
-     */
-    public T getEl()
-    {
-        return Els.get(0);
-    }
-
-    /**
-     * Ritorna tutti gli elementi del record
-     * @return un ArrayList degli elementi del record
-     */
-    public ArrayList<T> getAllEls()
-    {
-        ArrayList<T> al = new ArrayList<T>();
-        for(T m : Els)
-        {
-            al.add(m);
-        }
-        return al;
-    }
-
-    /**
-     * Imposta tutti gli elementi di un record
-     * @param al elementi da settare
-     */
-    public void setAllEls(ArrayList<T> al)
-    {
-        Els = al;
-    }
-
-    /**
-     * Ritorna la chiave del Record
-     * @return la chiave del Record
-     */
-    @SuppressWarnings("unchecked")
-    public K getKey()
-    {
-        if(this.key instanceof String) {
-            return (K)((String) key).toLowerCase();
-        }
-        return key;
-    }
-
-    /**
-     * Imposta la chiave del record
-     * @param k chiave da settare
-     */
-    public void setKey(K k)
-    {
-        this.key = k;
-    }
-
-    /**
-     * Stampa il Record 
-     */
-    public void print(){
-        Boolean tanti= false;
-        System.out.print("Chiave: " + key + "\nRecord: ");
-        for(T m: Els){
-            if(tanti){
-                System.out.print("- ");
-            }
-            System.out.print(m.toString() + " ");
-            tanti= true;
-        }
-        System.out.print("\n\n");
-    }
 }
+

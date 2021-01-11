@@ -17,15 +17,15 @@ public class Graph {
         return graph.get(p);
     }
 
-    //TODO: mai usata
-    public void addCollab(Person p, Collaboration c) {
-        if(graph.get(p) == null) return;
-        graph.get(p).add(c);
-    }
+    // TODO: mai usata
+    // public void addCollab(Person p, Collaboration c) {
+    // if(graph.get(p) == null) return;
+    // graph.get(p).add(c);
+    // }
 
     private boolean addActor(Person p) {
         for (Person k : graph.keySet()) {
-            if (k.equals(p)){
+            if (k.equals(p)) {
                 return false;
             }
         }
