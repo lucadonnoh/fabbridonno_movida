@@ -1,7 +1,5 @@
 package movida.fabbridonno;
 
-//TODO: c'è da ricontrollare tutto movidaCore ma il resto dovrebbe essere a posto l'ho gia checkato e riordinato
-
 import movida.commons.*;
 import java.io.File;
 import java.util.Comparator;
@@ -13,24 +11,25 @@ import java.util.Queue;
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.PrintWriter;
 public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMovidaCollaborations {
+
     private SortingAlgorithm selectedSort;
-
     private MapImplementation selectedMap;
-    // TODO: vedere cosa mettere private
-    public DizionarioFilm<Movie, String> dizionariTitle;
-    public DizionarioFilm<Movie, Integer> dizionariYear;
-    public DizionarioFilm<Movie, Person> dizionariDirector;
-    public DizionarioFilm<Movie, Integer> dizionariVotes;
-    public DizionarioFilm<Movie, Person> dizionariCast;
-
-    public Graph graph = new Graph();
-
     private int sortIndex;
+
+    private DizionarioFilm<Movie, String> dizionariTitle;
+    private DizionarioFilm<Movie, Integer> dizionariYear;
+    private DizionarioFilm<Movie, Person> dizionariDirector;
+    private DizionarioFilm<Movie, Integer> dizionariVotes;
+    private DizionarioFilm<Movie, Person> dizionariCast;
+    private Graph graph = new Graph();
+
 
     public MovidaCore() {
         selectedSort = null;
         selectedMap = null;
     }
+
+    //IMovidaConfig
 
     /**
      * L'algoritmo è implementato in modo tale da supportare qualsiasi collezione di
@@ -76,6 +75,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         }
         return false;
     }
+
+    //IMovidaDB
 
     private String format(String nf, String label) {
         if (!nf.split(": ")[0].equals(label)) throw new LabelException();
@@ -126,7 +127,16 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         }
     }
 
-    //TODO: gestire il case sensitive grr
+    private String printCast(Person[] cast) {
+        int i;
+        String s = "";
+        for (i = 0; i < cast.length - 1; i++) {
+            s += (cast[i].getName() + ", ");
+        }
+        s += (cast[i].getName());   //È fatto cosi perchè non vogliamo una virgola in fondo
+        return s;
+    }
+
     public void loadFromFile(File f) {
         try {
             Scanner myReader = new Scanner(f);
@@ -159,16 +169,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
             throw new MovidaFileException();
         }
 
-    }
-
-    private String printCast(Person[] cast) {
-        int i;
-        String s = "";
-        for (i = 0; i < cast.length - 1; i++) {
-            s += (cast[i].getName() + ", ");
-        }
-        s += (cast[i].getName());   //È fatto cosi perchè non vogliamo una virgola in fondo
-        return s;
     }
 
     public void saveToFile(File f) {
@@ -274,6 +274,8 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         return people;
     }
 
+    //IMovidaSearch
+
     public Movie[] searchMoviesInYear(Integer year) {
         return dizionariYear.searchMoviesByKey(year);
     }
@@ -282,7 +284,6 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         return dizionariDirector.searchMoviesByRecord(new Person(name));
     }
 
-    //TODO: mettere a posto che cerchi in minuscolo/maiuscolo
     public Movie[] searchMoviesByTitle(String title) {
         return dizionariTitle.stringInTitle(title);
     }
@@ -329,8 +330,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         return NActors;
     }
 
-    void printGraph() {
-        graph.printGraph();
+    //IMovidaCollaborations
+
+    public Graph getGraph() {
+        return this.graph;
     }
 
     public Person[] getDirectCollaboratorsOf(Person p) {
@@ -395,6 +398,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
                     d.replace(actor2, c.getScore());
                     maxCollab.put(actor2, c);
                 } else if (c.getScore() > d.get(actor2) ) {
+                    //Se questo if ritorna falso allora il nodo è gia preso e non può essere modificato
                     if(q.remove(new Entry(actor2, 69.420))){
                         q.add(new Entry(actor2, c.getScore()));
                         d.replace(actor2, c.getScore());
@@ -407,7 +411,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         return maxCollab.values().toArray(new Collaboration[0]);
     }
 
-    // FUNZIONI PER I TEST
+    // FUNZIONI DI STAMPA PER I TEST
 
     public void print() {
         if (dizionariTitle.isEmpty()) {
@@ -458,7 +462,7 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         dizionariCast.stampa();
     }
 
-    public Graph getGraph() {
-        return this.graph;
+    public void printGraph() {
+        graph.printGraph();
     }
 }

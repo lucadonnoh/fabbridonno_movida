@@ -37,13 +37,13 @@ Votes: 879298
 Title: Scarface
 Year: 1983
 Director: Brian De Palma
-Cast: Al Pacino, Michelle Pfeiffer, Steven Bauer
+Cast: Al Pacino, Michelle Pfeiffer, Steven Bauer, steven bauer
 Votes: 703754
 
 Title: What Lies Beneath
 Year: 2000
 Director: Robert Zemeckis
-Cast: Harrison Ford, Michelle Pfeiffer, Katharine Towne
+Cast: Harrison Ford, Michelle Pfeiffer, Katharine Towne, StEVEn BauEr
 Votes: 114295
 
 Title: Air Force One
