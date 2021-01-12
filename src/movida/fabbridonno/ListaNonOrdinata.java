@@ -6,7 +6,7 @@ import movida.commons.*;
 
 public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioFilm<T, K> {
 
-    private Record<T, K> record;
+    private ListRecord<T, K> record;
     private int carico;
     private Boolean crescente;
     private Boolean ordinata;
@@ -21,7 +21,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     // Non serve cancellare p perchè java ha il garbage collector
     public void insert(T e, K k) {
 
-        Record<T, K> p = new Record<T, K>(e, k);
+        ListRecord<T, K> p = new ListRecord<T, K>(e, k);
 
         if (record == null)
             record = p;
@@ -36,8 +36,8 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     public void deleteEl(Movie m) {
         if (record == null)
             return;
-        Record<T, K> p = record;
-        Record<T, K> prev = null;
+        ListRecord<T, K> p = record;
+        ListRecord<T, K> prev = null;
         while (p != null) {
             ArrayList<T> l = p.getAllEls();
             if (l.contains(m)) {
@@ -79,7 +79,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     public void stampa() {
-        Record<T, K> p = record;
+        ListRecord<T, K> p = record;
         while (p != null) {
             p.print();
             p = p.next;
@@ -87,14 +87,14 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     @SuppressWarnings("unchecked")
-    public Record<T, K> searchRecord(K k) {
+    public ListRecord<T, K> searchRecord(K k) {
         if (record == null)
             return null;
 
         if ((k instanceof String)) {
             k = (K) ((String) k).toLowerCase();
         }
-        Record<T, K> p = record;
+        ListRecord<T, K> p = record;
         while (p != null) {
             if (this.ordinata && this.crescente) {
                 if (p.getKey().compareTo(k) > 0)
@@ -112,7 +112,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     public T search(K k) {
-        Record<T, K> p = searchRecord(k);
+        ListRecord<T, K> p = searchRecord(k);
         if (p != null)
             return p.getEl();
         return null;
@@ -131,12 +131,12 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
             return new Movie[0];
         Movie[] movies = new Movie[carico];
         int i = 0;
-        Record<T, K> p = record;
+        ListRecord<T, K> p = record;
         if (Record.toMovie(p.getEl()) == null)
             return null;
 
         while (p != null) {
-            movies[i++] = Record.toMovie(p.getEl());
+            movies[i++] = ListRecord.toMovie(p.getEl());
             p = p.next;
         }
         return movies;
@@ -146,7 +146,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     public Comparable<K>[] exportKeys() {
         Comparable<K>[] keys = new Comparable[carico];
         int i = 0;
-        Record<T, K> p = record;
+        ListRecord<T, K> p = record;
 
         while (p != null) {
             keys[i++] = p.getKey();
@@ -156,32 +156,32 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     /**
-     * Ritorna gli n Movie successivi al Record passato come parametro
+     * Ritorna gli n Movie successivi al ListRecord passato come parametro
      *
-     * @param p Record da cui partire
+     * @param p ListRecord da cui partire
      * @param n numero di Movie da prendere
      * @return array di Movie
      */
-    private Movie[] nNextMovies(Record<T, K> p, int n) {
+    private Movie[] nNextMovies(ListRecord<T, K> p, int n) {
         Movie[] movies = new Movie[n];
         for (int i = 0; i < n; i++) {
-            movies[i] = Record.toMovie(p.getEl());
+            movies[i] = ListRecord.toMovie(p.getEl());
             p = p.next;
         }
         return movies;
     }
 
     /**
-     * Ritorna gli n Person successivi al Record passato come parametro
+     * Ritorna gli n Person successivi al ListRecord passato come parametro
      *
-     * @param p Record da cui partire
+     * @param p ListRecord da cui partire
      * @param n numero di Person da prendere
      * @return array di Person
      */
-    private Person[] nNextActors(Record<T, K> p, int n) {
+    private Person[] nNextActors(ListRecord<T, K> p, int n) {
         Person[] actors = new Person[n];
         for (int i = 0; i < n; i++) {
-            actors[i] = Record.toPerson(p.getEl());
+            actors[i] = ListRecord.toPerson(p.getEl());
             p = p.next;
         }
         return actors;
@@ -191,20 +191,20 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         if (n > carico)
             n = carico;
         Movie[] movies = new Movie[n];
-        Record<T, K> p = record;
+        ListRecord<T, K> p = record;
         movies = nNextMovies(p, n);
         return movies;
     }
 
     public Person[] firstNActors(int n) {
         Person[] actors = new Person[n];
-        Record<T, K> p = record;
+        ListRecord<T, K> p = record;
         actors = nNextActors(p, n);
         return actors;
     }
 
     public Movie[] stringInTitle(String title) {
-        Record<T, K> p = record;
+        ListRecord<T, K> p = record;
         int i = 0;
         while (p != null) {
             if ((Record.toMovie(p.getEl())).getTitle().toLowerCase().contains(title.toLowerCase())) {
@@ -230,11 +230,11 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     // Sfruttiamo il fatto che la lista sia sempre ordinata quindi se ci son chiavi
     // uguali sono adiacenti
     public Movie[] searchMoviesByKey(K k) {
-        Record<T, K> p = searchRecord(k);
+        ListRecord<T, K> p = searchRecord(k);
         if (p == null) {
             return new Movie[0];
         }
-        Record<T, K> tmp = p;
+        ListRecord<T, K> tmp = p;
         int n = 1;
         while (tmp.next.getKey().equals(k)) {
             n++;
@@ -246,7 +246,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
 
     public Movie[] searchMoviesByRecord(K k) {
         int i = 0;
-        Record<T, K> p = searchRecord(k);
+        ListRecord<T, K> p = searchRecord(k);
         if (p == null)
             return new Movie[0];
         ArrayList<T> l = p.getAllEls();
@@ -281,13 +281,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     private void insertionSort(boolean b) {
 
         // Initialize sorted linked list
-        Record<T, K> sorted = null;
-        Record<T, K> current = record;
+        ListRecord<T, K> sorted = null;
+        ListRecord<T, K> current = record;
         // Traverse the given linked list and insert every
-        // Record to sorted
+        // ListRecord to sorted
         while (current != null) {
             // Store next for next iteration
-            Record<T, K> next = current.next;
+            ListRecord<T, K> next = current.next;
             // insert current in sorted linked list
             sorted = sortedInsert(current, sorted, b);
             // Update current
@@ -298,20 +298,20 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     /**
-     * Ritorna gli n Movie successivi al Record passato come parametro
+     * Ritorna gli n Movie successivi al ListRecord passato come parametro
      *
-     * @param newRecord Nuovo Record da inserire
+     * @param newRecord Nuovo ListRecord da inserire
      * @param sorted    lista ordinata fino a questo punto
      * @param b         indica se si ordina in senso crescente o decrescente
      * @return          lista ordinata in cui è stato inserito newRecord
      */
-    private Record<T, K> sortedInsert(Record<T, K> newRecord, Record<T, K> sorted, boolean b) {
+    private ListRecord<T, K> sortedInsert(ListRecord<T, K> newRecord, ListRecord<T, K> sorted, boolean b) {
         if (b) {
             if (sorted == null || sorted.getKey().compareTo(newRecord.getKey()) >= 0) {
                 newRecord.next = sorted;
                 sorted = newRecord;
             } else {
-                Record<T, K> current = sorted;
+                ListRecord<T, K> current = sorted;
                 while (current.next != null && current.next.getKey().compareTo(newRecord.getKey()) < 0) {
                     current = current.next;
                 }
@@ -323,7 +323,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
                 newRecord.next = sorted;
                 sorted = newRecord;
             } else {
-                Record<T, K> current = sorted;
+                ListRecord<T, K> current = sorted;
                 while (current.next != null && current.next.getKey().compareTo(newRecord.getKey()) > 0) {
                     current = current.next;
                 }
@@ -335,13 +335,13 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
     }
 
     /**
-     * Ritorna l'n-esimo Record della lista
+     * Ritorna l'n-esimo ListRecord della lista
      *
-     * @param n posizione del Record
-     * @return il Record
+     * @param n posizione del ListRecord
+     * @return il ListRecord
      */
-    private Record<T, K> getNthRecord(int n) {
-        Record<T, K> tmp = this.record;
+    private ListRecord<T, K> getNthRecord(int n) {
+        ListRecord<T, K> tmp = this.record;
         while (tmp != null && n >= 0) {
             if (n == 0)
                 return tmp;
@@ -385,7 +385,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
         int inf = i;
         int sup = f + 1;
 
-        Record<T, K> x = getNthRecord(i);
+        ListRecord<T, K> x = getNthRecord(i);
 
         if (b) {
             while (true) {
@@ -424,7 +424,7 @@ public class ListaNonOrdinata<T, K extends Comparable<K>> implements DizionarioF
      * @param A primo record
      * @param B secondo record
      */
-    private void swap(Record<T, K> A, Record<T, K> B) {
+    private void swap(Record<T, K> A, ListRecord<T, K> B) {
         ArrayList<T> A_els = A.getAllEls();
         ArrayList<T> B_els = B.getAllEls();
 
