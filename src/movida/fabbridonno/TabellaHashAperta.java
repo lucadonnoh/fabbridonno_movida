@@ -10,11 +10,11 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
 
     private int carico;
     private Record<T, K>[] array;
-    // TODO: volevo metterlo static ma mi da errore "Cannot make a static reference to the non-static type"
+    //Non posso dichiarare attributi statici che siano dei Generics
     private Record<T, K> DELETED;
 
     // La tabella viene istanziata di dimensione 1, poi viene ingrandita e
-    // rimpicciolità in base alle necessità
+    // ridotta in base alle necessità
     @SuppressWarnings("unchecked")
     public TabellaHashAperta() {
         carico = 0;
