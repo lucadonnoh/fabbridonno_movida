@@ -5,9 +5,6 @@ import movida.commons.Person;
 
 public class Entry extends AbstractMap.SimpleEntry<Person, Double> {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public Entry(Person key, Double value) {
