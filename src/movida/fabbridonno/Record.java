@@ -1,9 +1,11 @@
 package movida.fabbridonno;
+
 import java.util.ArrayList;
 
 import movida.commons.*;
 
 public class Record<T, K extends Comparable<K>> {
+
     /**
      * Elemento da conservare nel record
      */
@@ -26,71 +28,70 @@ public class Record<T, K extends Comparable<K>> {
 
     /**
      * Imposta la chiave del record
+     *
      * @param k chiave da settare
      */
-    public void setKey(K k)
-    {
+    public void setKey(K k) {
         this.key = k;
     }
 
     /**
      * Imposta tutti gli elementi di un record
+     *
      * @param al elementi da settare
      */
-    public void setAllEls(ArrayList<T> al)
-    {
+    public void setAllEls(ArrayList<T> al) {
         Els = al;
     }
 
     /**
      * Aggiunge un elemento al Record
+     *
      * @param m elemento da aggiungere
      */
-    public void addEl(T m)
-    {
+    public void addEl(T m) {
         Els.add(m);
     }
 
     /**
      * Ritorna la chiave del Record
+     *
      * @return la chiave del Record
      */
     @SuppressWarnings("unchecked")
-    public K getKey()
-    {
-        if(this.key instanceof String) {
-            return (K)((String) key).toLowerCase();
+    public K getKey() {
+        if (this.key instanceof String) {
+            return (K) ((String) key).toLowerCase();
         }
         return key;
     }
 
     /**
      * Ritorna quanti elementi contiene il record
+     *
      * @return numero di elementi
      */
-    public int getCarico()
-    {
+    public int getCarico() {
         return Els.size(); // O(1)
     }
 
     /**
      * Ritorna il primo elemento del record
+     *
      * @return primo elemento
      */
-    public T getEl()
-    {
+    public T getEl() {
         return Els.get(0);
     }
 
     /**
      * Ritorna tutti gli elementi del record
+     *
      * @return un ArrayList degli elementi del record
      */
-    public ArrayList<T> getAllEls()
-    {
+    public ArrayList<T> getAllEls() {
         ArrayList<T> al = new ArrayList<T>();
-        for(T m : Els)
-        {
+        for (T m : Els) {
             al.add(m);
         }
         return al;
@@ -99,48 +100,47 @@ public class Record<T, K extends Comparable<K>> {
     /**
      * Stampa il Record
      */
-    public void print(){
-        Boolean tanti= false;
+    public void print() {
+        Boolean tanti = false;
         System.out.print("Chiave: " + key + "\nRecord: ");
-        for(T m: Els){
-            if(tanti){
+        for (T m : Els) {
+            if (tanti) {
                 System.out.print("- ");
             }
             System.out.print(m.toString() + " ");
-            tanti= true;
+            tanti = true;
         }
         System.out.print("\n\n");
     }
 
     /**
      * Controlla se un generic è un Movie
+     *
      * @param <T> tipo del generic
-     * @param t il generic
+     * @param t   il generic
      * @return l'elemento convertito in Movie, null se non possibile
      */
-    public static <T> Movie toMovie(T t)
-    {
-        if(!(t instanceof Movie))
-        {
+    public static <T> Movie toMovie(T t) {
+        if (!(t instanceof Movie)) {
             System.out.println("WARNING: l'elemento non è di tipo Movie, ritorno NULL");
             return null;
         }
-        return (Movie)t;
+        return (Movie) t;
     }
 
     /**
      * Converte una lista di generic in Movie se possibile
+     *
      * @param <T> Tipo della lista
-     * @param al lista di elementi
+     * @param al  lista di elementi
      * @return array di Movie o null se non possibile
      */
-    public static <T> Movie[] toMovieArray(ArrayList<T> al)
-    {
+    public static <T> Movie[] toMovieArray(ArrayList<T> al) {
         Movie[] ms = new Movie[al.size()];
         int i = 0;
-        if(toMovie(al.get(0)) == null) return null;
-        for(T el : al)
-        {
+        if (toMovie(al.get(0)) == null)
+            return null;
+        for (T el : al) {
             ms[i++] = toMovie(el);
         }
         return ms;
@@ -148,18 +148,16 @@ public class Record<T, K extends Comparable<K>> {
 
     /**
      * Converte un generic in una Persona se possibile
+     *
      * @param <T> Tipo del generic
-     * @param t il generic
+     * @param t   il generic
      * @return l'elemento convertito in Persona se possibile, null altrimenti
      */
-    public static <T> Person toPerson(T t)
-    {
-        if(!(t instanceof Person))
-        {
+    public static <T> Person toPerson(T t) {
+        if (!(t instanceof Person)) {
             System.out.println("WARNING: l'elemento non è di tipo Person, ritorno NULL");
             return null;
         }
-        return (Person)t;
+        return (Person) t;
     }
 }
-

@@ -1,5 +1,5 @@
 ===================================================
-		PROGETTO MOVIDA
+              PROGETTO MOVIDA
 ===================================================
 
 Progetto del corso Algoritmi e Strutture Dati
@@ -14,7 +14,7 @@ Algoritmi e strutture dati assegnati:
 > Implementazioni dizionario: ListaConcatenata, HashIndirizzamentoAperto
 
 ---------------------------------------------------
-	Istruzioni per compilare/eseguire
+	      Istruzioni per compilare/eseguire
 ---------------------------------------------------
 
 Per eseguire il codice importare la classe MovidaCore
@@ -24,7 +24,7 @@ Il costruttore non prende parametri aggiuntivi.
 fabbridonno_movida\src\movida\fabbridonno\Test.
 
 ---------------------------------------------------
-		Funzionamento
+		            Funzionamento
 ---------------------------------------------------
 
 La classe MovidaCore è la classe entry-point dell'
