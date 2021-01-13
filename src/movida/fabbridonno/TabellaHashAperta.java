@@ -283,7 +283,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
         int n = 0, j = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null && array[i] != DELETED) {
-                if (Record.toMovie(array[i].getEl()).getTitle().contains(title)) {
+                if (Record.toMovie(array[i].getEl()).getTitle().toLowerCase().contains(title.toLowerCase())) {
                     n++;
                 }
             }
@@ -293,7 +293,7 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
             return movies;
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null && array[i] != DELETED) {
-                if (Record.toMovie(array[i].getEl()).getTitle().contains(title)) {
+                if (Record.toMovie(array[i].getEl()).getTitle().toLowerCase().contains(title.toLowerCase())) {
                     movies[j] = Record.toMovie(array[i].getEl());
                     j++;
                 }
@@ -329,9 +329,12 @@ public class TabellaHashAperta<T, K extends Comparable<K>> implements Dizionario
                           // quanti ne abbiamo in tabella
         {
             h = ispezione(i++, hash(k, array.length), array.length);
-            if (array[h].getKey().equals(k)) {
-                for (T m : array[h].getAllEls())
-                    list.add((Movie) m);
+            if (array[h] != null && array[h] != DELETED) {
+                if (array[h].getKey().equals(k)) {
+                    for (T m : array[h].getAllEls())
+                        list.add((Movie) m);
+                    break;
+                }
             }
         }
         Movie[] movies = list.toArray(new Movie[0]);

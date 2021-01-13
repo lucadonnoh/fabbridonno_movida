@@ -58,6 +58,14 @@ public class Test {
         mc.printCast();
     }
 
+    public void printAll(){
+        print();
+        printYear();
+        printVotes();
+        printDirector();
+        printCast();
+    }
+
     public void test_Find_and_Delete(String s){
         Movie m = mc.getMovieByTitle(s);
         if(m == null){
@@ -172,9 +180,12 @@ public class Test {
             System.out.println("La persona non è nel grafo");
             return;
         }
-
+        System.out.println("Le collaborazioni di " + p.toString() + " sono:");
         for(Collaboration c : collabs){
-            System.out.println(c.getActorA().toString() + " " + c.getActorB().toString());
+            if(p.equals(c.getActorA()))
+                System.out.println(c.getActorA().toString() + " " + c.getActorB().toString());
+            else
+                System.out.println(c.getActorB().toString() + " " + c.getActorA().toString());
         }
         return;
     }
@@ -183,6 +194,7 @@ public class Test {
         System.out.println("\n");
         Person[] collabs = mc.getDirectCollaboratorsOf(p);
         if(collabs.length == 0) System.out.println("La persona non è nel grafo");
+        System.out.println("I collaboratori diretti di " + p.toString() + " sono:");
         for(Person pers:collabs){
             System.out.println(pers.toString());
         }
@@ -192,6 +204,7 @@ public class Test {
         System.out.println("\n");
         Person[] collabs = mc.getTeamOf(p);
         if(collabs.length == 0) System.out.println("La persona non è nel grafo");
+        System.out.println("Il team di " + p.toString() + " è:");
         for(Person pers:collabs){
             System.out.println(pers.toString());
         }
@@ -220,33 +233,44 @@ public class Test {
             mc.loadFromFile(f);
     }
 
+    public void test_FullCollaborations(Person p){
+            test_GetCollabs(p);
+            test_getDirectCollaboratorsOf(p);
+            test_getTeamOf(p);
+            test_maximizeCollaborationsInTheTeamOf(p);
+    }
+
+    //Test completo per testare tutti i metodi con i dati in input dati in movida commons
+    public void test_FullTest(){
+        Person p = new Person("Harrison Ford");
+        test_MostVotedMovies(5);
+        test_MostActiveActors(5);
+        test_MostRecentMovies(5);
+        test_MoviesStarredBy("Al Pacino");
+        findPerson("Al Pacino");
+        test_MoviesbyTitle("AR");
+        test_MoviesDirectedBy("Brian De Palma");
+        test_MoviesinYear(1983);
+        test_Find_and_Delete("Cape Fear");
+        test_Find_and_Delete("Taxi Driver");
+        test_Find_and_Delete("Scarface");
+        printAll();
+        test_MostVotedMovies(5);
+        test_MostActiveActors(5);
+        test_MostVotedMovies(5);
+        test_MoviesStarredBy("Al Pacino");
+        findPerson("Al Pacino");
+        test_MoviesbyTitle("aR");
+        test_MoviesDirectedBy("Brian De Palma");
+        test_MoviesinYear(1983);
+        test_FullCollaborations(p);
+    }
+
 
     public static void main(String[] args) {
             Test t=new Test(MapImplementation.ListaNonOrdinata, SortingAlgorithm.QuickSort);
             t.loadFile();
-            Person p = new Person("Harrison Ford");
-            t.test_MostRecentMovies(30);
-            t.test_MostActiveActors(50);
-            t.printCast();
-            t.test_FilmAndPersone();
-            t.test_printGraph();
-            t.test_GetCollabs(p);
-            t.test_getDirectCollaboratorsOf(p);
-            t.test_getTeamOf(p);
-            t.test_maximizeCollaborationsInTheTeamOf(p);
-            t.test_MoviesinYear(1991);
-            t.findPerson("Juliette Lewis");
-            t.test_Find_and_Delete("Scarface");
-            t.test_Find_and_Delete("cape fear");
-            t.test_Find_and_Delete("boh");
-            t.printCast();
-            t.test_printGraph();
-            t.test_GetCollabs(p);
-            t.test_getDirectCollaboratorsOf(p);
-            t.test_getTeamOf(p);
-            t.test_maximizeCollaborationsInTheTeamOf(p);
-            t.test_MoviesinYear(1991);
-            t.test_FilmAndPersone();
+            t.test_FullTest();
             t.test_Salvataggio();
     }
 }
