@@ -65,5 +65,9 @@ Per rendere il grafo non orientato, ad ogni arco uscente
 corrisponde un arco entrante.
 Salva le collaborazioni tra attori.
 
+Per l'implementazione del metodo maximizeCollaborationsInTheTeamOf()
+è stato utilizzato l'algoritmo di Prim adattato per un maximum spanning tree,
+che sfrutta una coda a massima priorità.
+
 Entry estende la classe AbstractMap.SimpleEntry per permettere
 l'override dei metodi equals e hashcode.
