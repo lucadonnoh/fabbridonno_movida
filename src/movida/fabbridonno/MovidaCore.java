@@ -191,6 +191,10 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         }
     }
 
+    /**
+     * Sorta i dizionari in ordine crescente, tranne
+     * quelli che hanno come chiave i voti e l'anno.
+     */
     public void sortAll() {
         dizionariTitle.sort(sortIndex, true);
         dizionariYear.sort(sortIndex, false);
@@ -199,6 +203,9 @@ public class MovidaCore implements IMovidaConfig, IMovidaDB, IMovidaSearch, IMov
         dizionariCast.sort(sortIndex, true);
     }
 
+    /**
+     * Azzera i dizionari.
+     */
     public void clear() {
         dizionariTitle.clear();
         dizionariYear.clear();
