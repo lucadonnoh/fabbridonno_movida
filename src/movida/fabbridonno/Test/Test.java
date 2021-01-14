@@ -31,16 +31,6 @@ public class Test {
         System.out.println("\nCaricamento dei dati completati");
     }
 
-    public void loadWrongFile(){
-        File f = new File("src/movida/fabbridonno/Test/Filetest/wrongMissingColon");
-        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingColumn");
-        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingSpace");
-        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongExtraSpace");
-        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongLabel");
-        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongDoubleNewLine");
-        mc.loadFromFile(f);
-}
-
     public void sort(){
         mc.sortAll();
     }
