@@ -8,6 +8,8 @@ import movida.fabbridonno.MovidaCore;
 
 public class Test {
 
+    //SETUP AND SAVE
+
     private MovidaCore mc = new MovidaCore();
 
     public Test(MapImplementation map, SortingAlgorithm algo){
@@ -23,20 +25,38 @@ public class Test {
         return mc.setSort(algo);
     }
 
-    public void sort(){
-        mc.sortAll();
-    }
-
     public void loadFile(){
         File file = new File("src/movida/fabbridonno/Test/Filetest/test.txt");
         mc.loadFromFile(file);
         System.out.println("\nCaricamento dei dati completati");
     }
 
+    public void loadWrongFile(){
+        File f = new File("src/movida/fabbridonno/Test/Filetest/wrongMissingColon");
+        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingColumn");
+        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingSpace");
+        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongExtraSpace");
+        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongLabel");
+        //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongDoubleNewLine");
+        mc.loadFromFile(f);
+}
+
+    public void sort(){
+        mc.sortAll();
+    }
+
+    public void test_Salvataggio(){
+        File file = new File("src/movida/fabbridonno/Test/FileTest/salvati.txt");
+        mc.saveToFile(file);
+        System.out.println("\nSalvataggio su nuovo file completato");
+    }
+
     public void reset(){
         mc.clear();
         return;
     }
+
+    //PRINT
 
     public void print(){
         mc.print();
@@ -66,16 +86,7 @@ public class Test {
         printCast();
     }
 
-    public void test_Find_and_Delete(String s){
-        Movie m = mc.getMovieByTitle(s);
-        if(m == null){
-            System.out.println("\nIl film " + s + " non è stato trovato");
-            return;
-        }
-        System.out.println("\nTrovato " + m.getTitle() + " procedo ad eliminarlo");
-        mc.deleteMovieByTitle(s);
-        return;
-    }
+    //IMovidaDB and IMovidaSearch
 
     public boolean findPerson(String s){
         if(mc.getPersonByName(s) != null){
@@ -86,10 +97,15 @@ public class Test {
         return false;
     }
 
-    public void test_Salvataggio(){
-        File file = new File("src/movida/fabbridonno/Test/FileTest/salvati.txt");
-        mc.saveToFile(file);
-        System.out.println("\nSalvataggio su nuovo file completato");
+    public void test_Find_and_Delete(String s){
+        Movie m = mc.getMovieByTitle(s);
+        if(m == null){
+            System.out.println("\nIl film " + s + " non è stato trovato");
+            return;
+        }
+        System.out.println("\nTrovato " + m.getTitle() + " procedo ad eliminarlo");
+        mc.deleteMovieByTitle(s);
+        return;
     }
 
     public void test_FilmAndPersone(){
@@ -173,6 +189,8 @@ public class Test {
         }
     }
 
+    //IMovida Collaborations
+
     public void test_GetCollabs(Person p){
         Set<Collaboration> collabs = mc.getGraph().getCollabs(p);
         System.out.println("\n");
@@ -223,16 +241,7 @@ public class Test {
         mc.getGraph().printGraph();
     }
 
-    public void loadWrongFile(){
-            File f = new File("src/movida/fabbridonno/Test/Filetest/wrongMissingColon");
-            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingColumn");
-            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongMissingSpace");
-            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongExtraSpace");
-            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongLabel");
-            //File f = new File("src/movida/fabbridonno/Test/FileTest/wrongDoubleNewLine");
-            mc.loadFromFile(f);
-    }
-
+    //Metodo per testare tutte le funzioni riguaerdante le collaborazioni di una singola persona
     public void test_FullCollaborations(Person p){
             test_GetCollabs(p);
             test_getDirectCollaboratorsOf(p);
@@ -240,7 +249,8 @@ public class Test {
             test_maximizeCollaborationsInTheTeamOf(p);
     }
 
-    //Test completo per testare tutti i metodi con i dati in input dati in movida commons
+    //Test completo per testare tutti i metodi con dati in input i film in movida commons
+
     public void test_FullTest(){
         Person p = new Person("Harrison Ford");
         test_MostVotedMovies(5);
