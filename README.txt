@@ -1,6 +1,6 @@
-===================================================
+
               PROGETTO MOVIDA
-===================================================
+
 
 Progetto del corso Algoritmi e Strutture Dati
 Anno 2019/2020, Unibo.
@@ -13,7 +13,6 @@ Algoritmi e strutture dati assegnati:
 > Algoritmi di ordinamento: InsertionSort, QuickSort
 > Implementazioni dizionario: ListaConcatenata, HashIndirizzamentoAperto
 
----------------------------------------------------
 	      Istruzioni per compilare/eseguire
 ---------------------------------------------------
 
@@ -23,7 +22,6 @@ Il costruttore non prende parametri aggiuntivi.
 È già presente una classe test con metodi di prova in
 fabbridonno_movida\src\movida\fabbridonno\Test.
 
----------------------------------------------------
 		            Funzionamento
 ---------------------------------------------------
 
