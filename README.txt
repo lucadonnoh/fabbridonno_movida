@@ -13,7 +13,7 @@ Algoritmi e strutture dati assegnati:
 > Algoritmi di ordinamento: InsertionSort, QuickSort
 > Implementazioni dizionario: ListaConcatenata, HashIndirizzamentoAperto
 
-	      Istruzioni per compilare/eseguire
+	      Compilazione
 ---------------------------------------------------
 
 Per eseguire il codice importare la classe MovidaCore
